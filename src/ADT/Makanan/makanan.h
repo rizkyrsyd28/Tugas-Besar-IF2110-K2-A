@@ -6,17 +6,17 @@
 typedef struct {
     int id;
     char name[100];
-    TIME expired;
+    Time expired;
     char action[100];
-    TIME delivery;
+    Time delivery;
 } Makanan;
 
 // SELEKTOR
-#define id_mkn(M) (M).id;
-#define name_mkn(M) (M).name;
-#define expd_mkn(M) (M).expired;
-#define act_mkn(M) (M).action;
-#define dlv_mkn(M) (M).delivery;
+#define idMkn(M) (M).id;
+#define nameMkn(M) (M).name;
+#define expMkn(M) (M).expired;
+#define actMkn(M) (M).action;
+#define dlvMkn(M) (M).delivery;
 
 
 // OPERASI PERBANDINGAN
