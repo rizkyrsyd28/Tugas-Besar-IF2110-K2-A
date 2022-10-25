@@ -2,64 +2,59 @@
 #include <stdlib.h>
 #include "wordmachine.h"
 #include "charmachine.c"
+#include "../String/string.c"
 
 
 // =========================== IMPLEMENTASI ADT UNTUK WORD ===========================
 
 boolean endWord;
-boolean endRead;
 Word currentWord;
 
-void IgnoreBlanks()
+void IgnoreBlanks(char* str, int *idx)
 {
     /* Mengabaikan satu atau beberapa BLANK
        I.S. : currentChar sembarang
        F.S. : currentChar ≠ BLANK atau currentChar = MARK */
-    while (currentChar == BLANK)
+    while (str[*idx] == BLANK)
     {
-        ADV();
+        //printf("%d\n", *idx);
+        ADV(idx);
     }
 }
 
-void STARTWORD()
+void STARTWORD(char* str, int *idx)
 {
     /* I.S. : currentChar sembarang
        F.S. : endWord = true, dan currentChar = MARK;
               atau endWord = false, currentWord adalah kata yang sudah diakuisisi,
               currentChar karakter pertama sesudah karakter terakhir kata */
-    START();
-    IgnoreBlanks();
-    if (currentChar == MARK)
-    {
+    START(str, idx);
+    IgnoreBlanks(str, idx);
+    if (str[*idx] == MARK){
         endWord = true;
-    }
-    else
-    {
+    } else {
         endWord = false;
-        CopyWord();
+        CopyWord(str, idx);
     }
 }
 
-void ADVWORD()
+void ADVWORD(char* str, int *idx)
 {
     /* I.S. : currentChar adalah karakter pertama kata yang akan diakuisisi
        F.S. : currentWord adalah kata terakhir yang sudah diakuisisi,
               currentChar adalah karakter pertama dari kata berikutnya, mungkin MARK
               Jika currentChar = MARK, endWord = true.
        Proses : Akuisisi kata menggunakan procedure CopyWord */
-    IgnoreBlanks();
-    if (currentChar == MARK)
-    {
+    IgnoreBlanks(str, idx);
+    if (str[*idx] == MARK){
         endWord = true;
-    }
-    else
-    {
-        CopyWord();
-        IgnoreBlanks();
+    }else {
+        CopyWord(str, idx);
+        IgnoreBlanks(str, idx);
     }
 }
 
-void CopyWord()
+void CopyWord(char* str, int *idx)
 {
     /* Mengakuisisi kata, menyimpan dalam currentWord
        I.S. : currentChar adalah karakter pertama dari kata
@@ -68,12 +63,12 @@ void CopyWord()
               currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
               Jika panjang kata melebihi CAPACITY, maka sisa kata terpotong */
     currentWord.Length = 0;
-    while (currentChar != BLANK && currentChar != MARK)
+    while (str[*idx] != BLANK && str[*idx] != MARK)
     {
         if (currentWord.Length < NMax)
         { // jika lebih akan terpotong
-            currentWord.TabWord[currentWord.Length++] = currentChar;
-            ADV();
+            currentWord.TabWord[currentWord.Length++] = str[*idx];
+            ADV(idx);
         }
         else
             break;

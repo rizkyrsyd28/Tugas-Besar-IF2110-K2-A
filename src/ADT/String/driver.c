@@ -3,6 +3,9 @@
 
 int main () {
     char test[] = "";
+    char huhu[] = "XixIxIXixiXI";
+    upper(huhu);
+    printf("%s\n", huhu);
     // int n = stringToInt(test);
     // printf("%d\n", n);
 
