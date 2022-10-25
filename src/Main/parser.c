@@ -112,3 +112,19 @@ void konfigMakanan (){
     }
     fclose(makananFile);
 }
+
+//Menampilkan ASCIIArt dibagian awal
+void ASCIIArt()
+{
+	FILE * fPointer;
+	fPointer = fopen("ASCIIArt.txt", "r");
+	char singleLine[150];
+	
+	while(!feof(fPointer))
+	{
+		fgets(singleLine, 150, fPointer);
+		puts(singleLine);
+	}
+	fclose(fPointer);
+}
+
