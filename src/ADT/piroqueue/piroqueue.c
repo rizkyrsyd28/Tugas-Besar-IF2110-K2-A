@@ -87,7 +87,7 @@ void Dequeue (PrioQueueTime * Q, infotype * X){
             Head(*Q) = 1;
         else
             Head(*Q)++;
-            
+
     }
 }
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
@@ -96,7 +96,25 @@ void Dequeue (PrioQueueTime * Q, infotype * X){
         Q mungkin kosong */
 
 /* Operasi Tambahan */
-void PrintPrioQueueTime (PrioQueueTime Q);
+void PrintPrioQueueTime (PrioQueueTime Q){
+    if (!IsEmpty(Q))
+    {
+        if (Tail(Q) > Head(Q)){
+            for (int i = Head(Q); i <= Tail(Q); i++){
+                printf("%c %d\n", Time(Elmt(Q, i)), Info(Elmt(Q, i)));
+            }
+        }
+        else {
+            for(int i = Head(Q); i < MaxEl(Q); i++){
+                printf("%c %d\n", Time(Elmt(Q, i)), Info(Elmt(Q, i)));
+            }
+            for (int i = 0; i <= Tail(Q); i++){
+                printf("%c %d\n", Time(Elmt(Q, i)), Info(Elmt(Q, i)));
+            }
+        }
+    }
+    print("#\n");
+}
 /* Mencetak isi queue Q ke layar */
 /* I.S. Q terdefinisi, mungkin kosong */
 /* F.S. Q tercetak ke layar dengan format:
