@@ -4,6 +4,14 @@
 #include <stdlib.h>
 #include "string.h"
 
+void createEmpty(char* str){
+// Membuat string (kembali) menjadi string kosong
+    int length = lengthString(str);
+    int i;
+    for (i = 0; i < length; i++){
+        str[i] = '\0';
+    }
+}
 
 int MakeCharToInt (char c){
 // Konversi tipe Char ke Integer
@@ -11,12 +19,17 @@ int MakeCharToInt (char c){
     return (c - 48);
 }
 
+boolean isBlank (char c){
+// Memeriksa apakah karakter C adalah blank
+    return (c == ' ');
+}
+
 int stringToInt (char* str){
     int sum = 0;
     int length = lengthString(str);
     int i;
     for (i = 0; i < length; i++){
-        sum = sum*10 + str[i];
+        sum = sum*10 + MakeCharToInt(str[i]);
     }
     return sum;
 }
@@ -52,6 +65,7 @@ boolean isStringEqual(char *str1, char *str2)
 
 void appendChar(char* str, char c)
 // Menggabungkan char dibagian belakang string str
+// Kondisi string di declare dengan str[], bukan str*
 {
     int length = lengthString(str);
     str[length] = c;

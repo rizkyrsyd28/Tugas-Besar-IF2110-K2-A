@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "wordmachine.h"
 #include "charmachine.c"
-#include "../String/string.c"
 
 
 // =========================== IMPLEMENTASI ADT UNTUK WORD ===========================
@@ -86,12 +85,10 @@ int WordToInt(Word word){
     int sum = 0;
     int i;
     for (i = 0; i < word.Length; i++){
-        sum = sum*10 + MakeCharToInt(word.TabWord[i]);
+        sum = sum*10 + (word.TabWord[i]- 48);
     }
     return sum;
 }
-
-char *akusisi(Word word);
 
 void printWord(Word word){
     // Melakukan print untuk kata yang telah disimpan 

@@ -53,8 +53,6 @@ void CopyWord();
 int WordToInt(Word word);
 // Konversi tipe word kata ke integer
 
-char *akusisi(Word word);
-
 void printWord(Word word);
 // Melakukan print untuk kata yang telah disimpan 
 

@@ -2,37 +2,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "../ADT/MesinKata/wordmachine.c"
+// #include "../ADT/Makanan/makanan.c"
+#include "../ADT/String/string.c"
 
-// char *readFile (char *filename){
-//     FILE *file;
-    
-//     file = fopen(filename, "r"); // reading file
-//     if (file == NULL) return NULL; 
-
-//     fseek(file, 0, SEEK_END);
-//     int length = ftell(file);
-//     fseek(file, 0, SEEK_SET);
-
-//     char *string = malloc(sizeof(char) * (length+1));
-
-//     char c;
-//     int i = 0;
-//     while ( (c = fgetc(file)) != EOF)
-//     {
-//         string[i] = c;
-//         i++;
-//     }
-
-//     string[i] = '\0';
-
-//     fclose(file);
-
-//     return string;
-// }
-
-
-int main (){
+void konfigMakanan (){
     char *makananPath = "../TextFile/makanan.txt";
     // char *petapath = "../TextFile/peta.txt";
     // char *reseppath = "../TextFile/resep.txt";
@@ -44,49 +17,99 @@ int main (){
 
     makananFile = fopen(makananPath, "r");
     if (makananFile == NULL){
-        return 1;
+        printf("File tersebut gagal dibaca!\n");
     }
-    while (fgets(buffer, bufferLength, makananFile)){
+
+    // Baca baris pertama
+    fgets(buffer, bufferLength, makananFile);
+    buffer[lengthString(buffer)-1] = '\0';
+    // buffer[lengthString(buffer)-1] = '\0' digunakan untuk menghilangkan \n pada string buffer
+    int n = stringToInt(buffer);
+    printf("%d\n", n);
+
+    int i;
+    int j;
+    int count;
+    boolean check;
+    int hour, day, minute;
+    for (i = 0; i < n; i++){
+        // ID
+        fgets(buffer, bufferLength, makananFile);
+        buffer[lengthString(buffer)-1] = '\0';
+        int id = stringToInt(buffer);
+        printf("%d\n", id);
+
+        // Nama
+        fgets(buffer, bufferLength, makananFile);
+        buffer[lengthString(buffer)-1] = '\0';
+        char *name = buffer;
+        printf("%s\n", name);
+
+        // Expiry
+        fgets(buffer, bufferLength, makananFile);
         buffer[lengthString(buffer)-1] = '.';
         buffer[lengthString(buffer)] = '\0';
-        //appendChar(buffer, '.');
-        // int length = lengthString(buffer);
-        // int i;
-        // for (i =0; i < length; i++){
-        //     printf("%c,", buffer[i]);
-        // }
-        printf("%s\n", buffer);
+        j = 0;
+        count = 1;
+        check = true;
+        char temp[30] = "";
+        while (check){
+            if (buffer[j] == '.'){
+                minute = stringToInt(temp);
+                check = false;
+            }
+            else if (isBlank(buffer[j]) && count == 1){
+                day = stringToInt(temp);
+                count++;
+                createEmpty(temp);
+            } else if (isBlank(buffer[j]) && count == 2){
+                hour = stringToInt(temp);
+                count++;
+                createEmpty(temp);
+            } else {
+                appendChar(temp, buffer[j]);
+            }
+
+            j++;
+        }
+        printf("%d %d %d\n", day, hour, minute);
+
+        // Delivery
+        fgets(buffer, bufferLength, makananFile);
+        buffer[lengthString(buffer)-1] = '.';
+        buffer[lengthString(buffer)] = '\0';
+        j = 0;
+        count = 1;
+        check = true;
+        createEmpty(temp);
+        while (check){
+            if (buffer[j] == '.'){
+                minute = stringToInt(temp);
+                check = false;
+            }
+            else if (isBlank(buffer[j]) && count == 1){
+                day = stringToInt(temp);
+                count++;
+                createEmpty(temp);
+            } else if (isBlank(buffer[j]) && count == 2){
+                hour = stringToInt(temp);
+                count++;
+                createEmpty(temp);
+            } else {
+                appendChar(temp, buffer[j]);
+            }
+
+            j++;
+        }
+        printf("%d %d %d\n", day, hour, minute);
+
+        // Action
+        fgets(buffer, bufferLength, makananFile);
+        buffer[lengthString(buffer)-1] = '\0';
+        char *action = buffer;
+        printf("%s\n", action);
+
     }
-    // // Baca baris pertama
-    // fgets(buffer, bufferLength, makananFile);
-    // int n = stringToInt(buffer);
-
-    // int i;
-    // for (i = 0; i < n; i++){
-    //     // ID
-    //     fgets(buffer, bufferLength, makananFile);
-    //     int id = stringToInt(buffer);
-    //     // Nama
-    //     fgets(buffer, bufferLength, makananFile);
-    //     char *name = buffer;
-
-    //     // Expiry
-    //     fgets(buffer, bufferLength, makananFile);
-    //     appendChar(buffer, '.');
-    //     printf("%s\n", buffer);
-
-        
-    //     // Delivery
-    //     fgets(buffer, bufferLength, makananFile);
-
-    //     // Action
-    //     fgets(buffer, bufferLength, makananFile);
-    //     char *action = buffer;
-
-    // }
 
     fclose(makananFile);
-
-
-    return 0;
 }
