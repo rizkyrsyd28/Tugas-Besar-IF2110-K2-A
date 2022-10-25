@@ -105,10 +105,18 @@ void konfigMakanan (){
         printf("%d %d %d\n", day, hour, minute);
 
         // Action
-        fgets(buffer, bufferLength, makananFile);
-        buffer[lengthString(buffer)-1] = '\0';
-        char *action = buffer;
-        printf("%s\n", action);
+        if (i == n-1){
+            // untuk paling terakhir, karakter trakhir dari string tidak ada '\n', jadi tidak perlu diubah.
+            fgets(buffer, bufferLength, makananFile);
+            char *action = buffer;
+            printf("%s\n", action);
+        } else {
+            fgets(buffer, bufferLength, makananFile);
+            buffer[lengthString(buffer)-1] = '\0';
+            char *action = buffer;
+            printf("%s\n", action);
+        }
+
     }
     fclose(makananFile);
 }
