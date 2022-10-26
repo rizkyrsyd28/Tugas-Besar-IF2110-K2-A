@@ -1,5 +1,5 @@
 #include "matrix.h"
-#include "C:\tugas besar\ALSTRUKDAT\Tugas-Besar-IF2110-K2-A\src\ADT\boolean.h"
+#include "..\ADT\boolean.h"
 #include <stdio.h>
 
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */
