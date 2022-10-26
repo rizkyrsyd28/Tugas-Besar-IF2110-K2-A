@@ -18,6 +18,8 @@
 /* Indeks tak terdefinisi*/
 #define MARK -999
 /* Nilai elemen tak terdefinisi*/
+TIME Empty = {-1, -1, -1};
+Makanan KOSONG = {-1, "", Empty, "", Empty};
 
 /* Definisi elemen dan koleksi objek */
 typedef Makanan ElType;  /* type elemen List */
