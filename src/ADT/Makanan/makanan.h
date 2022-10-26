@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include "../boolean.h"
+#include "../MesinKata/wordmachine.h"
 
 #ifndef MAKANAN_H
 #define MAKANAN_H

@@ -10,6 +10,9 @@
 void createEmpty(char* str);
 // Membuat string (kembali) menjadi string kosong
 
+void upper(char* str);
+// Mengembalikan string dengan huruf kapital
+
 int MakeCharToInt(char c);
 // Konversi tipe Char ke Integer
 // Diasumsikan input selalu benar (merupakan suatu angka)

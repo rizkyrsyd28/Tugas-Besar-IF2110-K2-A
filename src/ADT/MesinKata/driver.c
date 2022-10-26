@@ -17,14 +17,13 @@ int main () {
     // }
 
     int num;
-    char str1[] = "haha";
-    char str2[] = "test";
-    char c = 'a';
-    num = lengthString(str1);
-    printf("%d\n", num);
-
-    appendChar(str1, '#');
-    printf("%s", str1);
+    int idx;
+    char str1[] = "haha nyobain xixixixi.";
+    STARTWORD(str1, &idx);
+    while (!endWord){
+        printWord(currentWord);
+        ADVWORD(str1, &idx);
+    }
 
     return 0;
 

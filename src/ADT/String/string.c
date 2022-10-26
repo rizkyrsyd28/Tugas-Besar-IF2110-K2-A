@@ -13,6 +13,19 @@ void createEmpty(char* str){
     }
 }
 
+void upper(char*str)
+// Mengembalikan string dengan huruf kapital
+{
+    int i;
+    for(i = 0; i < lengthString(str); i++){
+        if (str[i] >= 97 && str[i] <=122){
+            // ASCII 97-122 adalah huruf kecil
+            // ASCII 65-90 adalah huruf kapital
+            str[i] = str[i] - 32;
+        }
+    }
+}
+
 int MakeCharToInt (char c){
 // Konversi tipe Char ke Integer
 // Diasumsikan input selalu benar (merupakan suatu angka)
