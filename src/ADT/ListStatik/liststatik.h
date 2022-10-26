@@ -6,8 +6,9 @@
 #ifndef LISTSTATIK_H
 #define LISTSTATIK_H
 
-#include "boolean.h"
-#include "makanan.h"
+#include "../boolean.h"
+#include "../Makanan/makanan.h"
+#include "../Time/time.h"
 
 /*  Kamus Umum */
 #define CAPACITY 100
@@ -16,10 +17,9 @@
 /* Indeks minimum list */
 #define IDX_UNDEF -1
 /* Indeks tak terdefinisi*/
-#define MARK -999
+Makanan EMPTY = {-1, "", {-1, -1, -1}, "", {-1, -1, -1}};
+#define MARK EMPTY
 /* Nilai elemen tak terdefinisi*/
-TIME Empty = {-1, -1, -1};
-Makanan KOSONG = {-1, "", Empty, "", Empty};
 
 /* Definisi elemen dan koleksi objek */
 typedef Makanan ElType;  /* type elemen List */
@@ -38,6 +38,9 @@ typedef struct {
 
 /* ********** SELEKTOR ********** */
 #define ELMT(l, i) (l).contents[(i)]
+#define IDX(l, i) (l).contents[i].id
+#define EXP(l, i) (l).contents[i].expired
+#define DLV(l, i) (l).contents[i].delivery
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */

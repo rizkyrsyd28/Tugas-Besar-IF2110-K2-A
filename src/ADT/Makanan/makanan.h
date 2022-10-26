@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "../boolean.h"
 #include "../MesinKata/wordmachine.h"
+#include "../Time/time.h"
 
 #ifndef MAKANAN_H
 #define MAKANAN_H
@@ -10,9 +11,9 @@
 typedef struct {
     int id;
     char name[100];
-    Time expired;
+    TIME expired;
     char action[100];
-    Time delivery;
+    TIME delivery;
 } Makanan;
 
 // SELEKTOR
@@ -28,5 +29,7 @@ void isIDGreater(Makanan m1, Makanan m2);
 // Mengirimkan true bila ID m1 lebih besar dari ID m2
 void isIDLower(Makanan m1, Makanan m2);
 // Mengirimkan true bila ID m1 lebih kecil dari ID m2
+boolean isIdentical(Makanan m1, Makanan m2);
+// Mengirimkan true bila kontent makanan sama persis
 
 #endif
