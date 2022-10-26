@@ -1,7 +1,7 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-#include "boolean.h"
+#include "C:\tugas besar\ALSTRUKDAT\Tugas-Besar-IF2110-K2-A\src\ADT\boolean.h"
 
 /* Ukuran maksimum baris dan kolom */
 #define ROW_CAP 100

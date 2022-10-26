@@ -4,7 +4,7 @@
 
 
 int main(){
-    konfigMakanan();
+    konfigMap();
 
     return 0;
 }
