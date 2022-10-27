@@ -4,6 +4,8 @@
 #include <stdlib.h>
 // #include "../ADT/Makanan/makanan.c"
 #include "../ADT/MesinKata/wordmachine.c"
+#include "../ADT/Matrix/matrix.c"
+#include "../ADT/boolean.h"
 
 void giveMark(char* str){
     // str[lengthString(str)-1] = '\0'; digunakan untuk menghilangkan \n pada string yang dibaca
@@ -136,3 +138,49 @@ void ASCIIArt()
 	fclose(fPointer);
 }
 
+MAtrix konfigMap(){
+    FILE * fMap;
+    
+    int bufferLength = 30;
+    char buffer[bufferLength];
+    int idx;
+
+    fMap = fopen("../TextFile/peta.txt", "r");
+    if (fMap == NULL){
+        printf("File Tersebut gagal dibaca!");
+    }    
+
+    fgets(buffer, bufferLength, fMap);
+    giveMark(buffer);
+
+    STARTWORD(buffer, &idx);
+    int n = -1, m = -1;
+
+    while(!endWord){
+        if (n == -1){
+            n = WordToInt(currentWord);
+            ADVWORD(buffer, &idx);
+        }
+        if (m == -1){
+            m = WordToInt(currentWord);
+            ADVWORD(buffer, &idx);
+        }
+    }
+    Matrix Map; 
+    createMatrix(n, m, &Map);
+
+    for (int i = 0; i < n; i++){
+        fgets(buffer, bufferLength, fMap);
+        giveMark(buffer);
+        STARTWORD(buffer, &idx);
+        while(!endWord){
+            for (int j = 0; j < m; j++){
+                ELMT(Map, i, j) = currentWord.TabWord[j];
+            }
+            ADVWORD(buffer, &idx);
+        }
+    }
+
+    displayMatrix(Map);
+
+}

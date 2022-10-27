@@ -1,5 +1,5 @@
 #include "matrix.h"
-#include "boolean.h"
+#include "..\ADT\boolean.h"
 #include <stdio.h>
 
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */
@@ -10,7 +10,7 @@ void createMatrix(int nRows, int nCols, Matrix *m) {
 	COL_EFF(*m) = nCols;
 	for (i = 0; i < nRows; i++) {
         for (j = 0; j < nCols; j++) {
-            ELMT(*m, i, j) = 0;
+            ELMT(*m, i, j) = '0';
         }
     }
 }
