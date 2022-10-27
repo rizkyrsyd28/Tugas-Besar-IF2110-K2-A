@@ -4,7 +4,7 @@
 
 
 int main(){
-    konfigMap();
+    Matrix M = konfigMap();
 
     return 0;
 }
