@@ -1,5 +1,4 @@
 #include "matrix.h"
-#include "..\ADT\boolean.h"
 #include <stdio.h>
 
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */

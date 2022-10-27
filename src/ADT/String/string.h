@@ -38,4 +38,7 @@ void appendString(char* c1, char* c2);
 // Menggabungkan memasukkan char ke dalam suatu string 
 // Diasumsikan c1 tidak kosong
 
+void copyString(char* str1, char* str2);
+// Membuat str2 menjadi string yang sama dengan str1
+
 #endif

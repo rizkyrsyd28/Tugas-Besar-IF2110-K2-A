@@ -98,3 +98,12 @@ void appendString(char* str1, char* str2)
     str1[i+j] = '\0';
     
 }
+
+void copyString(char* str1, char* str2){
+// Membuat str2 menjadi string yang sama dengan str1
+    int i;
+    int length = lengthString(str1);
+    for(i=0; i < length; i++){
+        str2[i] = str1[i];
+    }
+}
