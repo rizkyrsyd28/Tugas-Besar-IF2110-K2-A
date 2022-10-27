@@ -1,11 +1,3 @@
-/*
-   NIM             : 13521146
-   Nama            : Muhammad Zaki Amanullah
-   Tanggal         : 15/09/2022
-   Topik praktikum : ADT List Statik dan Dinamik
-   Deskripsi       : File body untuk realisasi fungsi pada file liststatik.h
-*/
-
 #include "liststatik.h"
 #include <stdio.h>
 

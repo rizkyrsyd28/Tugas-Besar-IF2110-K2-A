@@ -138,7 +138,7 @@ void ASCIIArt()
 	fclose(fPointer);
 }
 
-MAtrix konfigMap(){
+Matrix konfigMap(){
     FILE * fMap;
     
     int bufferLength = 30;
