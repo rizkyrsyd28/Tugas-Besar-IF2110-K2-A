@@ -174,20 +174,24 @@ Matrix konfigMap(){
         }
     }
     Matrix Map; 
-    createMatrix(n, m, &Map);
+    createMatrix(n + 2, m + 2, &Map);
 
-    for (int i = 0; i < n; i++){
+    for (int i = 1; i < n + 1; i++){
         fgets(buffer, bufferLength, fMap);
         giveMark(buffer);
         STARTWORD(buffer, &idx);
         while(!endWord){
-            for (int j = 0; j < m; j++){
-                ELMT(Map, i, j) = currentWord.TabWord[j];
+            for (int j = 1; j < m + 1; j++){
+                if (currentWord.TabWord[j-1] == '#'){
+                    ELMT(Map, i, j) = ' ';
+                }
+                else{
+                    ELMT(Map, i, j) = currentWord.TabWord[j-1];
+                }
             }
             ADVWORD(buffer, &idx);
         }
     }
-
     displayMatrix(Map);
-
+    return Map;
 }
