@@ -5,7 +5,8 @@
 
 int main(){
     //konfigMap();
-    konfigMakanan();
+    //konfigMakanan();
+    ASCIIArt();
 
     return 0;
 }
