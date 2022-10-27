@@ -125,7 +125,7 @@ void konfigMakanan (){
 void ASCIIArt()
 {
 	FILE * fPointer;
-	fPointer = fopen("ASCIIArt.txt", "r");
+	fPointer = fopen("../TextFile/ASCIIArt.txt", "r");
 	char singleLine[150];
 	
 	while(!feof(fPointer))
