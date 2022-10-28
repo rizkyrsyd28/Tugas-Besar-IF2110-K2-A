@@ -9,6 +9,7 @@
 #include "../boolean.h"
 #include "../Makanan/makanan.h"
 #include "../Time/time.h"
+#include "../Resep/resep.h"
 
 /*  Kamus Umum */
 #define CAPACITY 100
@@ -17,13 +18,26 @@
 /* Indeks minimum list */
 #define IDX_UNDEF -1
 /* Indeks tak terdefinisi*/
-Makanan EMPTY = {-1, "", {-1, -1, -1}, "", {-1, -1, -1}};
-#define MARK EMPTY
+Makanan EmptyFood = {-1, "", {-1, -1, -1}, "", {-1, -1, -1}};
+#define MARK EmptyFood
+
+
+#define type unsigned char
+#define food 0
+#define recipe 1
 /* Nilai elemen tak terdefinisi*/
 
 /* Definisi elemen dan koleksi objek */
-typedef Makanan ElType;  /* type elemen List */
+typedef union info {
+   Makanan m;
+   Resep r;
+} Info;
 typedef int IdxType;
+typedef struct item {
+   Info i;
+   type t;
+} Item;
+typedef Item ElType;  /* type elemen List */
 typedef struct {
    ElType contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
 } ListStatik;
@@ -41,6 +55,7 @@ typedef struct {
 #define IDX(l, i) (l).contents[i].id
 #define EXP(l, i) (l).contents[i].expired
 #define DLV(l, i) (l).contents[i].delivery
+
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */

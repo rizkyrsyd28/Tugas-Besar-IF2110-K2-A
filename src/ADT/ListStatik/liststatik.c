@@ -16,6 +16,10 @@ void CreateListStatik(ListStatik *l)
     }
 }
 
+void CreateListMakanan(ListStatik *l) {
+    int i = 0;
+}
+
 /* ********** SELEKTOR (TAMBAHAN) ********** */
 /* *** Banyaknya elemen *** */
 int listLength(ListStatik l)
@@ -349,30 +353,32 @@ void sortFoodId(ListStatik *l, boolean asc)
 /* Proses : Mengurutkan l dengan salah satu algoritma sorting,
    algoritma bebas */
 {   /* Kamus Lokal */
-    int i = getFirstIdx(*l), j;
-    Makanan temp;
-    /* Algoritma */
-    if (!isEmpty(*l)) {
-        if (asc) {
-            for (i; i<=getLastIdx(*l) - 1; i++) {
-                j = i + 1;
-                for (j; j <= getLastIdx(*l); j++) {
-                    if (IDX(*l, i) > IDX(*l, j)) {
-                        temp = ELMT(*l, i);
-                        ELMT(*l, i) = ELMT(*l, j);
-                        ELMT(*l, j) = temp;
+    if (TYPE(*l) == 1) {
+        int i = getFirstIdx(*l), j;
+        Makanan temp;
+        /* Algoritma */
+        if (!isEmpty(*l)) {
+            if (asc) {
+                for (i; i<=getLastIdx(*l) - 1; i++) {
+                    j = i + 1;
+                    for (j; j <= getLastIdx(*l); j++) {
+                        if (IDX(*l, i) > IDX(*l, j)) {
+                            temp = ELMT(*l, i);
+                            ELMT(*l, i) = ELMT(*l, j);
+                            ELMT(*l, j) = temp;
+                        }
                     }
                 }
-            }
-        } else if (!asc){
-            i = getFirstIdx(*l);
-            for (i; i<=getLastIdx(*l) - 1; i++) {
-                j = i + 1;
-                for (j; j <= getLastIdx(*l); j++) {
-                    if (IDX(*l, i) < IDX(*l, j)) {
-                        temp = ELMT(*l, i);
-                        ELMT(*l, i) = ELMT(*l, j);
-                        ELMT(*l, j) = temp;
+            } else if (!asc){
+                i = getFirstIdx(*l);
+                for (i; i<=getLastIdx(*l) - 1; i++) {
+                    j = i + 1;
+                    for (j; j <= getLastIdx(*l); j++) {
+                        if (IDX(*l, i) < IDX(*l, j)) {
+                            temp = ELMT(*l, i);
+                            ELMT(*l, i) = ELMT(*l, j);
+                            ELMT(*l, j) = temp;
+                        }
                     }
                 }
             }
@@ -387,30 +393,32 @@ void sortFoodExp(ListStatik *l, boolean asc)
 /* Proses : Mengurutkan l dengan salah satu algoritma sorting,
    algoritma bebas */
 {   /* Kamus Lokal */
-    int i = getFirstIdx(*l), j;
-    Makanan temp;
-    /* Algoritma */
-    if (!isEmpty(*l)) {
-        if (asc) {
-            for (i; i<=getLastIdx(*l) - 1; i++) {
-                j = i + 1;
-                for (j; j <= getLastIdx(*l); j++) {
-                    if (TGT(EXP(*l, i), EXP(*l, j))) {
-                        temp = ELMT(*l, i);
-                        ELMT(*l, i) = ELMT(*l, j);
-                        ELMT(*l, j) = temp;
+    if (TYPE(*l) == 1) {
+        int i = getFirstIdx(*l), j;
+        Makanan temp;
+        /* Algoritma */
+        if (!isEmpty(*l)) {
+            if (asc) {
+                for (i; i <= getLastIdx(*l) - 1; i++) {
+                    j = i + 1;
+                    for (j; j <= getLastIdx(*l); j++) {
+                        if (TGT(EXP(*l, i), EXP(*l, j))) {
+                            temp = ELMT(*l, i);
+                            ELMT(*l, i) = ELMT(*l, j);
+                            ELMT(*l, j) = temp;
+                        }
                     }
                 }
-            }
-        } else if (!asc){
-            i = getFirstIdx(*l);
-            for (i; i<=getLastIdx(*l) - 1; i++) {
-                j = i + 1;
-                for (j; j <= getLastIdx(*l); j++) {
-                    if (TLT(EXP(*l, i), EXP(*l, j))) {
-                        temp = ELMT(*l, i);
-                        ELMT(*l, i) = ELMT(*l, j);
-                        ELMT(*l, j) = temp;
+            } else if (!asc){
+                i = getFirstIdx(*l);
+                for (i; i <= getLastIdx(*l) - 1; i++) {
+                    j = i + 1;
+                    for (j; j <= getLastIdx(*l); j++) {
+                        if (TLT(EXP(*l, i), EXP(*l, j))) {
+                            temp = ELMT(*l, i);
+                            ELMT(*l, i) = ELMT(*l, j);
+                            ELMT(*l, j) = temp;
+                        }
                     }
                 }
             }
@@ -425,30 +433,32 @@ void sortFoodDlv(ListStatik *l, boolean asc)
 /* Proses : Mengurutkan l dengan salah satu algoritma sorting,
    algoritma bebas */
 {   /* Kamus Lokal */
-    int i = getFirstIdx(*l), j;
-    Makanan temp;
-    /* Algoritma */
-    if (!isEmpty(*l)) {
-        if (asc) {
-            for (i; i<=getLastIdx(*l) - 1; i++) {
-                j = i + 1;
-                for (j; j <= getLastIdx(*l); j++) {
-                    if (TGT(DLV(*l, i), DLV(*l, j))) {
-                        temp = ELMT(*l, i);
-                        ELMT(*l, i) = ELMT(*l, j);
-                        ELMT(*l, j) = temp;
+    if (TYPE(*l) == 1) {
+        int i = getFirstIdx(*l), j;
+        Makanan temp;
+        /* Algoritma */
+        if (!isEmpty(*l)) {
+            if (asc) {
+                for (i; i<=getLastIdx(*l) - 1; i++) {
+                    j = i + 1;
+                    for (j; j <= getLastIdx(*l); j++) {
+                        if (TGT(DLV(*l, i), DLV(*l, j))) {
+                            temp = ELMT(*l, i);
+                            ELMT(*l, i) = ELMT(*l, j);
+                            ELMT(*l, j) = temp;
+                        }
                     }
                 }
-            }
-        } else if (!asc){
-            i = getFirstIdx(*l);
-            for (i; i<=getLastIdx(*l) - 1; i++) {
-                j = i + 1;
-                for (j; j <= getLastIdx(*l); j++) {
-                    if (TLT(DLV(*l, i), DLV(*l, j))) {
-                        temp = ELMT(*l, i);
-                        ELMT(*l, i) = ELMT(*l, j);
-                        ELMT(*l, j) = temp;
+            } else if (!asc){
+                i = getFirstIdx(*l);
+                for (i; i<=getLastIdx(*l) - 1; i++) {
+                    j = i + 1;
+                    for (j; j <= getLastIdx(*l); j++) {
+                        if (TLT(DLV(*l, i), DLV(*l, j))) {
+                            temp = ELMT(*l, i);
+                            ELMT(*l, i) = ELMT(*l, j);
+                            ELMT(*l, j) = temp;
+                        }
                     }
                 }
             }
