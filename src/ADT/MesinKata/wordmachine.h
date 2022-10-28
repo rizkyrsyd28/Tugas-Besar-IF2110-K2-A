@@ -18,6 +18,9 @@ typedef struct
    int Length;
 } Word;
 
+#define len(w) (w).Length
+#define str(w) (w).TabWord
+
 /* State Mesin Word */
 extern boolean endWord;
 extern Word currentWord;

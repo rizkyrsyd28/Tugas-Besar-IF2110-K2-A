@@ -6,15 +6,19 @@ int main () {
     char huhu[] = "XixIxIXixiXI";
     upper(huhu);
     printf("%s\n", huhu);
+    char haha[] = "XIXIXIXIXIXI";
+    if(isStringEqual(huhu,haha)){
+        printf("test\n");
+    }
     // int n = stringToInt(test);
     // printf("%d\n", n);
 
-    char haha = '.';
+    // char haha = '.';
 
-    int l = lengthString(test);
-    printf("%d\n", l);
-    appendChar(test, '.');
-    printf("%s\n", test);
+    // int l = lengthString(test);
+    // printf("%d\n", l);
+    // appendChar(test, '.');
+    // printf("%s\n", test);
 
     return 0;
 }

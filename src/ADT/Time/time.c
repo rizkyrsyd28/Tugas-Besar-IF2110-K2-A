@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "time.h"
-#include "boolean.h"
 
 /* ***************************************************************** */
 /* DEFINISI PRIMITIF                                                 */
@@ -76,6 +75,10 @@ void TulisTIMEDelivery (TIME T)
 	printf("(%d.%d)",Hour(T),Minute(T));
 }
 
+void TulisTIME(TIME T)
+{
+	printf("<%d,%d,%d>",Day(T), Hour(T), Minute(T));
+}
 
 TIME NextMinute (TIME T) {
 	TIME t;

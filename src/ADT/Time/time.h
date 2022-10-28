@@ -4,7 +4,7 @@
 
 #ifndef TIME_H
 #define TIME_H
-#include "boolean.h"
+#include "../boolean.h"
 
 /* fungsi ADT TIME
 Digunakan untuk menyajikan waktu kadaluarsa suatu makanan 
@@ -46,6 +46,9 @@ void TulisTIMEDelivery (TIME T);
 /* I.S. : T sembarang */
 /* Proses : menulis nilai setiap komponen T ke layar dalam format ("HH.MM")
    tanpa karakter apa pun di depan atau belakangnya, termasuk spasi, enter, dll.*/ 
+
+void TulisTIME(TIME T);
+/* Menulis TIME dalam format <DD,HH,MM>*/
 
 /* ***************************************************************** */
 /* KELOMPOK KONVERSI TERHADAP TYPE                                   */

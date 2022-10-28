@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-// #include "../ADT/Makanan/makanan.c"
+#include "../ADT/Makanan/makanan.c"
 #include "../ADT/MesinKata/wordmachine.c"
 #include "../ADT/Matrix/matrix.c"
 #include "../ADT/boolean.h"
@@ -17,6 +17,7 @@ void giveMark(char* str){
 void konfigMakanan (){
     char *makananPath = "../TextFile/makanan.txt";
 
+    Makanan Mkn;
     FILE *makananFile;
 
     int bufferLength = 30;
@@ -48,6 +49,7 @@ void konfigMakanan (){
     boolean check;
     int hour, day, minute;
     for (i = 0; i < n; i++){
+        CreateEmptyMakanan(&Mkn);
 
         // =============== BACA ID ===============
         fgets(buffer, bufferLength, makananFile);
@@ -58,13 +60,13 @@ void konfigMakanan (){
             id = WordToInt(currentWord);
             ADVWORD(buffer, &idx);
         }
-        printf("%d\n", id);
+        idMkn(Mkn) = id;
 
         // =============== BACA NAMA ===============
         fgets(buffer, bufferLength, makananFile);
         buffer[lengthString(buffer)-1] = '\0';
-        char *name = buffer;
-        printf("%s\n", name);
+        copyString(buffer, str(nameMkn(Mkn)));
+        len(nameMkn(Mkn)) = lengthString(buffer);
 
         // =============== BACA EXPIRY ===============
         fgets(buffer, bufferLength, makananFile);
@@ -84,9 +86,11 @@ void konfigMakanan (){
             }
             ADVWORD(buffer, &idx);
         }
-        printf("%d %d %d\n", day, hour, minute);
+        Day(expMkn(Mkn)) = day;
+        Hour(expMkn(Mkn)) = hour;
+        Minute(expMkn(Mkn)) = minute;
 
-        // Delivery
+        // =============== BACA DELIVERY ===============
         fgets(buffer, bufferLength, makananFile);
         giveMark(buffer);
         count = 1;
@@ -104,21 +108,24 @@ void konfigMakanan (){
             }
             ADVWORD(buffer, &idx);
         }
-        printf("%d %d %d\n", day, hour, minute);
+        Day(dlvMkn(Mkn)) = day;
+        Hour(dlvMkn(Mkn)) = hour;
+        Minute(dlvMkn(Mkn)) = minute;
 
-        // Action
+        // =============== BACA ACTION ===============
         if (i == n-1){
             // untuk paling terakhir, karakter trakhir dari string tidak ada '\n', jadi tidak perlu diubah.
             fgets(buffer, bufferLength, makananFile);
-            char *action = buffer;
-            printf("%s\n", action);
+            copyString(buffer, str(actMkn(Mkn)));
+            len(actMkn(Mkn)) = lengthString(buffer);
         } else {
             fgets(buffer, bufferLength, makananFile);
             buffer[lengthString(buffer)-1] = '\0';
-            char *action = buffer;
-            printf("%s\n", action);
+            copyString(buffer, str(actMkn(Mkn)));
+            len(actMkn(Mkn)) = lengthString(buffer);
         }
 
+        printMakanan(Mkn); printf("\n");
     }
     fclose(makananFile);
 }
@@ -127,7 +134,7 @@ void konfigMakanan (){
 void ASCIIArt()
 {
 	FILE * fPointer;
-	fPointer = fopen("ASCIIArt.txt", "r");
+	fPointer = fopen("../TextFile/ASCIIArt.txt", "r");
 	char singleLine[150];
 	
 	while(!feof(fPointer))

@@ -4,7 +4,9 @@
 
 
 int main(){
-    Matrix M = konfigMap();
+    //konfigMap();
+    //konfigMakanan();
+    ASCIIArt();
 
     return 0;
 }
