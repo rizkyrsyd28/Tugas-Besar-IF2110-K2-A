@@ -6,7 +6,13 @@
 int main(){
     //konfigMap();
     //konfigMakanan();
-    ASCIIArt();
+    // ASCIIArt();
+
+    NTree * Trees = konfigResep(Trees);
+
+    for (int i = 0;  i < 4; i++){
+        printTree(Trees[i], 2);
+    }
 
     return 0;
 }

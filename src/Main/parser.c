@@ -5,6 +5,7 @@
 #include "../ADT/Makanan/makanan.c"
 #include "../ADT/MesinKata/wordmachine.c"
 #include "../ADT/Matrix/matrix.c"
+#include "../ADT/Tree/nTree.c"
 #include "../ADT/boolean.h"
 
 void giveMark(char* str){
@@ -194,4 +195,77 @@ Matrix konfigMap(){
     }
     displayMatrix(Map);
     return Map;
+}
+
+NTree* konfigResep(){
+    FILE * fResep;
+    
+    int bufferLength = 30;
+    char buffer[bufferLength];
+    int idx;
+
+    fResep = fopen("../TextFile/resep.txt", "r");
+    if (fResep == NULL){
+        printf("File Tersebut gagal dibaca!");
+    }  
+
+    fgets(buffer, bufferLength, fResep);
+    giveMark(buffer);
+
+    STARTWORD(buffer, &idx);
+    int t = -1;
+
+    while(!endWord){
+        if (t == -1){
+            t = WordToInt(currentWord);
+            ADVWORD(buffer, &idx);
+        }
+    }    
+
+    NTree * Trees = (NTree*) malloc (t * sizeof(NTree));
+
+    for (int i = 0; i < t; i++){
+
+        int bufferLength = 30;
+        char buffer[bufferLength];
+        int idx;
+        
+        if (i == t - 1){
+            fgets(buffer, bufferLength, fResep);
+            buffer[lengthString(buffer)] = '.';
+        }
+        else{
+            fgets(buffer, bufferLength, fResep);
+            giveMark(buffer);
+        }
+
+        int count = 0;
+        STARTWORD(buffer, &idx);
+        while(!endWord){
+            if (count == 0){
+                Trees[i] = newTree(WordToInt(currentWord));
+                count++;
+            }
+            else if (count == 1){
+                makeBranch(&Trees[i], WordToInt(currentWord));
+                count++;
+            }
+            else{
+                addChild(&Trees[i], WordToInt(currentWord));
+            }
+            ADVWORD(buffer, &idx);
+        }
+    }
+
+    // checking
+    for (int i = 0; i < t; i++){
+        for (int j = 0; j < t; j++){
+            if (i != j){
+                checkMerge(&Trees[i], Trees[j]);
+            }
+        }
+    }
+
+
+    return Trees;
 }
