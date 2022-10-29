@@ -6,26 +6,31 @@
 #ifndef LISTSTATIK_H
 #define LISTSTATIK_H
 
+#include <stdlib.h>
 #include "../boolean.h"
 #include "../Makanan/makanan.h"
 #include "../Time/time.h"
 #include "../Resep/resep.h"
 
 /*  Kamus Umum */
+// Kapasitas penyimpanan
 #define CAPACITY 100
-/* Kapasitas penyimpanan */
+// Indeks minimum list
 #define IDX_MIN 0
-/* Indeks minimum list */
+// Indeks tak terdefinisi
 #define IDX_UNDEF -1
-/* Indeks tak terdefinisi*/
+// Definisi makanan dan resep kosong untuk mark
 Makanan EmptyFood = {-1, "", {-1, -1, -1}, "", {-1, -1, -1}};
-#define MARK EmptyFood
+// Mark
+Info PlaceHolder = {EmptyFood};
 
 
 #define type unsigned char
 #define food 0
 #define recipe 1
 /* Nilai elemen tak terdefinisi*/
+Item ItemMark = {PlaceHolder, food};
+#define MARK ItemMark
 
 /* Definisi elemen dan koleksi objek */
 typedef union info {
