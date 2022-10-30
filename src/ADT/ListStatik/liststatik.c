@@ -174,23 +174,23 @@ void printList(ListStatik l)
 
 /* ********** OPERATOR RELASIONAL ********** */
 /* *** Operasi pembandingan List: *** */
-// boolean isListEqual(ListStatik l1, ListStatik l2)
-// /* Mengirimkan true jika l1 sama dengan l2 yaitu jika ukuran l1 = l2 dan semua
-//    elemennya sama */
-// {
-//     /* Kamus Lokal */
-//     int i = 0;
-//     /* Algoritma */
-//     if (listLength(l1) == listLength(l2)) {
-//         for (i; i < listLength(l1); i++) {
-//             if (!isIdentical(ELMT(l1, i), ELMT(l2, i))) {
-//                 return false;
-//             }
-//         }
-//         return true;
-//     }
-//     return false;
-// }
+boolean isListEqual(ListStatik l1, ListStatik l2)
+/* Mengirimkan true jika l1 sama dengan l2 yaitu jika ukuran l1 = l2 dan semua
+   elemennya sama */
+{
+    /* Kamus Lokal */
+    int i = 0;
+    /* Algoritma */
+    if (listLength(l1) == listLength(l2)) {
+        for (i; i < listLength(l1); i++) {
+            if (different(ELMT(l1, i), ELMT(l2, i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+    return false;
+}
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : List boleh kosong!! *** */

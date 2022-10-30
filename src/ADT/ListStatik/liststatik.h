@@ -128,7 +128,7 @@ int indexOf(ListStatik l, ElType val);
 /* Skema Searching yang digunakan bebas */
 
 /* ********** NILAI EKSTREM ********** */
-void extremeValues(ListStatik l, ElType *max, ElType *min);
+// void extremeValues(ListStatik l, ElType *max, ElType *min);
 /* I.S. List l tidak kosong */
 /* F.S. Max berisi nilai terbesar dalam l;
         Min berisi nilai terkecil dalam l */
@@ -174,7 +174,7 @@ void deleteLast(ListStatik *l, ElType *val);
 /*      List l mungkin menjadi kosong */
 
 /* ********** SORTING ********** */
-void sortList(ListStatik *l, boolean asc);
+// void sortList(ListStatik *l, boolean asc);
 /* I.S. l boleh kosong */
 /* F.S. Jika asc = true, l terurut membesar */
 /*      Jika asc = false, l terurut mengecil */
