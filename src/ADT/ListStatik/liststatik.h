@@ -10,57 +10,41 @@
 #include "../boolean.h"
 #include "../Makanan/makanan.h"
 #include "../Time/time.h"
-#include "../Resep/resep.h"
+#include "../MesinKata/wordmachine.h"
+#include "../Tree/nTree.h"
 
 /*  Kamus Umum */
-// Kapasitas penyimpanan
-#define CAPACITY 100
-// Indeks minimum list
+#define CAPACITY 1000
 #define IDX_MIN 0
-// Indeks tak terdefinisi
 #define IDX_UNDEF -1
-// Definisi makanan dan resep kosong untuk mark
-Makanan EmptyFood = {-1, "", {-1, -1, -1}, "", {-1, -1, -1}};
-// Mark
-Info PlaceHolder = {EmptyFood};
 
-
-#define type unsigned char
-#define food 0
-#define recipe 1
 /* Nilai elemen tak terdefinisi*/
-Item ItemMark = {PlaceHolder, food};
+Item ItemMark = {1, 1};
 #define MARK ItemMark
 
 /* Definisi elemen dan koleksi objek */
 typedef union info {
    Makanan m;
-   Resep r;
+   TreeNode r;
+   int mark;
 } Info;
 typedef int IdxType;
 typedef struct item {
-   Info i;
-   type t;
+   Info itemInfo;
+   int type;
 } Item;
 typedef Item ElType;  /* type elemen List */
 typedef struct {
    ElType contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
 } ListStatik;
-/* Indeks yang digunakan [0..CAPACITY-1] */
-/* Jika l adalah ListStatik, cara deklarasi dan akses: */
-/* Deklarasi : l : ListStatik */
-/* Maka cara akses: 
-   ELMT(l,i) untuk mengakses elemen ke-i */
-/* Definisi : 
-   List kosong: semua elemen bernilai MARK
-   Definisi elemen pertama: ELMT(l,i) dengan i=0 */
 
-/* ********** SELEKTOR ********** */
 #define ELMT(l, i) (l).contents[(i)]
-#define IDX(l, i) (l).contents[i].id
-#define EXP(l, i) (l).contents[i].expired
-#define DLV(l, i) (l).contents[i].delivery
+#define CONT(l, i) ((l).contents[(i)]).itemInfo
+#define TYPE(l, i) ((l).contents[(i)]).type
 
+
+boolean isMark(ElType a);
+boolean different(ElType a, ElType b);
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */

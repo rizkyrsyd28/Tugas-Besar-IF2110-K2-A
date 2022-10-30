@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "boolean.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "ntree.h": "c",
+        "wordmachine.h": "c"
     }
 }

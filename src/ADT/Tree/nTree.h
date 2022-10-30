@@ -29,7 +29,7 @@ void deallocTreeNode (Address p);
 void CreateTree(NTree *T);
 /* List Kososng*/
 
-boolean isEmpty(NTree T);
+boolean isEmptyTree(NTree T);
 
 boolean isOneElmt(NTree p);
 
