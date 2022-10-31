@@ -1,7 +1,3 @@
-// Rizky Abdillah Rasyid
-// 13521109
-// ADT STACK
-
 #include "stack.h"
 #include <stdio.h>
 
