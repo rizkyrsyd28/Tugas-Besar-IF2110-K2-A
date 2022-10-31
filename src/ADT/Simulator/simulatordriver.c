@@ -1,6 +1,6 @@
 #include "simulator.c"
 #include "../boolean.h"
-//#include "../piroqueue/piroqueue.c"
+#include "../piroqueue/piroqueue.c"
 #include "../Point/point.c"
 #include "../MesinKata/wordmachine.c"
 #include "../Stack/stack.c"
