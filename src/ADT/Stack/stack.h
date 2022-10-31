@@ -9,7 +9,7 @@
 #include "../Makanan/makanan.h"
 
 #define Nil -1
-#define MaxEl 100
+#define MaxStack 100
 /* Nil adalah stack dengan elemen kosong . */
 
 // typedef int infotype;
@@ -33,7 +33,7 @@ typedef struct {
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP : */
 /* Versi I : dengan menyimpan tabel dan alamat top secara eksplisit*/
 typedef struct { 
-  state T[MaxEl]; /* tabel penyimpan elemen */
+  state T[MaxStack]; /* tabel penyimpan elemen */
   address TOP;  /* alamat TOP: elemen puncak */
 } Stack;
 /* Definisi stack S kosong : S.TOP = Nil */
