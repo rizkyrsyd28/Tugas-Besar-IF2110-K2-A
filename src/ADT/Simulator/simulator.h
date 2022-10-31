@@ -30,7 +30,7 @@ void ReadSimulator (Simulator *S);
 void DisplaySimulator(Simulator S);
 //Menampilkan Simulator
 
-void DisplayName (Simulator S);
+void DisplayNama (Simulator S);
 //Menampilkan nama
 
 void DisplayLokasi (Simulator S);
