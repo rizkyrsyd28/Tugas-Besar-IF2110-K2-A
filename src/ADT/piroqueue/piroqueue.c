@@ -62,7 +62,7 @@ void Enqueue (PrioQueueTime * Q, Makanan M){
 
         while (i != Head(*Q)){
             int idx = (i - 1 + MaxEl(*Q)) % MaxEl(*Q);
-            if (Time(Elmt(*Q, i)) < Time(Elmt(*Q, idx))){
+            if (TLT(expMkn(Elmt(*Q, i)), expMkn(Elmt(*Q, idx)))){
                 Temp = Elmt(*Q, i);
                 Elmt(*Q, i) = Elmt(*Q, idx);
                 Elmt(*Q, idx) = Temp;
@@ -101,15 +101,15 @@ void PrintPrioQueueTime (PrioQueueTime Q){
     {
         if (Tail(Q) > Head(Q)){
             for (int i = Head(Q); i <= Tail(Q); i++){
-                printf("%c %d\n", Time(Elmt(Q, i)), Info(Elmt(Q, i)));
+                printf("%c %d\n", expMkn(Elmt(Q, i)), Info(Elmt(Q, i)));
             }
         }
         else {
             for(int i = Head(Q); i < MaxEl(Q); i++){
-                printf("%c %d\n", Time(Elmt(Q, i)), Info(Elmt(Q, i)));
+                printf("%c %d\n", expMkn(Elmt(Q, i)), Info(Elmt(Q, i)));
             }
             for (int i = 0; i <= Tail(Q); i++){
-                printf("%c %d\n", Time(Elmt(Q, i)), Info(Elmt(Q, i)));
+                printf("%c %d\n", expMkn(Elmt(Q, i)), Info(Elmt(Q, i)));
             }
         }
     }
