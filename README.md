@@ -12,6 +12,7 @@
 <li> Rizky Abdillah Rasyid - 13521109
 <li> Shelma Salsabila - 13521115
 <li> Juan Christopher Santoso - 13521116
+<li> Ahmad Ghulam Ilham - 13521118
 <li> Raynard Tanadi - 13521143
 <li> Muhammad Zaki Amanullah - 13521146
 </ol>
@@ -35,11 +36,9 @@
     <li> ADT Mesin Kata
     <li> ADT Tree
     </ul>
-<li> Bonus
-<p> Berisikan semua file yang berisikan code untuk memenuhi tugas bonus.</p>
 <li> Main
 <p> Berisikan semua file yang berisikan code untuk menjalankan program utama. </p>
-<li> Text 
+<li> TextFile
 <p> Berisikan semua file txt yang dijadikan konfigurasi awal dari berjalannya program </p>
 </ul>
 
