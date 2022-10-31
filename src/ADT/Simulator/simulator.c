@@ -14,9 +14,12 @@ void ReadSimulator(Simulator *S){
     PrioQueueTime Q;
     int idx;
     printf("Input nama: ");
-    scanf("%s",&str(nama));
-    appendChar(str(nama),'.');
-    STARTWORD(str(nama),&idx);
+    char temp[100]="\0";
+    scanf("%s",&temp);
+    appendChar(temp,'.');
+    STARTWORD(temp,&idx);
+    copyString(str(currentWord),str(nama));
+    len(nama) = lengthString(temp);
     Absis(P) = 0;
     Ordinat(P) = 0;
     CreateSimulator(S,nama,P,Q);
