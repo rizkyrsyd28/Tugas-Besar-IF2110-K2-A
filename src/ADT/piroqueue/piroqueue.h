@@ -7,20 +7,17 @@
 #define prioqueuetime_H
 
 #include "../boolean.h"
+#include "../Makanan/makanan.h"
 
 #define Nil -1
 /* Konstanta untuk mendefinisikan address tak terdefinisi */
 
-/* Definisi elemen dan address */
-typedef struct {
-    int time;  /* [1..100], waktu dengan nilai 1..100 (1 adalah waktu adalah terendah) */
-    char info;  /* elemen karakter */
-} infotype;
-typedef int address;   /* indeks tabel */
+typedef int address;   
+/* indeks tabel */
 /* Contoh deklarasi variabel bertype PrioQueueTime : */
 /* Versi I : tabel dinamik, Head dan Tail eksplisit, ukuran disimpan */
 typedef struct {
-    infotype * T;   /* tabel penyimpan elemen */
+    Makanan * T;   /* tabel penyimpan elemen */
     address HEAD;  /* alamat penghapusan */
     address TAIL;  /* alamat penambahan */
     int MaxEl;     /* Max elemen queue */
@@ -30,8 +27,6 @@ typedef struct {
 
 /* ********* AKSES (Selektor) ********* */
 /* Jika e adalah infotype dan Q adalah PrioQueueTime, maka akses elemen : */
-#define Time(e)     (e).time
-#define Info(e)     (e).info
 #define Head(Q)     (Q).HEAD
 #define Tail(Q)     (Q).TAIL
 #define InfoHead(Q) (Q).T[(Q).HEAD]
@@ -63,12 +58,12 @@ void DeAlokasi(PrioQueueTime * Q);
 /* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
 
 /* *** Primitif Add/Delete *** */
-void Enqueue (PrioQueueTime * Q, infotype X);
+void Enqueue (PrioQueueTime * Q, Makanan M);
 /* Proses: Menambahkan X pada Q dengan aturan priority queue, terurut membesar berdasarkan time */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X disisipkan pada posisi yang tepat sesuai dengan prioritas,
         TAIL "maju" dengan mekanisme circular buffer; */
-void Dequeue (PrioQueueTime * Q, infotype * X);
+void Dequeue (PrioQueueTime * Q, Makanan * M);
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;
@@ -84,5 +79,8 @@ void PrintPrioQueueTime (PrioQueueTime Q);
 <time-n> <elemen-n>
 #
 */
+int PencariMakanan(PrioQueueTime *Q, Makanan M);
+
+void DequeueAt(PrioQueueTime *Q, Makanan M, Makanan *X);
 
 #endif

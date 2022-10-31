@@ -27,7 +27,7 @@ int NBElmt (PrioQueueTime Q){
 /* *** Kreator *** */
 void MakeEmpty (PrioQueueTime * Q, int Max){
     MaxEl(*Q) = Max;
-    (*Q).T = (infotype *) malloc (Max * sizeof(infotype));
+    (*Q).T = (Makanan *) malloc (Max * sizeof(Makanan));
     Head(*Q) = Nil;
     Tail(*Q) = Nil;
 }
@@ -47,22 +47,22 @@ void DeAlokasi(PrioQueueTime * Q){
 /* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
 
 /* *** Primitif Add/Delete *** */
-void Enqueue (PrioQueueTime * Q, infotype X){
+void Enqueue (PrioQueueTime * Q, Makanan M){
     if (IsEmpty(*Q)){
         Head(*Q) = 0;
         Tail(*Q) = 0;
-        InfoTail(*Q) = X;
+        InfoTail(*Q) = M;
     }
     else {
         Tail(*Q) = (Tail(*Q) + 1) % MaxEl(*Q);
-        InfoTail(*Q) = X;
+        InfoTail(*Q) = M;
         
         int i = Tail(*Q);
-        infotype Temp;
+        Makanan Temp;
 
         while (i != Head(*Q)){
             int idx = (i - 1 + MaxEl(*Q)) % MaxEl(*Q);
-            if (Time(Elmt(*Q, i)) < Time(Elmt(*Q, idx))){
+            if (TLT(expMkn(Elmt(*Q, i)), expMkn(Elmt(*Q, idx)))){
                 Temp = Elmt(*Q, i);
                 Elmt(*Q, i) = Elmt(*Q, idx);
                 Elmt(*Q, idx) = Temp;
@@ -76,7 +76,7 @@ void Enqueue (PrioQueueTime * Q, infotype X){
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X disisipkan pada posisi yang tepat sesuai dengan prioritas,
         TAIL "maju" dengan mekanisme circular buffer; */
-void Dequeue (PrioQueueTime * Q, infotype * X){
+void Dequeue (PrioQueueTime * Q, Makanan * X){
     *X = InfoTail(*Q);
     if (NBElmt(*Q) == 1){
         Head(*Q) = Nil;
@@ -99,21 +99,28 @@ void Dequeue (PrioQueueTime * Q, infotype * X){
 void PrintPrioQueueTime (PrioQueueTime Q){
     if (!IsEmpty(Q))
     {
+        int nomor = 1;
         if (Tail(Q) > Head(Q)){
             for (int i = Head(Q); i <= Tail(Q); i++){
-                printf("%c %d\n", Time(Elmt(Q, i)), Info(Elmt(Q, i)));
+                printf("%d. ", nomor);
+                nomor+=1;
+                printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
             }
         }
         else {
             for(int i = Head(Q); i < MaxEl(Q); i++){
-                printf("%c %d\n", Time(Elmt(Q, i)), Info(Elmt(Q, i)));
+                printf("%d. ", nomor);
+                nomor+=1;
+                printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
             }
             for (int i = 0; i <= Tail(Q); i++){
-                printf("%c %d\n", Time(Elmt(Q, i)), Info(Elmt(Q, i)));
+                printf("%d. ", nomor);
+                nomor+=1;
+                printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
             }
         }
     }
-    print("#\n");
+    printf("#\n");
 }
 /* Mencetak isi queue Q ke layar */
 /* I.S. Q terdefinisi, mungkin kosong */
@@ -123,3 +130,30 @@ void PrintPrioQueueTime (PrioQueueTime Q){
 <time-n> <elemen-n>
 #
 */
+
+int PencariMakanan(PrioQueueTime *Q, Makanan M){
+    int i = 0;
+    boolean found = false;
+    while(!found && i<NBElmt(*Q)){
+        Makanan m2 = Elmt(*Q,i);
+        if(idMkn(m2)==idMkn(M)){
+            found = true;
+        }
+        i + (i+1)%MaxEl(*Q);
+    }
+    return i;
+}
+
+void DequeueAt(PrioQueueTime *Q, Makanan M, Makanan *X){
+    int index = PencariMakanan(&*Q,M);
+    if(index==Head(*Q)){
+        Dequeue(Q,X);
+    }
+    else {
+        *X=Elmt(*Q,index);
+        for (index;index<NBElmt(*Q);index++){
+            Elmt(*Q,index) = Elmt(*Q,index+1);
+        }
+        Tail(*Q) = (Tail(*Q) - 1) % MaxEl(*Q);//mod
+    }
+}
