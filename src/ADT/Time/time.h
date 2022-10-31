@@ -50,6 +50,9 @@ void TulisTIMEDelivery (TIME T);
 void TulisTIME(TIME T);
 /* Menulis TIME dalam format <DD,HH,MM>*/
 
+void TulisTIMEString(TIME T);
+/* Menulis TIME dalam format DD hari HH jam MM menit*/
+
 /* ***************************************************************** */
 /* KELOMPOK KONVERSI TERHADAP TYPE                                   */
 /* ***************************************************************** */

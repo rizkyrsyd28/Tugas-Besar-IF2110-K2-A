@@ -79,5 +79,8 @@ void PrintPrioQueueTime (PrioQueueTime Q);
 <time-n> <elemen-n>
 #
 */
+int PencariMakanan(PrioQueueTime *Q, Makanan M);
+
+void DequeueAt(PrioQueueTime *Q, Makanan M, Makanan *X);
 
 #endif

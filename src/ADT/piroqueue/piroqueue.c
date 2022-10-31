@@ -99,21 +99,28 @@ void Dequeue (PrioQueueTime * Q, Makanan * X){
 void PrintPrioQueueTime (PrioQueueTime Q){
     if (!IsEmpty(Q))
     {
+        int nomor = 1;
         if (Tail(Q) > Head(Q)){
             for (int i = Head(Q); i <= Tail(Q); i++){
-                printf("%c %d\n", expMkn(Elmt(Q, i)), Info(Elmt(Q, i)));
+                printf("%d. ", nomor);
+                nomor+=1;
+                printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
             }
         }
         else {
             for(int i = Head(Q); i < MaxEl(Q); i++){
-                printf("%c %d\n", expMkn(Elmt(Q, i)), Info(Elmt(Q, i)));
+                printf("%d. ", nomor);
+                nomor+=1;
+                printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
             }
             for (int i = 0; i <= Tail(Q); i++){
-                printf("%c %d\n", expMkn(Elmt(Q, i)), Info(Elmt(Q, i)));
+                printf("%d. ", nomor);
+                nomor+=1;
+                printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
             }
         }
     }
-    print("#\n");
+    printf("#\n");
 }
 /* Mencetak isi queue Q ke layar */
 /* I.S. Q terdefinisi, mungkin kosong */
@@ -123,3 +130,30 @@ void PrintPrioQueueTime (PrioQueueTime Q){
 <time-n> <elemen-n>
 #
 */
+
+int PencariMakanan(PrioQueueTime *Q, Makanan M){
+    int i = 0;
+    boolean found = false;
+    while(!found && i<NBElmt(*Q)){
+        Makanan m2 = Elmt(*Q,i);
+        if(idMkn(m2)==idMkn(M)){
+            found = true;
+        }
+        i + (i+1)%MaxEl(*Q);
+    }
+    return i;
+}
+
+void DequeueAt(PrioQueueTime *Q, Makanan M, Makanan *X){
+    int index = PencariMakanan(&*Q,M);
+    if(index==Head(*Q)){
+        Dequeue(Q,X);
+    }
+    else {
+        *X=Elmt(*Q,index);
+        for (index;index<NBElmt(*Q);index++){
+            Elmt(*Q,index) = Elmt(*Q,index+1);
+        }
+        Tail(*Q) = (Tail(*Q) - 1) % MaxEl(*Q);//mod
+    }
+}

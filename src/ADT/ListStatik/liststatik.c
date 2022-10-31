@@ -1,17 +1,21 @@
 #include "liststatik.h"
 #include <stdio.h>
 
+Item ItemMarkLS = {1, 3};
+
 boolean isMark(ElType a) {
     return a.type == 3;
 }
 
 boolean different(ElType a, ElType b) {
     if (a.type != b.type) {
-        return false;
+        return true;
     } else if (a.type == 1) {
-        return (a.itemInfo.m.id == b.itemInfo.m.id);
+        return (a.itemInfo.m.id != b.itemInfo.m.id);
     } else if (a.type == 2) {
-        return a.itemInfo.r.Id == b.itemInfo.r.Id;
+        return a.itemInfo.r.Id != b.itemInfo.r.Id;
+    } else {
+        return false;
     }
 }
 
@@ -26,7 +30,7 @@ void CreateListStatik(ListStatik *l)
     int i;
     /* Algoritma */
     for (i = 0; i < CAPACITY; i++) {
-        ELMT(*l, i) = MARK;
+        ELMT(*l, i) = ItemMarkLS;
     }
 }
 
@@ -102,51 +106,51 @@ boolean isFull(ListStatik l)
 
 /* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
 /* *** Mendefinisikan isi List dari pembacaan *** */
-void readList(ListStatik *l)
-/* I.S. l sembarang */
-/* F.S. List l terdefinisi */
-/* Proses: membaca banyaknya elemen l dan mengisi nilainya */
-/* 1. Baca banyaknya elemen diakhiri enter, misalnya n */
-/*    Pembacaan diulangi sampai didapat n yang benar yaitu 0 <= n <= CAPACITY */
-/*    Jika n tidak valid, tidak diberikan pesan kesalahan */
-/* 2. Jika 0 < n <= CAPACITY; Lakukan n kali:
-          Baca elemen mulai dari indeks 0 satu per satu diakhiri enter */
-/*    Jika n = 0; hanya terbentuk List kosong */
-{
-    /* Kamus Lokal */
-    int idx, i = 0;
-    /* Algoritma */
-    CreateListStatik(l);
-    do
-    {
-        scanf("%d", &idx);
-    } while (idx < 0 || idx > CAPACITY);
+// void readList(ListStatik *l)
+// /* I.S. l sembarang */
+// /* F.S. List l terdefinisi */
+// /* Proses: membaca banyaknya elemen l dan mengisi nilainya */
+// /* 1. Baca banyaknya elemen diakhiri enter, misalnya n */
+// /*    Pembacaan diulangi sampai didapat n yang benar yaitu 0 <= n <= CAPACITY */
+// /*    Jika n tidak valid, tidak diberikan pesan kesalahan */
+// /* 2. Jika 0 < n <= CAPACITY; Lakukan n kali:
+//           Baca elemen mulai dari indeks 0 satu per satu diakhiri enter */
+// /*    Jika n = 0; hanya terbentuk List kosong */
+// {
+//     /* Kamus Lokal */
+//     int idx, i = 0;
+//     /* Algoritma */
+//     CreateListStatik(l);
+//     do
+//     {
+//         scanf("%d", &idx);
+//     } while (idx < 0 || idx > CAPACITY);
     
-    for (i; i < idx; i++) {
-        scanf("%d", &(ELMT(*l, i)));
-    }
-}
-void printList(ListStatik l)
-/* Proses : Menuliskan isi List dengan traversal, List ditulis di antara kurung
-   siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan
-   karakter di depan, di tengah, atau di belakang, termasuk spasi dan enter */
-/* I.S. l boleh kosong */
-/* F.S. Jika l tidak kosong: [e1,e2,...,en] */
-/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
-/* Jika List kosong : menulis [] */
-{
-    /* Kamus Lokal */
-    int i = 0;
-    /* Algoritma */
-    printf("[");
-    for (i; isIdxEff(l, i); i++) {
-        if (i != 0) {
-			printf(",");
-		}
-		printf("%d", ELMT(l,i));
-    }
-    printf("]\n");
-}
+//     for (i; i < idx; i++) {
+//         scanf("%d", &(ELMT(*l, i)));
+//     }
+// }
+// void printList(ListStatik l)
+// /* Proses : Menuliskan isi List dengan traversal, List ditulis di antara kurung
+//    siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan
+//    karakter di depan, di tengah, atau di belakang, termasuk spasi dan enter */
+// /* I.S. l boleh kosong */
+// /* F.S. Jika l tidak kosong: [e1,e2,...,en] */
+// /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
+// /* Jika List kosong : menulis [] */
+// {
+//     /* Kamus Lokal */
+//     int i = 0;
+//     /* Algoritma */
+//     printf("[");
+//     for (i; isIdxEff(l, i); i++) {
+//         if (i != 0) {
+// 			printf(",");
+// 		}
+// 		printf("%d", ELMT(l,i));
+//     }
+//     printf("]\n");
+// }
 
 // /* ********** OPERATOR ARITMATIKA ********** */
 // /* *** Aritmatika List : Penjumlahan, pengurangan, perkalian, ... *** */
@@ -323,7 +327,7 @@ void deleteFirst(ListStatik *l, ElType *val)
     for (i; i < j; i++) {
         ELMT(*l, i) = ELMT(*l, i + 1);
     }
-    ELMT(*l, listLength(*l) - 1) = MARK;
+    ELMT(*l, listLength(*l) - 1) = ItemMarkLS;
 }
 /* *** Menghapus elemen pada index tertentu *** */
 void deleteAt(ListStatik *l, ElType *val, IdxType idx)
@@ -337,11 +341,11 @@ void deleteAt(ListStatik *l, ElType *val, IdxType idx)
     int i = idx;
     /* Algoritma */
     *val = ELMT(*l, idx);
-    ELMT(*l, idx) = MARK;
+    ELMT(*l, idx) = ItemMarkLS;
     for (i; i < listLength(*l) - 1; i++) {
         ELMT(*l, i) = ELMT(*l, i + 1);
     }
-    ELMT(*l, listLength(*l)) = MARK;
+    ELMT(*l, listLength(*l)) = ItemMarkLS;
 }
 void deleteLast(ListStatik *l, ElType *val)
 /* Proses : Menghapus elemen terakhir List */
@@ -352,7 +356,7 @@ void deleteLast(ListStatik *l, ElType *val)
 {   /* Kamus Lokal */
     /* Algoritma */
     *val = ELMT(*l, getLastIdx(*l));
-    ELMT(*l, getLastIdx(*l)) = MARK;
+    ELMT(*l, getLastIdx(*l)) = ItemMarkLS;
 }
 
 // /* ********** SORTING ********** */

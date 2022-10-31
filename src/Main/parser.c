@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../ADT/Makanan/makanan.c"
+//#include "../ADT/ListStatik/liststatik.c"
 #include "../ADT/MesinKata/wordmachine.c"
 #include "../ADT/Matrix/matrix.c"
 #include "../ADT/Resep/resep.c"
@@ -193,7 +194,8 @@ Matrix konfigMap(){
             ADVWORD(buffer, &idx);
         }
     }
-    displayMatrix(Map);
+    
+    //displayMatrix(Map);
     return Map;
 }
 

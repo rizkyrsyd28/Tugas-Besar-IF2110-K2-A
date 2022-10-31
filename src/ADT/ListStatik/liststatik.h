@@ -19,8 +19,6 @@
 #define IDX_UNDEF -1
 
 /* Nilai elemen tak terdefinisi*/
-Item ItemMark = {1, 1};
-#define MARK ItemMark
 
 /* Definisi elemen dan koleksi objek */
 typedef union info {
@@ -44,7 +42,9 @@ typedef struct {
 
 
 boolean isMark(ElType a);
+// Mengembalikan apakah ElType a adalah mark
 boolean different(ElType a, ElType b);
+// Mengembalikan apakah ElType a dan b berbeda
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */
@@ -85,7 +85,7 @@ boolean isFull(ListStatik l);
 
 /* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
 /* *** Mendefinisikan isi List dari pembacaan *** */
-void readList(ListStatik *l);
+// void readList(ListStatik *l);
 /* I.S. l sembarang */
 /* F.S. List l terdefinisi */
 /* Proses: membaca banyaknya elemen l dan mengisi nilainya */
@@ -95,7 +95,7 @@ void readList(ListStatik *l);
 /* 2. Jika 0 < n <= CAPACITY; Lakukan n kali: 
           Baca elemen mulai dari indeks 0 satu per satu diakhiri enter */
 /*    Jika n = 0; hanya terbentuk List kosong */
-void printList(ListStatik l);
+// void printList(ListStatik l);
 /* Proses : Menuliskan isi List dengan traversal, List ditulis di antara kurung 
    siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan 
    karakter di depan, di tengah, atau di belakang, termasuk spasi dan enter */
@@ -106,7 +106,7 @@ void printList(ListStatik l);
 
 /* ********** OPERATOR ARITMATIKA ********** */
 /* *** Aritmatika List : Penjumlahan, pengurangan, perkalian, ... *** */
-ListStatik plusMinusList(ListStatik l1, ListStatik l2, boolean plus);
+// ListStatik plusMinusList(ListStatik l1, ListStatik l2, boolean plus);
 /* Prekondisi : l1 dan l2 berukuran sama dan tidak kosong */
 /* Jika plus = true, mengirimkan  l1+l2, yaitu setiap elemen l1 dan l2 pada 
        indeks yang sama dijumlahkan */
