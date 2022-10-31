@@ -25,15 +25,15 @@ void ReadSimulator(Simulator *S){
 void DisplaySimulator(Simulator S){
     //Menampilkan Simulator
     DisplayNama(S);
-    print(" di posisi: ");
+    printf(" di posisi: ");
     DisplayLokasi(S);
     printf("\n");
 }
 
-void DisplayName(Simulator S)
+void DisplayNama(Simulator S)
 {
     //Menampilkan nama
-    printf("%s", Nama(S));
+    printWord(Nama(S));
 }
 
 void DisplayLokasi(Simulator S){
@@ -52,61 +52,61 @@ void DisplayInventory (Simulator S)
 void OlahMakananInventory(Simulator *S, int command,int jumlah, Makanan X1, Makanan X2,Makanan X3, Makanan X4){
     //X4 itu buat yang diadd, X1,X2,X3 yang diremove. Kalo yang diremove ga sampe 3, isi asal aja yg ga kepake
     if (command==1){//MIX
-        MixOlahInventory(&S,jumlah,X1,X2,X3,X4);
+        MixOlahInventory(S,jumlah,X1,X2,X3,X4);
     }
     else if(command==2){//CHOP
-        ChopOlahInventory(&S,X1,X4);
+        ChopOlahInventory(S,X1,X4);
     }
     else if (command==3){//FRY
-        FryOlahInventory(&S,jumlah,X1,X2,X4);
+        FryOlahInventory(S,jumlah,X1,X2,X4);
     }
     else if(command==4){//BOIL
-        BoilOlahInventory(&S,X1,X4);
+        BoilOlahInventory(S,X1,X4);
     }
     else if (command ==5){
-        BuyOlahInventory(&S,X4);
+        BuyOlahInventory(S,X4);
     }
     //masukin makanan
 }
 
 void MixOlahInventory(Simulator *S, int jumlah, Makanan X1, Makanan X2, Makanan X3, Makanan X4){
     if (jumlah==2){
-        RemoveMakanan(&S,X1);
-        RemoveMakanan(&S,X2);
-        AddMakanan(&S,X4);
+        RemoveMakanan(S,X1);
+        RemoveMakanan(S,X2);
+        AddMakanan(S,X4);
     }
     else if(jumlah==3){
-        RemoveMakanan(&S,X1);
-        RemoveMakanan(&S,X2);
-        RemoveMakanan(&S,X3);
-        AddMakanan(&S,X4);
+        RemoveMakanan(S,X1);
+        RemoveMakanan(S,X2);
+        RemoveMakanan(S,X3);
+        AddMakanan(S,X4);
     }
 }
 
 void ChopOlahInventory (Simulator *S, Makanan X1, Makanan X2){
-    RemoveMakanan(&S,X1);
-    AddMakanan(&S,X2);
+    RemoveMakanan(S,X1);
+    AddMakanan(S,X2);
 }
 
 void FryOlahInventory(Simulator *S,int jumlah, Makanan X1, Makanan X2, Makanan X3){
     if (jumlah==1){
-        RemoveMakanan(&S,X1);
-        AddMakanan(&S,X3);
+        RemoveMakanan(S,X1);
+        AddMakanan(S,X3);
     }
     else if (jumlah==2){
-        RemoveMakanan(&S,X1);
-        RemoveMakanan(&S,X2);
-        AddMakanan(&S,X3);
+        RemoveMakanan(S,X1);
+        RemoveMakanan(S,X2);
+        AddMakanan(S,X3);
     }
 }
 
 void BoilOlahInventory(Simulator *S, Makanan X1, Makanan X2){
-    RemoveMakanan(&S,X1);
-    AddMakanan(&S,X2);
+    RemoveMakanan(S,X1);
+    AddMakanan(S,X2);
 }
 
 void BuyOlahInventory(Simulator *S,Makanan X1){
-    AddMakanan(&S,X1);
+    AddMakanan(S,X1);
 }
 
 void RemoveMakanan(Simulator *S,Makanan M){
@@ -128,7 +128,7 @@ void KedaluwarsaInventory(Simulator *S)
         Makanan M = Elmt(Q,i);
         PrevMinute(expMkn(M));
         if (Day(expMkn(M))<=0 && Hour(expMkn(M))<=0 && Minute(expMkn(M))<=0 ){
-            RemoveMakanan(&Q,M);
+            RemoveMakanan(S,M);
         }
     }
 }
@@ -148,3 +148,4 @@ void GeserLokasi (Simulator *S,int arah){
         Absis(Lokasi(*S))+=1;
     }
 }
+
