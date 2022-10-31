@@ -63,6 +63,15 @@ boolean isOneElmt(NTree p){
     return false; 
 }
 
+boolean isChildOf(NTree T, ID id){
+    for (int i = 0; i < NChild(T); i++){
+        if (Parent(Child(T,i)) == id){
+            return true;
+        }
+    }
+    return false;
+}
+
 void printTreeLevel(NTree T, int h, int l){
     int N;
 
@@ -76,9 +85,10 @@ void printTreeLevel(NTree T, int h, int l){
         
         printf("%d\n", Parent(T));
 
-        for (int i = 0; i < NChild(T); i++){
-            printTreeLevel(Child(T, i), h, l + 1);
-
+        if  (Child(T, 0) != NULL){
+            for (int i = 0; i < NChild(T); i++){
+                printTreeLevel(Child(T, i), h, l + 1);
+            }
         }
     }
     else {
@@ -107,4 +117,17 @@ void checkMerge(NTree *T, NTree B){
             checkMerge(&Child(*T, i), B);
         }
     }
+}
+
+int depth(Address T){
+    int count = 0; 
+
+    if (isEmpty(T)){
+        return 0;
+    }
+    else {
+         count += 1 + depth(Child(T, 0));
+    }
+
+    return count;
 }

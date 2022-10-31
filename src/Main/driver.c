@@ -12,6 +12,7 @@ int main(){
 
     for (int i = 0;  i < 4; i++){
         printTree(Trees[i], 2);
+        printf("\nDepth : %d\n", depth(Trees[i]));
     }
 
     return 0;

@@ -27,7 +27,7 @@ int NBElmt (PrioQueueTime Q){
 /* *** Kreator *** */
 void MakeEmpty (PrioQueueTime * Q, int Max){
     MaxEl(*Q) = Max;
-    (*Q).T = (infotype *) malloc (Max * sizeof(infotype));
+    (*Q).T = (Makanan *) malloc (Max * sizeof(Makanan));
     Head(*Q) = Nil;
     Tail(*Q) = Nil;
 }
@@ -47,18 +47,18 @@ void DeAlokasi(PrioQueueTime * Q){
 /* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
 
 /* *** Primitif Add/Delete *** */
-void Enqueue (PrioQueueTime * Q, infotype X){
+void Enqueue (PrioQueueTime * Q, Makanan M){
     if (IsEmpty(*Q)){
         Head(*Q) = 0;
         Tail(*Q) = 0;
-        InfoTail(*Q) = X;
+        InfoTail(*Q) = M;
     }
     else {
         Tail(*Q) = (Tail(*Q) + 1) % MaxEl(*Q);
-        InfoTail(*Q) = X;
+        InfoTail(*Q) = M;
         
         int i = Tail(*Q);
-        infotype Temp;
+        Makanan Temp;
 
         while (i != Head(*Q)){
             int idx = (i - 1 + MaxEl(*Q)) % MaxEl(*Q);
@@ -76,7 +76,7 @@ void Enqueue (PrioQueueTime * Q, infotype X){
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X disisipkan pada posisi yang tepat sesuai dengan prioritas,
         TAIL "maju" dengan mekanisme circular buffer; */
-void Dequeue (PrioQueueTime * Q, infotype * X){
+void Dequeue (PrioQueueTime * Q, Makanan * X){
     *X = InfoTail(*Q);
     if (NBElmt(*Q) == 1){
         Head(*Q) = Nil;
