@@ -20,10 +20,16 @@ int main () {
     int idx;
     char str1[] = "haha nyobain xixixixi.";
     STARTWORD(str1, &idx);
-    while (!endWord){
-        printWord(currentWord);
-        ADVWORD(str1, &idx);
+    printWord(currentWord);
+    ADVWORD(str1,&idx);
+    if (isWordStringEqual(currentWord, "nyobain")){
+        printf("Test\n");
     }
+    printWord(currentWord);
+    // while (!endWord){
+    //     printWord(currentWord);
+    //     ADVWORD(str1, &idx);
+    // }
 
     return 0;
 

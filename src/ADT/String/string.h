@@ -7,7 +7,7 @@
 #ifndef STRING_H
 #define STRING_H
 
-void createEmpty(char* str);
+void createStringEmpty(char* str);
 // Membuat string (kembali) menjadi string kosong
 
 void upper(char* str);

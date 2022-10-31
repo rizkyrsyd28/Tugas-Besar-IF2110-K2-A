@@ -77,7 +77,25 @@ void TulisTIMEDelivery (TIME T)
 
 void TulisTIME(TIME T)
 {
-	printf("<%d,%d,%d>",Day(T), Hour(T), Minute(T));
+	printf("< Day %d | %d:%d >\n",Day(T), Hour(T), Minute(T));
+}
+
+void TulisTIMEString(TIME T)
+{
+	if (Day(T) == 0 && Hour(T) == 0 && Minute(T) == 0){
+		printf("[0]");
+	} else {
+		if (Day(T) != 0){
+			printf("%d hari ", Day(T));
+		}
+		if (Hour(T) != 0){
+			printf("%d jam ", Hour(T));
+		}
+		if (Minute(T) != 0){
+			printf("%d menit", Minute(T));
+		}
+	}
+
 }
 
 TIME NextMinute (TIME T) {

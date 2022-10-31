@@ -24,26 +24,21 @@ void CreateEmptyMakanan (Makanan *mkn){
 void printMakanan (Makanan mkn){
 // Melakukan print makanan agar pada terminal
 // e.g. [11,Ayam Mentah,<0,0,1>,<0,2,0>,FRY]
-    printf("[");
-    printf("%d,", idMkn(mkn));
+    printf("%d - ", idMkn(mkn));
     int i;
     for (i = 0; i < len(nameMkn(mkn)); i++){
         if (i == len(nameMkn(mkn))-1 ){
-            printf("%c,", str(nameMkn(mkn))[i]);
+            printf("%c - ", str(nameMkn(mkn))[i]);
         } else {
             printf("%c", str(nameMkn(mkn))[i]);
         }
     }
-    TulisTIME(expMkn(mkn));
-    printf(",");
-    TulisTIME(dlvMkn(mkn));
-    printf(",");
+    TulisTIMEString(expMkn(mkn));
+    printf(" - ");
+    TulisTIMEString(dlvMkn(mkn));
+    printf(" - ");
     for (i = 0; i < len(actMkn(mkn)); i++){
-        if (i == len(actMkn(mkn))-1 ){
-            printf("%c]", str(actMkn(mkn))[i]);
-        } else {
-            printf("%c", str(actMkn(mkn))[i]);
-        }
+        printf("%c", str(actMkn(mkn))[i]);
     }
 }
 

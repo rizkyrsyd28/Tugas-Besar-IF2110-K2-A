@@ -75,7 +75,7 @@ boolean isChildOf(NTree T, ID id){
 void printTreeLevel(NTree T, int h, int l){
     int N;
 
-    if (!isEmpty(T)){
+    if (!isEmptyTree(T)){
         N = h * l;
 
         while (N > 0){
@@ -122,7 +122,7 @@ void checkMerge(NTree *T, NTree B){
 int depth(Address T){
     int count = 0; 
 
-    if (isEmpty(T)){
+    if (isEmptyTree(T)){
         return 0;
     }
     else {

@@ -125,6 +125,18 @@ boolean isWordStringEqual(Word w, char* c)
     }
 }
 
+boolean isWordAllIntegers(Word w)
+// Memeriksa apakah semua character dalam word adalah integer
+{
+    int i;
+    for (i = 0; i < w.Length; i++){
+        if (str(w)[i] < 48 || str(w)[i] > 57){
+            return false;
+        }
+    }
+    return true;
+}
+
 Word appendWord(Word w1, Word w2)
 // Menggabungkan w2 dan w1 menjadi satu word
 {

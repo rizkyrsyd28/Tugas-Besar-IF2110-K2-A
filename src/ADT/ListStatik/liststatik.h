@@ -44,7 +44,9 @@ typedef struct {
 
 
 boolean isMark(ElType a);
+// Mengembalikan apakah ElType a adalah mark
 boolean different(ElType a, ElType b);
+// Mengembalikan apakah ElType a dan b berbeda
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */

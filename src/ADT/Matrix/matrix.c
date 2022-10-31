@@ -27,7 +27,7 @@ IdxType getLastIdxCol(Matrix m) {
 	return (COL_EFF(m)-1);
 }
 
-boolean isIdxEff(Matrix m, IdxType i, IdxType j) {
+boolean isMatIdxEff(Matrix m, IdxType i, IdxType j) {
 	return (i >= 0 && i < ROW_EFF(m) && j >= 0 && j < COL_EFF(m));
 }
 
@@ -100,7 +100,7 @@ boolean isCan(Matrix m, int i, int j,char c)				//i dan j adalah posisi nilai ya
         if (Row == i) {
             Col = j - 1;
             while (Col <= j + 1 && !valid) {
-                if (isIdxEff(m, Row, Col)) {
+                if (isMatIdxEff(m, Row, Col)) {
                     if (ELMT(m, Row, Col) ==  c) {
                         valid = true;
                     }
@@ -115,7 +115,7 @@ boolean isCan(Matrix m, int i, int j,char c)				//i dan j adalah posisi nilai ya
             Row++;
         }
         else {
-            if (isIdxEff(m, Row, j)) {
+            if (isMatIdxEff(m, Row, j)) {
                 if (ELMT(m, Row, j) == c) {
                     valid = true;
                 }

@@ -13,13 +13,18 @@ void ReadSimulator(Simulator *S){
     POINT P;
     PrioQueueTime Q;
     int idx;
-    printf("Input nama: ");
+    // Menginputkan nama Simulator
+    printf("Input nama Simulator: ");
     char temp[100]="\0";
-    scanf("%s",&temp);
+    fgets(temp, 100, stdin);
+
+    // Mengubah nilai '\n' menjadi '\0' dan menambahkan MARK
+    temp[lengthString(temp)-1] = '\0';
     appendChar(temp,'.');
+
     STARTWORD(temp,&idx);
-    copyString(str(currentWord),str(nama));
-    len(nama) = lengthString(temp);
+    nama = currentWord;
+
     Absis(P) = 0;
     Ordinat(P) = 0;
     CreateSimulator(S,nama,P,Q);

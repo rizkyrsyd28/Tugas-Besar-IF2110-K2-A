@@ -25,27 +25,26 @@ typedef struct
 extern boolean endWord;
 extern Word currentWord;
 
-void IgnoreBlanks();
+void IgnoreBlanks(char* str, int *idx);
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : CC sembarang
    F.S. : CC ≠ BLANK atau CC = MARK */
 
-void STARTWORD();
+void STARTWORD(char* str, int *idx);
 /* I.S. : CC sembarang
    F.S. : EndWord = true, dan CC = MARK;
           atau EndWord = false, CWord adalah kata yang sudah diakuisisi,
           CC karakter pertama sesudah karakter terakhir kata */
           
-void StartInput();
-/* Endword = true ketika berujung di BLANK
-void ADVWORD();
+
+void ADVWORD(char* str, int *idx);
 /* I.S. : CC adalah karakter pertama kata yang akan diakuisisi
    F.S. : CWord adalah kata terakhir yang sudah diakuisisi,
           CC adalah karakter pertama dari kata berikutnya, mungkin MARK
           Jika CC = MARK, EndWord = true.
    Proses : Akuisisi kata menggunakan procedure SalinWord */
 
-void CopyWord();
+void CopyWord(char* str, int *idx);
 /* Mengakuisisi kata, menyimpan dalam CWord
    I.S. : CC adalah karakter pertama dari kata
    F.S. : CWord berisi kata yang sudah diakuisisi;
@@ -65,7 +64,12 @@ boolean isWordEqual(Word word1, Word word2);
 boolean isWordStringEqual(Word w, char* c);
 // Memeriksa apakah sebuah word mengandung kata yang sama dengan string c
 
+boolean isWordAllIntegers(Word w);
+// Memeriksa apakah semua character dalam word adalah integer
+
 Word appendWord(Word w1, Word w2);
 // Menggabungkan w2 dan w1 menjadi satu word
+
+
 
 #endif
