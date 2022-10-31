@@ -49,7 +49,7 @@ void deallocTreeNode (Address p){
     free(p);
 }
 
-boolean isEmpty(NTree T){
+boolean isEmptyTree(NTree T){
     return (T == NULL);
 }
 

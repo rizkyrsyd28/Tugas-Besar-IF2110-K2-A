@@ -6,41 +6,45 @@
 #ifndef LISTSTATIK_H
 #define LISTSTATIK_H
 
+#include <stdlib.h>
 #include "../boolean.h"
 #include "../Makanan/makanan.h"
 #include "../Time/time.h"
+#include "../MesinKata/wordmachine.h"
+#include "../Tree/nTree.h"
 
 /*  Kamus Umum */
-#define CAPACITY 100
-/* Kapasitas penyimpanan */
+#define CAPACITY 1000
 #define IDX_MIN 0
-/* Indeks minimum list */
 #define IDX_UNDEF -1
-/* Indeks tak terdefinisi*/
-Makanan EMPTY = {-1, "", {-1, -1, -1}, "", {-1, -1, -1}};
-#define MARK EMPTY
+
 /* Nilai elemen tak terdefinisi*/
+Item ItemMark = {1, 1};
+#define MARK ItemMark
 
 /* Definisi elemen dan koleksi objek */
-typedef Makanan ElType;  /* type elemen List */
+typedef union info {
+   Makanan m;
+   TreeNode r;
+   int mark;
+} Info;
 typedef int IdxType;
+typedef struct item {
+   Info itemInfo;
+   int type;
+} Item;
+typedef Item ElType;  /* type elemen List */
 typedef struct {
    ElType contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
 } ListStatik;
-/* Indeks yang digunakan [0..CAPACITY-1] */
-/* Jika l adalah ListStatik, cara deklarasi dan akses: */
-/* Deklarasi : l : ListStatik */
-/* Maka cara akses: 
-   ELMT(l,i) untuk mengakses elemen ke-i */
-/* Definisi : 
-   List kosong: semua elemen bernilai MARK
-   Definisi elemen pertama: ELMT(l,i) dengan i=0 */
 
-/* ********** SELEKTOR ********** */
 #define ELMT(l, i) (l).contents[(i)]
-#define IDX(l, i) (l).contents[i].id
-#define EXP(l, i) (l).contents[i].expired
-#define DLV(l, i) (l).contents[i].delivery
+#define CONT(l, i) ((l).contents[(i)]).itemInfo
+#define TYPE(l, i) ((l).contents[(i)]).type
+
+
+boolean isMark(ElType a);
+boolean different(ElType a, ElType b);
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */
@@ -124,7 +128,7 @@ int indexOf(ListStatik l, ElType val);
 /* Skema Searching yang digunakan bebas */
 
 /* ********** NILAI EKSTREM ********** */
-void extremeValues(ListStatik l, ElType *max, ElType *min);
+// void extremeValues(ListStatik l, ElType *max, ElType *min);
 /* I.S. List l tidak kosong */
 /* F.S. Max berisi nilai terbesar dalam l;
         Min berisi nilai terkecil dalam l */
@@ -170,7 +174,7 @@ void deleteLast(ListStatik *l, ElType *val);
 /*      List l mungkin menjadi kosong */
 
 /* ********** SORTING ********** */
-void sortList(ListStatik *l, boolean asc);
+// void sortList(ListStatik *l, boolean asc);
 /* I.S. l boleh kosong */
 /* F.S. Jika asc = true, l terurut membesar */
 /*      Jika asc = false, l terurut mengecil */
