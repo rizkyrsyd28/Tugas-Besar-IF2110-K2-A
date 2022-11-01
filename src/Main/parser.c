@@ -295,6 +295,6 @@ Cookbook konfigResep(){
     }
 
     NResep(C) = t;
-    Resep(C) = Trees;
+    Resep(C) = Trees; 
     return C;
 }
