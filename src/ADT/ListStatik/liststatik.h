@@ -38,6 +38,8 @@ typedef struct {
 
 #define ELMT(l, i) (l).contents[(i)]
 #define CONT(l, i) ((l).contents[(i)]).itemInfo
+#define GETFOOD(l, i) ((((l).contents[(i)]).itemInfo).m)
+#define GETRECIPE(l, i) ((((l).contents[(i)]).itemInfo).r)
 #define TYPE(l, i) ((l).contents[(i)]).type
 
 
@@ -45,6 +47,9 @@ boolean isMark(ElType a);
 // Mengembalikan apakah ElType a adalah mark
 boolean different(ElType a, ElType b);
 // Mengembalikan apakah ElType a dan b berbeda
+
+Makanan getMakanan(ID id, ListStatik foods);
+TreeNode getResep(ID id, ListStatik recipes);
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */
@@ -149,6 +154,7 @@ void insertLast(ListStatik *l, ElType val);
 /* Proses: Menambahkan val sebagai elemen terakhir List */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
+void insertFood(ListStatik *l, Makanan val, int Idx);
 
 /* ********** MENGHAPUS ELEMEN ********** */
 /* *** Menghapus elemen pertama *** */
