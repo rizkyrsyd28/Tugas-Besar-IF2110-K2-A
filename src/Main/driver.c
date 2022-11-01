@@ -4,8 +4,16 @@
 
 
 int main(){
-    konfigMap();
-    //konfigMakanan();
+    //konfigMap();
+    ListStatik l;
+    l = konfigMakanan();
+    int len;
+    len = listLength(l);
+    int i;
+    for (i = 0; i < len; i++){
+        Makanan mkn = GETFOOD(l, i);
+        printMakanan(mkn);
+    }
     // ASCIIArt();
 
     // NTree * Trees = konfigResep(Trees);

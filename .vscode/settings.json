@@ -3,6 +3,7 @@
         "boolean.h": "c",
         "stdio.h": "c",
         "ntree.h": "c",
-        "wordmachine.h": "c"
+        "wordmachine.h": "c",
+        "resep.h": "c"
     }
 }

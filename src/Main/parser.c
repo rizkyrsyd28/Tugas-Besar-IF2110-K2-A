@@ -3,10 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../ADT/Makanan/makanan.c"
-//#include "../ADT/ListStatik/liststatik.c"
+#include "../ADT/ListStatik/liststatik.c"
 #include "../ADT/MesinKata/wordmachine.c"
 #include "../ADT/Matrix/matrix.c"
-#include "../ADT/Tree/nTree.c"
+#include "../ADT/Resep/resep.c"
 #include "../ADT/boolean.h"
 
 void giveMark(char* str){
@@ -16,8 +16,10 @@ void giveMark(char* str){
     str[lengthString(str)] = '.';
 }
 
-void konfigMakanan (){
+ListStatik konfigMakanan (){
     char *makananPath = "../TextFile/makanan.txt";
+    ListStatik listMakanan;
+    CreateListStatik(&listMakanan);
 
     Makanan Mkn;
     FILE *makananFile;
@@ -42,7 +44,6 @@ void konfigMakanan (){
         n = WordToInt(currentWord);
         ADVWORD(buffer, &idx);
     }
-    printf("%d\n", n);
 
     int i;
     int j;
@@ -126,10 +127,14 @@ void konfigMakanan (){
             copyString(buffer, str(actMkn(Mkn)));
             len(actMkn(Mkn)) = lengthString(buffer);
         }
-
         printMakanan(Mkn); printf("\n");
+        if (isEmpty(listMakanan)){
+            printf("test");
+        }
+        insertFood(&listMakanan, Mkn, i);
     }
     fclose(makananFile);
+    return listMakanan;
 }
 
 //Menampilkan ASCIIArt dibagian awal
@@ -200,7 +205,8 @@ Matrix konfigMap(){
     return Map;
 }
 
-NTree* konfigResep(){
+Cookbook konfigResep(){
+    Cookbook C;
     FILE * fResep;
     
     int bufferLength = 30;
@@ -269,6 +275,7 @@ NTree* konfigResep(){
         }
     }
 
-
-    return Trees;
+    NResep(C) = t;
+    Resep(C) = Trees;
+    return C;
 }

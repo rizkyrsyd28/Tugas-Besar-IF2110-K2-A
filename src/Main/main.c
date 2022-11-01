@@ -52,6 +52,11 @@ int main () {
     printf("-> Konfigurasi Waktu - DONE\n");
 
     // Konfigurasi Makanan
+    ListStatik listMakanan;
+    CreateListStatik(&listMakanan);
+    //listMakanan = konfigMakanan();
+    int listMakananLength = listLength(listMakanan);
+    printf("-> Konfigurasi Makanan - DONE\n");
 
     // Konfigurasi Peta
     Matrix map;
@@ -155,6 +160,7 @@ int main () {
             printf("===============         FRY          ===============\n");
             printf("====================================================\n");
 
+            printf("%d", listMakananLength);
         }
 
         
@@ -163,6 +169,7 @@ int main () {
             printf("===============       CATALOG        ===============\n");
             printf("====================================================\n");
             validAction = false; // Action ini tidak menghabiskan waktu
+
 
             // Boleh panggil aja procedure printMakanan, udah dibikin di ADT Makanan
 
@@ -272,6 +279,7 @@ int main () {
             printf("WAIT (x) (y)    - Mempercepat time selama x jam dan y menit\n");
             printf("UNDO            - Mengembalikan kondisi sebelum terlaksananya action terakhir\n");
             printf("REDO            - Melakukan kembali action yang telah di-undo\n");
+            validAction = false; // Action ini tidak menghabiskan waktu
         }
 
         else {
