@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../ADT/Makanan/makanan.c"
-//#include "../ADT/ListStatik/liststatik.c"
+#include "../ADT/ListStatik/liststatik.c"
 #include "../ADT/MesinKata/wordmachine.c"
 #include "../ADT/Matrix/matrix.c"
 #include "../ADT/Resep/resep.c"
@@ -18,7 +18,6 @@ void giveMark(char* str){
 
 ListStatik konfigMakanan (){
     char *makananPath = "../TextFile/makanan.txt";
-
     ListStatik listMakanan;
     CreateListStatik(&listMakanan);
 
@@ -45,7 +44,6 @@ ListStatik konfigMakanan (){
         n = WordToInt(currentWord);
         ADVWORD(buffer, &idx);
     }
-    printf("%d\n", n);
 
     int i;
     int j;
@@ -121,10 +119,12 @@ ListStatik konfigMakanan (){
         if (i == n-1){
             // untuk paling terakhir, karakter trakhir dari string tidak ada '\n', jadi tidak perlu diubah.
             fgets(buffer, bufferLength, makananFile);
+            upper(buffer);
             copyString(buffer, str(actMkn(Mkn)));
             len(actMkn(Mkn)) = lengthString(buffer);
         } else {
             fgets(buffer, bufferLength, makananFile);
+            upper(buffer);
             buffer[lengthString(buffer)-1] = '\0';
             copyString(buffer, str(actMkn(Mkn)));
             len(actMkn(Mkn)) = lengthString(buffer);

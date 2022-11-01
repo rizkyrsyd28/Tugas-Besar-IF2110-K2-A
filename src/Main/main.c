@@ -9,6 +9,14 @@
 #define MAX_COMMAND 30
 
 
+void getInput(char* string){
+    // Fungsi untuk meminta input oleh user
+    fgets(string, MAX_COMMAND, stdin);
+    upper(string);
+    // Procedure giveMark dilakukan karena diujung string ada '\n' dan perlu diberikan '.' sebagai MARK.
+    giveMark(string);
+}
+
 int main () {
     char command[MAX_COMMAND] = "\0";
     boolean program = true;
@@ -16,10 +24,7 @@ int main () {
 
     ASCIIArt();
     printf("Input 'START' untuk melakukan program.\n");
-    fgets(command, MAX_COMMAND, stdin);
-    upper(command);
-    giveMark(command);
-    // Procedure giveMark dilakukan karena diujung string ada '\n' dan perlu diberikan '.' sebagai MARK.
+    getInput(command);
 
     // Menggunakan mesin kata untuk membaca
     STARTWORD(command, &idx);
@@ -28,9 +33,7 @@ int main () {
 
     while (!isWordStringEqual(currentWord, "START")){
         printf("Input selain 'START' tidak diterima.\n");
-        fgets(command, MAX_COMMAND, stdin);
-        upper(command);
-        giveMark(command);
+        getInput(command);
         STARTWORD(command, &idx);
     }
 
@@ -52,8 +55,9 @@ int main () {
     printf("-> Konfigurasi Waktu - DONE\n");
 
     // Konfigurasi Makanan
-    ListStatik listMakanan;
-    listMakanan = konfigMakanan();
+    ListStatik foodList;
+    int foodListLength = listLength(foodList);
+    foodList = konfigMakanan();
     printf("-> Konfigurasi Makanan - DONE\n");
 
     // Konfigurasi Peta
@@ -72,6 +76,11 @@ int main () {
 
     // Dummy (untuk mencegah error)
     fgets(command, MAX_COMMAND, stdin);
+
+    // Konfigurasi variabel global
+    int i;
+    int count;
+    boolean subprogram = false;
 
 
     // =========== PENJALANAN PROGRAM UTAMA ===========
@@ -95,9 +104,7 @@ int main () {
         printf("Command: ");
         
         // Meminta input command setelah program dimulai
-        fgets(command, MAX_COMMAND, stdin);
-        upper(command);
-        giveMark(command);
+        getInput(command);
         STARTWORD(command, &idx);
 
         if (isWordStringEqual(currentWord, "EXIT")){
@@ -136,12 +143,98 @@ int main () {
             printf("===============         BUY          ===============\n");
             printf("====================================================\n");
 
+            // Program akan di loop pada sesi Buy
+            subprogram = true;
+            while (subprogram){
+            
+                printf("List Bahan Makanan yang Bisa Dibuat: \n");
+                count = 0;
+                for (i=0; i < foodListLength; i++){
+                    if (isWordStringEqual(actMkn(ELMTLIST(foodList,i)), "BUY")){
+                        count++;
+                        printf("%d. ", count);
+                        printWord(nameMkn(ELMTLIST(foodList, i)));
+                        printf("\n");
+                    }
+                }
+
+                // Handle jika konfigurasinya diganti
+                if (count == 0){
+                    printf("Tidak ada bahan makanan yang bisa dibuat.\n");
+                };
+
+                printf("Ketik 0 untuk kembali ke Main Menu.\n");
+            
+                // Meminta input dari pengguna
+                printf("Command: ");
+                getInput(command);
+                STARTWORD(command, &idx);
+                
+                // Handle untuk input tidak integer atau integer yang tidak valid
+                while (!isWordAllIntegers(currentWord) || WordToInt(currentWord) < 0 || WordToInt (currentWord) > count){
+                    printf("Invalid input. Input bukanlah integer atau integer tersebut tidaklah valid.\n");
+                    printf("Command: ");
+                    getInput(command);
+                    STARTWORD(command, &idx);
+                }
+                if (WordToInt(currentWord) == 0){
+                    subprogram = false;
+                } else {
+                    // Inputnya telah sesuai dengan penomoran 
+                    // Algoritma untuk pelaksanaan pengolahan
+                    printf("test\n");
+                }
+            }
+
         }
 
         else if (isWordStringEqual(currentWord, "MIX")){
             printf("====================================================\n");
             printf("===============         MIX          ===============\n");
             printf("====================================================\n");
+
+            // Program akan di loop pada sesi Mix
+            subprogram = true;
+            while (subprogram){
+            
+                printf("List Bahan Makanan yang Bisa Dibuat: \n");
+                count = 0;
+                for (i=0; i < foodListLength; i++){
+                    if (isWordStringEqual(actMkn(ELMTLIST(foodList,i)), "MIX")){
+                        count++;
+                        printf("%d. ", count);
+                        printWord(nameMkn(ELMTLIST(foodList, i)));
+                        printf("\n");
+                    }
+                }
+
+                // Handle jika konfigurasinya diganti
+                if (count == 0){
+                    printf("Tidak ada bahan makanan yang bisa dibuat.\n");
+                };
+
+                printf("Ketik 0 untuk kembali ke Main Menu.\n");
+            
+                // Meminta input dari pengguna
+                printf("Command: ");
+                getInput(command);
+                STARTWORD(command, &idx);
+                
+                // Handle untuk input tidak integer atau integer yang tidak valid
+                while (!isWordAllIntegers(currentWord) || WordToInt(currentWord) < 0 || WordToInt (currentWord) > count){
+                    printf("Invalid input. Input bukanlah integer atau integer tersebut tidaklah valid.\n");
+                    printf("Command: ");
+                    getInput(command);
+                    STARTWORD(command, &idx);
+                }
+                if (WordToInt(currentWord) == 0){
+                    subprogram = false;
+                } else {
+                    // Inputnya telah sesuai dengan penomoran 
+                    // Algoritma untuk pelaksanaan pengolahan
+                    printf("test\n");
+                }
+            }
 
         }
 
@@ -150,6 +243,49 @@ int main () {
             printf("===============         CHOP         ===============\n");
             printf("====================================================\n");
 
+            // Program akan di loop pada sesi Chop
+            subprogram = true;
+            while (subprogram){
+            
+                printf("List Bahan Makanan yang Bisa Dibuat: \n");
+                count = 0;
+                for (i=0; i < foodListLength; i++){
+                    if (isWordStringEqual(actMkn(ELMTLIST(foodList,i)), "CHOP")){
+                        count++;
+                        printf("%d. ", count);
+                        printWord(nameMkn(ELMTLIST(foodList, i)));
+                        printf("\n");
+                    }
+                }
+
+                // Handle jika konfigurasinya diganti
+                if (count == 0){
+                    printf("Tidak ada bahan makanan yang bisa dibuat.\n");
+                };
+
+                printf("Ketik 0 untuk kembali ke Main Menu.\n");
+            
+                // Meminta input dari pengguna
+                printf("Command: ");
+                getInput(command);
+                STARTWORD(command, &idx);
+                
+                // Handle untuk input tidak integer atau integer yang tidak valid
+                while (!isWordAllIntegers(currentWord) || WordToInt(currentWord) < 0 || WordToInt (currentWord) > count){
+                    printf("Invalid input. Input bukanlah integer atau integer tersebut tidaklah valid.\n");
+                    printf("Command: ");
+                    getInput(command);
+                    STARTWORD(command, &idx);
+                }
+                if (WordToInt(currentWord) == 0){
+                    subprogram = false;
+                } else {
+                    // Inputnya telah sesuai dengan penomoran 
+                    // Algoritma untuk pelaksanaan pengolahan
+                    printf("test\n");
+                }
+            }
+
         }
 
         
@@ -157,7 +293,49 @@ int main () {
             printf("====================================================\n");
             printf("===============         FRY          ===============\n");
             printf("====================================================\n");
+            
+            // Program akan di loop pada sesi Fry
+            subprogram = true;
+            while (subprogram){
+            
+                printf("List Bahan Makanan yang Bisa Dibuat: \n");
+                count = 0;
+                for (i=0; i < foodListLength; i++){
+                    if (isWordStringEqual(actMkn(ELMTLIST(foodList,i)), "FRY")){
+                        count++;
+                        printf("%d. ", count);
+                        printWord(nameMkn(ELMTLIST(foodList, i)));
+                        printf("\n");
+                    }
+                }
 
+                // Handle jika konfigurasinya diganti
+                if (count == 0){
+                    printf("Tidak ada bahan makanan yang bisa dibuat.\n");
+                };
+
+                printf("Ketik 0 untuk kembali ke Main Menu.\n");
+            
+                // Meminta input dari pengguna
+                printf("Command: ");
+                getInput(command);
+                STARTWORD(command, &idx);
+                
+                // Handle untuk input tidak integer atau integer yang tidak valid
+                while (!isWordAllIntegers(currentWord) || WordToInt(currentWord) < 0 || WordToInt (currentWord) > count){
+                    printf("Invalid input. Input bukanlah integer atau integer tersebut tidaklah valid.\n");
+                    printf("Command: ");
+                    getInput(command);
+                    STARTWORD(command, &idx);
+                }
+                if (WordToInt(currentWord) == 0){
+                    subprogram = false;
+                } else {
+                    // Inputnya telah sesuai dengan penomoran 
+                    // Algoritma untuk pelaksanaan pengolahan
+                    printf("test\n");
+                }
+            }
         }
 
         
@@ -166,6 +344,7 @@ int main () {
             printf("===============       CATALOG        ===============\n");
             printf("====================================================\n");
             validAction = false; // Action ini tidak menghabiskan waktu
+
 
             // Boleh panggil aja procedure printMakanan, udah dibikin di ADT Makanan
 
