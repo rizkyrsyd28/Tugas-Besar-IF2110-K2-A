@@ -105,9 +105,9 @@ void PrintPrioQueueTime (PrioQueueTime Q){
                 printf("%d. ", nomor);
                 nomor+=1;
                 printWord(nameMkn(Elmt(Q, i)));
-                print(" - ");
+                printf(" - ");
                 TulisTIMEKadaluarsa(expMkn(Elmt(Q, i)));
-                printf('\n');
+                printf("\n");
                 // printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
             }
         }
@@ -116,17 +116,17 @@ void PrintPrioQueueTime (PrioQueueTime Q){
                 printf("%d. ", nomor);
                 nomor+=1;
                 printWord(nameMkn(Elmt(Q, i)));
-                print(" - ");
+                printf(" - ");
                 TulisTIMEKadaluarsa(expMkn(Elmt(Q, i)));
-                printf('\n');
+                printf("\n");
             }
             for (int i = 0; i <= Tail(Q); i++){
                 printf("%d. ", nomor);
                 nomor+=1;
                 printWord(nameMkn(Elmt(Q, i)));
-                print(" - ");
+                printf(" - ");
                 TulisTIMEKadaluarsa(expMkn(Elmt(Q, i)));
-                printf('\n');
+                printf("\n");
             }
         }
     }
