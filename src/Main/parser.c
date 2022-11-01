@@ -142,6 +142,7 @@ void ASCIIArt()
 	while(!feof(fPointer))
 	{
 		fgets(singleLine, 150, fPointer);
+        singleLine[lengthString(singleLine)-1] = '\0';
 		puts(singleLine);
 	}
 	fclose(fPointer);

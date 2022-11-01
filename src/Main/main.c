@@ -43,22 +43,29 @@ int main () {
     // Konfigurasi Simulator
     Simulator sim;
     ReadSimulator(&sim);
-    printf("Konfigurasi Simulator - DONE\n");
+    printf("-> Konfigurasi Simulator - DONE\n");
 
     // Konfigurasi Waktu
     TIME currentTime;
     printf("Masukkan waktu awal dalam format (<hari> <jam> <menit>)\n");
     BacaTIME(&currentTime);
-    printf("Konfigurasi Waktu - DONE\n");
+    printf("-> Konfigurasi Waktu - DONE\n");
 
     // Konfigurasi Makanan
 
     // Konfigurasi Peta
     Matrix map;
     map = konfigMap();
-    printf("Konfigurasi Peta - DONE\n");
+    printf("-> Konfigurasi Peta - DONE\n");
 
-    // Konfigurasi Resep
+    // Konfigurasi Resep 
+
+    // Konfigurasi Inventory
+    PrioQueueTime inventory;
+    MakeEmptyQueue(&inventory, 100);
+    PrioQueueTime deliveryList;
+    MakeEmptyQueue(&deliveryList, 100);
+    printf("-> Konfigurasi Inventory - DONE\n");
 
     // Dummy (untuk mencegah error)
     fgets(command, MAX_COMMAND, stdin);
@@ -173,6 +180,12 @@ int main () {
             printf("===============      INVENTORY       ===============\n");
             printf("====================================================\n");
             validAction = false; // Action ini tidak menghabiskan waktu
+
+            if (IsEmptyQueue(inventory)){
+                printf(" Tidak ada makanan pada inventory.\n");
+            } else {
+                PrintPrioQueueTime(inventory);
+            }
         }
 
         else if (isWordStringEqual(currentWord, "DELIVERY")){
@@ -180,6 +193,12 @@ int main () {
             printf("===============       DELIVERY       ===============\n");
             printf("====================================================\n");
             validAction = false; // Action ini tidak menghabiskan waktu
+
+            if (IsEmptyQueue(deliveryList)){
+                printf(" Tidak ada makanan pada list delivery.\n");
+            } else {
+                PrintPrioQueueTime(deliveryList);
+            }
         }
 
         else if (isWordStringEqual(currentWord, "WAIT")){
@@ -253,6 +272,7 @@ int main () {
             printf("WAIT (x) (y)    - Mempercepat time selama x jam dan y menit\n");
             printf("UNDO            - Mengembalikan kondisi sebelum terlaksananya action terakhir\n");
             printf("REDO            - Melakukan kembali action yang telah di-undo\n");
+            validAction = false; // Action ini tidak menghabiskan waktu
         }
 
         else {
