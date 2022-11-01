@@ -17,6 +17,8 @@ void CreateEmptyMakanan (Makanan *mkn){
     expMkn(*mkn).HH = 0;
     expMkn(*mkn).MM = 0;
     len(actMkn(*mkn)) = 0;
+    sizeMkn(*mkn).xSize = 0;
+    sizeMkn(*mkn).ySize = 0;
     dlvMkn(*mkn).DD = 0;
     dlvMkn(*mkn).HH = 0;
     dlvMkn(*mkn).MM = 0;
@@ -39,6 +41,7 @@ void printMakanan (Makanan mkn){
     printf(" - ");
     TulisTIMEString(dlvMkn(mkn));
     printf(" - ");
+    printf("<%d,%d> - ", sizeMkn(mkn).xSize, sizeMkn(mkn).ySize);
     for (i = 0; i < len(actMkn(mkn)); i++){
         printf("%c", str(actMkn(mkn))[i]);
     }
