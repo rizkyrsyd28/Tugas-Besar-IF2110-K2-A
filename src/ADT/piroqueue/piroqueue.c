@@ -174,7 +174,7 @@ void printExp(PrioQueueTime Q, int idx) {
 }
 
 void decrementNExp(PrioQueueTime *Q, int N) {
-    if (!isEmptyQueue(*Q)) {
+    if (!IsEmptyQueue(*Q)) {
         if (Tail(*Q) > Head(*Q)){
             for (int i = Head(*Q); i <= Tail(*Q); i++){
                 expMkn(Elmt(*Q, i)) = PrevNMinute(expMkn(Elmt(*Q, i)), N);
