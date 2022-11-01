@@ -16,12 +16,15 @@ typedef struct {
     TIME delivery;
 } Makanan;
 
+extern Makanan Empty;
+
 // SELEKTOR
 #define idMkn(M) (M).id
 #define nameMkn(M) (M).name
 #define expMkn(M) (M).expired
 #define actMkn(M) (M).action
 #define dlvMkn(M) (M).delivery
+#define EmptyFood Empty
 
 // KONSTRUKTOR
 void CreateEmptyMakanan (Makanan *mkn);

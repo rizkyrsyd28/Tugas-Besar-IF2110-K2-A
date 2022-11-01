@@ -1,4 +1,5 @@
 #include "../piroqueue/piroqueue.h"
+#include "../Simulator/simulator.h"
 
 #define Inventory PrioQueueTime
 
