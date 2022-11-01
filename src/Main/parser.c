@@ -194,7 +194,7 @@ Matrix konfigMap(){
             ADVWORD(buffer, &idx);
         }
     }
-    
+    fclose(fMap);
     //displayMatrix(Map);
     return Map;
 }
@@ -268,6 +268,8 @@ Cookbook konfigResep(){
             }
         }
     }
+
+    fclose(fResep);
 
     NResep(C) = t;
     Buku(C) = Trees;

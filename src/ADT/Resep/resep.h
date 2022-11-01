@@ -16,11 +16,8 @@ typedef struct {
 #define Buku(c) (c).Resep  /* selektor list resep */
 #define Resep(c,i) (c).Resep[i] /* selektor element list resep */
 
-boolean canMake(Makanan mkn, PrioQueueTime pq);
+boolean canMake(ID Id, PrioQueueTime pq);
 /* Mengirim True jika semua bahan yang diperlukan untuk membuat suatu resep tersedia di inventory*/
-
-Makanan getMakanan(ID Id, ListStatik foods);
-/* mengembalikan makanan dengan input Id dari cookbook*/
 
 void printResep(Cookbook cb, ListStatik foods);
 /* mencetak resep */
