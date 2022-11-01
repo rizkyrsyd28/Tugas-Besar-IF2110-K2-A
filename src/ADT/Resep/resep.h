@@ -3,7 +3,7 @@
 
 #include "../boolean.h"
 #include "../Tree/nTree.c"
-#include "../ListStatik/liststatik.c"
+#include "../ListStatik/liststatik.h"
 #include "../piroqueue/piroqueue.h"
 
 typedef struct {
