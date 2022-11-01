@@ -38,11 +38,16 @@ typedef struct {
 
 #define ELMT(l, i) (l).contents[(i)]
 #define CONT(l, i) ((l).contents[(i)]).itemInfo
+#define GETFOOD(l, i) ((((l).contents[(i)]).itemInfo).m)
+#define GETRECIPE(l, i) ((((l).contents[(i)]).itemInfo).r)
 #define TYPE(l, i) ((l).contents[(i)]).type
 
 
 boolean isMark(ElType a);
 boolean different(ElType a, ElType b);
+
+Makanan getMakanan(ID id, ListStatik foods);
+TreeNode getResep(ID id, ListStatik recipes);
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */

@@ -19,6 +19,19 @@ boolean different(ElType a, ElType b) {
     }
 }
 
+Makanan getMakanan(ID id, ListStatik foods) {
+    Makanan EmptyFood = {-1, {"Empty", 0}, {-1, -1, -1}, {"Empty", 0}, {-1, -1, -1}};
+    for (int i = 0; i < listLength(foods); i++) {
+        if (TYPE(foods, i) == 1) {
+            if (idMkn(GETFOOD(foods, i)) == id) {
+                return GETFOOD(foods, i);
+            }
+        }
+    }
+    return EmptyFood;
+}
+
+
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */
 void CreateListStatik(ListStatik *l)
