@@ -104,19 +104,25 @@ void PrintPrioQueueTime (PrioQueueTime Q){
             for (int i = Head(Q); i <= Tail(Q); i++){
                 printf("%d. ", nomor);
                 nomor+=1;
-                printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
+                printf("%s - ", nameMkn(Elmt(Q, i)));
+                printExp(Q, i);
+                printf("\n");
             }
         }
         else {
             for(int i = Head(Q); i < MaxEl(Q); i++){
                 printf("%d. ", nomor);
                 nomor+=1;
-                printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
+                printf("%s - ", nameMkn(Elmt(Q, i)));
+                printExp(Q, i);
+                printf("\n");
             }
             for (int i = 0; i <= Tail(Q); i++){
                 printf("%d. ", nomor);
                 nomor+=1;
-                printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
+                printf("%s - ", nameMkn(Elmt(Q, i)));
+                printExp(Q, i);
+                printf("\n");
             }
         }
     }
