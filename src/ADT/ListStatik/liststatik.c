@@ -1,34 +1,27 @@
 #include "liststatik.h"
 #include <stdio.h>
 
-Item ItemMarkLS = {1, 3};
+Makanan FoodMark = {-1, {"Empty", 0}, {-1, -1, -1}, {"Empty", 0}, {-1, -1, -1}};
+
+boolean timeEqual(TIME a, TIME b) {
+    return ((Day(a) == Day(b)) && (Minute(a) == Minute(b)) && (Hour(a) == Hour(b)));
+}
 
 boolean isMark(ElTypeList a) {
-    return a.type == 3;
+    return (a.id == -1) && timeEqual(a.expired, FoodMark.expired) && timeEqual(a.delivery, FoodMark.delivery) && (a.action.Length == FoodMark.action.Length) && (a.name.Length == FoodMark.name.Length);
 }
 
 boolean different(ElTypeList a, ElTypeList b) {
-    if (a.type != b.type) {
-        return true;
-    } else if (a.type == 1) {
-        return (a.itemInfo.m.id != b.itemInfo.m.id);
-    } else if (a.type == 2) {
-        return Parent(a.itemInfo.r) != Parent(b.itemInfo.r);
-    } else {
-        return false;
-    }
+    return (a.id == b.id) && timeEqual(a.expired, b.expired) && timeEqual(a.delivery, b.delivery) && (a.action.Length == b.action.Length) && (a.name.Length == b.name.Length);    
 }
 
 Makanan getMakanan(ID id, ListStatik foods) {
-    Makanan EmptyFood = {-1, {"Empty", 0}, {-1, -1, -1}, {"Empty", 0}, {-1, -1, -1}};
     for (int i = 0; i < listLength(foods); i++) {
-        if (TYPE(foods, i) == 1) {
-            if (idMkn(GETFOOD(foods, i)) == id) {
-                return GETFOOD(foods, i);
-            }
+        if (idMkn(ELMTLIST(foods, i)) == id) {
+            return ELMTLIST(foods, i);
         }
     }
-    return EmptyFood;
+    return FoodMark;
 }
 
 
@@ -43,7 +36,7 @@ void CreateListStatik(ListStatik *l)
     int i;
     /* Algoritma */
     for (i = 0; i < CAPACITY; i++) {
-        ELMTLIST(*l, i) = ItemMarkLS;
+        ELMTLIST(*l, i) = FoodMark;
     }
 }
 
@@ -325,16 +318,16 @@ void insertLast(ListStatik *l, ElTypeList val)
     ELMTLIST(*l, listLength(*l)) = val;
 }
 
-void insertFood(ListStatik *l, Makanan val, int Idx) {
-    Item a;
-    a.itemInfo.m = val;
-    a.type = 1;
-    if (isEmpty(*l)) {
-        insertFirst(l, a);
-    } else if (isIdxEff(*l, Idx)) {
-        insertAt(l, a, Idx);
-    }
-}
+// void insertFood(ListStatik *l, Makanan val, int Idx) {
+//     Item a;
+//     a.itemInfo.m = val;
+//     a.type = 1;
+//     if (isEmpty(*l)) {
+//         insertFirst(l, a);
+//     } else if (isIdxEff(*l, Idx)) {
+//         insertAt(l, a, Idx);
+//     }
+// }
 
 /* ********** MENGHAPUS ELEMEN ********** */
 /* *** Menghapus elemen pertama *** */
@@ -351,7 +344,7 @@ void deleteFirst(ListStatik *l, ElTypeList *val)
     for (i; i < j; i++) {
         ELMTLIST(*l, i) = ELMTLIST(*l, i + 1);
     }
-    ELMTLIST(*l, listLength(*l) - 1) = ItemMarkLS;
+    ELMTLIST(*l, listLength(*l) - 1) = FoodMark;
 }
 /* *** Menghapus elemen pada index tertentu *** */
 void deleteAt(ListStatik *l, ElTypeList *val, IdxType idx)
@@ -365,11 +358,11 @@ void deleteAt(ListStatik *l, ElTypeList *val, IdxType idx)
     int i = idx;
     /* Algoritma */
     *val = ELMTLIST(*l, idx);
-    ELMTLIST(*l, idx) = ItemMarkLS;
+    ELMTLIST(*l, idx) = FoodMark;
     for (i; i < listLength(*l) - 1; i++) {
         ELMTLIST(*l, i) = ELMTLIST(*l, i + 1);
     }
-    ELMTLIST(*l, listLength(*l)) = ItemMarkLS;
+    ELMTLIST(*l, listLength(*l)) = FoodMark;
 }
 void deleteLast(ListStatik *l, ElTypeList *val)
 /* Proses : Menghapus elemen terakhir List */
@@ -380,7 +373,7 @@ void deleteLast(ListStatik *l, ElTypeList *val)
 {   /* Kamus Lokal */
     /* Algoritma */
     *val = ELMTLIST(*l, getLastIdx(*l));
-    ELMTLIST(*l, getLastIdx(*l)) = ItemMarkLS;
+    ELMTLIST(*l, getLastIdx(*l)) = FoodMark;
 }
 
 // /* ********** SORTING ********** */

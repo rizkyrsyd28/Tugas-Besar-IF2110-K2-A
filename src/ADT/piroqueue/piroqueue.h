@@ -83,4 +83,6 @@ int PencariMakanan(PrioQueueTime *Q, Makanan M);
 
 void DequeueAt(PrioQueueTime *Q, Makanan M, Makanan *X);
 
+void printExp(PrioQueueTime Q, int idx);
+
 #endif

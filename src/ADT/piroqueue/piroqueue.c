@@ -157,3 +157,8 @@ void DequeueAt(PrioQueueTime *Q, Makanan M, Makanan *X){
         Tail(*Q) = (Tail(*Q) - 1) % MaxEl(*Q);//mod
     }
 }
+
+void printExp(PrioQueueTime Q, int idx) {
+    TIME exp = roundToEvenHours(expMkn(Elmt(Q, idx)));
+    printf("%d jam", Hour(exp));
+}
