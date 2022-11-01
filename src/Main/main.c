@@ -396,8 +396,8 @@ int main () {
             // Setelah penambahan waktu oleh command WAIT, tidak perlu lagi dilakukan penambahan waktu 1 menit
             validAction = false; 
 
-            boolean allInteger = true;
-            int waitHour, waitMinute;
+            boolean allInteger = true, xint = false, yint = false;
+            int waitHour, waitMinute, totalWaitMinute;
 
             // JANGAN LUPA BIKIN HANDLE KALAU INPUTNYA HANYA 1 INTEGER, BUKAN 2 INTEGER
 
@@ -405,6 +405,7 @@ int main () {
             ADVWORD(command, &idx);
             if (isWordAllIntegers(currentWord)){
                  waitHour = WordToInt(currentWord);
+                 xint = true;
             } else {
                 allInteger = false;
             }
@@ -412,12 +413,30 @@ int main () {
             ADVWORD(command, &idx);
             if (isWordAllIntegers(currentWord)){
                 waitMinute = WordToInt(currentWord);
+                yint = true;
             } else {
                 allInteger = false;
             }
             
             if (allInteger){
-                printf("%d %d\n", waitHour, waitMinute);
+                printf("Menunggu ");
+                if (waitHour != 0) {
+                    printf("%d jam ", waitHour);
+                }
+                if (waitMinute != 0) {
+                    printf("%d menit", waitMinute);
+                }
+                totalWaitMinute = (waitHour * 60) + waitMinute;
+                currentTime = NextNMinute(currentTime, totalWaitMinute);
+                decrementHMExp(&(Inventory(sim)), waitHour, waitMinute);
+                decrementHMDel(&deliveryList, waitHour, waitMinute);
+                // Bikin notifikasi
+                RemoveDated(&sim);
+                DeliveryReady(&sim, &deliveryList);
+            } else if (!yint) {
+                printf("Masukan tidak valid. Y bukan sebuah integer.\n");
+            } else if (!xint) {
+                printf("Masukan tidak valid. X bukan sebuah integer.\n");
             } else {
                 printf("Masukan tidak valid. X dan Y hanya diperbolehkan memiliki tipe integer.\n");
             }

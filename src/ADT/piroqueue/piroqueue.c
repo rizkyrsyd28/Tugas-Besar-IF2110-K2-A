@@ -190,3 +190,35 @@ void decrementNExp(PrioQueueTime *Q, int N) {
         }
     }
 }
+
+void decrementHMExp(PrioQueueTime *Q, int hours, int minutes) {
+    if (!IsEmptyQueue(*Q)) {
+        int totalMinuteDecrement = (hours * 60) + minutes;
+        decrementNExp(Q, totalMinuteDecrement);
+    }
+}
+
+void decrementNDel(PrioQueueTime *Q, int N) {
+    if (!IsEmptyQueue(*Q)) {
+        if (Tail(*Q) > Head(*Q)){
+            for (int i = Head(*Q); i <= Tail(*Q); i++){
+                dlvMkn(Elmt(*Q, i)) = PrevNMinute(dlvMkn(Elmt(*Q, i)), N);
+            }
+        }
+        else {
+            for(int i = Head(*Q); i < MaxEl(*Q); i++){
+                dlvMkn(Elmt(*Q, i)) = PrevNMinute(dlvMkn(Elmt(*Q, i)), N);
+            }
+            for (int i = 0; i <= Tail(*Q); i++){
+                dlvMkn(Elmt(*Q, i)) = PrevNMinute(dlvMkn(Elmt(*Q, i)), N);
+            }
+        }
+    }
+}
+
+void decrementHMDel(PrioQueueTime *Q, int hours, int minutes) {
+    if (!IsEmptyQueue(*Q)) {
+        int totalMinuteDecrement = (hours * 60) + minutes;
+        decrementNDel(Q, totalMinuteDecrement);
+    }
+}

@@ -60,5 +60,8 @@ void KedaluwarsaInventory(Simulator *S);
 void GeserLokasi (Simulator *S,int arah);
 //Mengubah koordinat lokasi
 
+void DeliveryReady(Simulator *S, PrioQueueTime *D);
+
+void RemoveDated(Simulator *S);
 
 #endif
