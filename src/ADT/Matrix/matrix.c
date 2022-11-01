@@ -133,6 +133,7 @@ boolean isCan(Matrix m, int i, int j,char c)				//i dan j adalah posisi nilai ya
 	
 }
 
+
 //Disini misal mau ngecek bisa fry atau boil atau buy apapun itu caranya kalo perintah Buy maka harus ada program yang ngaish tau kalo perintah buy
 //Char yang harus dikeluarkan T baru char itu masukin sini 
 
