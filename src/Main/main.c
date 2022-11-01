@@ -345,6 +345,10 @@ int main () {
             printf("====================================================\n");
             validAction = false; // Action ini tidak menghabiskan waktu
 
+            for (i = 0; i < foodListLength; i++){
+                printMakanan(ELMTLIST(foodList, i));
+                printf("\n");
+            }
 
             // Boleh panggil aja procedure printMakanan, udah dibikin di ADT Makanan
 
