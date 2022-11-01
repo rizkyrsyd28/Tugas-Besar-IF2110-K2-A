@@ -4,7 +4,7 @@
 
 
 int main(){
-    konfigMap();
+    // konfigMap();
     //konfigMakanan();
     // ASCIIArt();
 
@@ -15,5 +15,5 @@ int main(){
     //     printf("\nDepth : %d\n", depth(Trees[i]));
     // }
 
-    return 0;
+    // return 0;
 }

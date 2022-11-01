@@ -52,6 +52,9 @@ int main () {
     printf("-> Konfigurasi Waktu - DONE\n");
 
     // Konfigurasi Makanan
+    ListStatik listMakanan;
+    listMakanan = konfigMakanan();
+    printf("-> Konfigurasi Makanan - DONE\n");
 
     // Konfigurasi Peta
     Matrix map;

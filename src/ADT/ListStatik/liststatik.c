@@ -315,7 +315,11 @@ void insertLast(ListStatik *l, ElTypeList val)
 /* F.S. val adalah elemen terakhir l yang baru */
 {   /* Kamus Lokal */
     /* Algoritma */
-    ELMTLIST(*l, listLength(*l)) = val;
+    if (isEmpty(*l)){
+        insertFirst(l, val);
+    } else {
+        ELMTLIST(*l, listLength(*l)) = val;
+    }
 }
 
 // void insertFood(ListStatik *l, Makanan val, int Idx) {
