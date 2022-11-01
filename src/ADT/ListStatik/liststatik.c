@@ -3,21 +3,33 @@
 
 Item ItemMarkLS = {1, 3};
 
-boolean isMark(ElType a) {
+boolean isMark(ElTypeList a) {
     return a.type == 3;
 }
 
-boolean different(ElType a, ElType b) {
+boolean different(ElTypeList a, ElTypeList b) {
     if (a.type != b.type) {
         return true;
     } else if (a.type == 1) {
         return (a.itemInfo.m.id != b.itemInfo.m.id);
     } else if (a.type == 2) {
-        return a.itemInfo.r.Id != b.itemInfo.r.Id;
+        return Parent(a.itemInfo.r) != Parent(b.itemInfo.r);
     } else {
         return false;
     }
 }
+
+Makanan getMakanan(ID id, ListStatik foods) {
+    for (int i = 0; i < listLength(foods); i++) {
+        if (TYPE(foods, i) == 1) {
+            if (idMkn(GETFOOD(foods, i)) == id) {
+                return GETFOOD(foods, i);
+            }
+        }
+    }
+    return EmptyFood;
+}
+
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */
@@ -30,7 +42,7 @@ void CreateListStatik(ListStatik *l)
     int i;
     /* Algoritma */
     for (i = 0; i < CAPACITY; i++) {
-        ELMT(*l, i) = ItemMarkLS;
+        ELMTLIST(*l, i) = ItemMarkLS;
     }
 }
 
@@ -43,7 +55,7 @@ int listLength(ListStatik l)
     /* Kamus Lokal */
     int i = 0, len = 0;
     /* Algoritma */
-    while (i < CAPACITY && !isMark(ELMT(l, i))) {
+    while (i < CAPACITY && !isMark(ELMTLIST(l, i))) {
         len = len + 1;
         i = i + 1;
     }
@@ -127,7 +139,7 @@ boolean isFull(ListStatik l)
 //     } while (idx < 0 || idx > CAPACITY);
     
 //     for (i; i < idx; i++) {
-//         scanf("%d", &(ELMT(*l, i)));
+//         scanf("%d", &(ELMTLIST(*l, i)));
 //     }
 // }
 // void printList(ListStatik l)
@@ -147,7 +159,7 @@ boolean isFull(ListStatik l)
 //         if (i != 0) {
 // 			printf(",");
 // 		}
-// 		printf("%d", ELMT(l,i));
+// 		printf("%d", ELMTLIST(l,i));
 //     }
 //     printf("]\n");
 // }
@@ -168,9 +180,9 @@ boolean isFull(ListStatik l)
 //     CreateListStatik(&l);
 //     for (i; i < listLength(l1); i++) {
 //         if (plus) {
-//             ELMT(l, i) = ELMT(l1, i) + ELMT(l2, i);
+//             ELMTLIST(l, i) = ELMTLIST(l1, i) + ELMTLIST(l2, i);
 //         } else {
-//             ELMT(l, i) = ELMT(l1, i) - ELMT(l2, i);
+//             ELMTLIST(l, i) = ELMTLIST(l1, i) - ELMTLIST(l2, i);
 //         }
 //     }
 //     return l;
@@ -187,7 +199,7 @@ boolean isListEqual(ListStatik l1, ListStatik l2)
     /* Algoritma */
     if (listLength(l1) == listLength(l2)) {
         for (i; i < listLength(l1); i++) {
-            if (different(ELMT(l1, i), ELMT(l2, i))) {
+            if (different(ELMTLIST(l1, i), ELMTLIST(l2, i))) {
                 return false;
             }
         }
@@ -198,16 +210,16 @@ boolean isListEqual(ListStatik l1, ListStatik l2)
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : List boleh kosong!! *** */
-int indexOf(ListStatik l, ElType val)
+int indexOf(ListStatik l, ElTypeList val)
 /* Search apakah ada elemen List l yang bernilai val */
-/* Jika ada, menghasilkan indeks i terkecil, dengan ELMT(l,i) = val */
+/* Jika ada, menghasilkan indeks i terkecil, dengan ELMTLIST(l,i) = val */
 /* Jika tidak ada atau jika l kosong, mengirimkan IDX_UNDEF */
 /* Skema Searching yang digunakan bebas */
 {
     /* Kamus Lokal */
     int i = 0;
     /* Algoritma */
-    while (i < listLength(l) && different(ELMT(l, i), val)) {
+    while (i < listLength(l) && different(ELMTLIST(l, i), val)) {
         i = i + 1;
     }
     if (i < listLength(l)) {
@@ -218,66 +230,66 @@ int indexOf(ListStatik l, ElType val)
 }
 
 /* ********** NILAI EKSTREM ********** */
-// void extremeFoodId(ListStatik l, ElType *max, ElType *min)
+// void extremeFoodId(ListStatik l, ElTypeList *max, ElTypeList *min)
 // /* I.S. List l tidak kosong */
 // /* F.S. Max berisi nilai terbesar dalam l;
 //         Min berisi nilai terkecil dalam l */
 // {   /* Kamus Lokal */
 //     int i = 1;
 //     /* Algoritma */
-//     *max = ELMT(l, 0);
-//     *min = ELMT(l, 0);
+//     *max = ELMTLIST(l, 0);
+//     *min = ELMTLIST(l, 0);
 //     for (i; i < listLength(l); i++) {
 //         if (IDX(l, i) > (*max).id) {
-//             *max = ELMT(l, i);
+//             *max = ELMTLIST(l, i);
 //         }
 //         if (IDX(l, i) < (*min).id) {
-//             *min = ELMT(l, i);
+//             *min = ELMTLIST(l, i);
 //         }
 //     }
 // }
 
-// void extremeFoodExp(ListStatik l, ElType *max, ElType *min)
+// void extremeFoodExp(ListStatik l, ElTypeList *max, ElTypeList *min)
 // /* I.S. List l tidak kosong */
 // /* F.S. Max berisi nilai terbesar dalam l;
 //         Min berisi nilai terkecil dalam l */
 // {   /* Kamus Lokal */
 //     int i = 1;
 //     /* Algoritma */
-//     *max = ELMT(l, 0);
-//     *min = ELMT(l, 0);
+//     *max = ELMTLIST(l, 0);
+//     *min = ELMTLIST(l, 0);
 //     for (i; i < listLength(l); i++) {
 //         if (TGT(EXP(l, i), (*max).expired)) {
-//             *max = ELMT(l, i);
+//             *max = ELMTLIST(l, i);
 //         }
 //         if (TLT(EXP(l, i), (*min).expired)) {
-//             *min = ELMT(l, i);
+//             *min = ELMTLIST(l, i);
 //         }
 //     }
 // }
 
-// void extremeFoodDlv(ListStatik l, ElType *max, ElType *min)
+// void extremeFoodDlv(ListStatik l, ElTypeList *max, ElTypeList *min)
 // /* I.S. List l tidak kosong */
 // /* F.S. Max berisi nilai terbesar dalam l;
 //         Min berisi nilai terkecil dalam l */
 // {   /* Kamus Lokal */
 //     int i = 1;
 //     /* Algoritma */
-//     *max = ELMT(l, 0);
-//     *min = ELMT(l, 0);
+//     *max = ELMTLIST(l, 0);
+//     *min = ELMTLIST(l, 0);
 //     for (i; i < listLength(l); i++) {
 //         if (TGT(DLV(l, i), (*max).delivery)) {
-//             *max = ELMT(l, i);
+//             *max = ELMTLIST(l, i);
 //         }
 //         if (TLT(DLV(l, i), (*min).delivery)) {
-//             *min = ELMT(l, i);
+//             *min = ELMTLIST(l, i);
 //         }
 //     }
 // }
 
 /* ********** MENAMBAH ELEMEN ********** */
 /* *** Menambahkan elemen terakhir *** */
-void insertFirst(ListStatik *l, ElType val)
+void insertFirst(ListStatik *l, ElTypeList val)
 /* Proses: Menambahkan val sebagai elemen pertama List */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen pertama l yang baru */
@@ -285,12 +297,12 @@ void insertFirst(ListStatik *l, ElType val)
     int i = getLastIdx(*l) + 1, firstIndex = 0;
     /* Algoritma */
     for (i; i > 0; i--) {
-        ELMT(*l, i) = ELMT(*l, i - 1);
+        ELMTLIST(*l, i) = ELMTLIST(*l, i - 1);
     }
-    ELMT(*l, 0) = val;
+    ELMTLIST(*l, 0) = val;
 }
 /* *** Menambahkan elemen pada index tertentu *** */
-void insertAt(ListStatik *l, ElType val, IdxType idx)
+void insertAt(ListStatik *l, ElTypeList val, IdxType idx)
 /* Proses: Menambahkan val sebagai elemen pada index idx List */
 /* I.S. List l tidak kosong dan tidak penuh, idx merupakan index yang valid di l */
 /* F.S. val adalah elemen yang disisipkan pada index idx l */
@@ -299,22 +311,33 @@ void insertAt(ListStatik *l, ElType val, IdxType idx)
     int i = getLastIdx(*l) + 1;
     /* Algoritma */    
     for (i; i > idx; i--) {
-        ELMT(*l, i) = ELMT(*l, i - 1);
+        ELMTLIST(*l, i) = ELMTLIST(*l, i - 1);
     }
-    ELMT(*l, idx) = val;
+    ELMTLIST(*l, idx) = val;
 }
-void insertLast(ListStatik *l, ElType val)
+void insertLast(ListStatik *l, ElTypeList val)
 /* Proses: Menambahkan val sebagai elemen terakhir List */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
 {   /* Kamus Lokal */
     /* Algoritma */
-    ELMT(*l, listLength(*l)) = val;
+    ELMTLIST(*l, listLength(*l)) = val;
+}
+
+void insertFood(ListStatik *l, Makanan val, int Idx) {
+    Item a;
+    a.itemInfo.m = val;
+    a.type = 1;
+    if (isEmpty(*l)) {
+        insertFirst(l, a);
+    } else if (isIdxEff(*l, Idx)) {
+        insertAt(l, a, Idx);
+    }
 }
 
 /* ********** MENGHAPUS ELEMEN ********** */
 /* *** Menghapus elemen pertama *** */
-void deleteFirst(ListStatik *l, ElType *val) 
+void deleteFirst(ListStatik *l, ElTypeList *val) 
 /* Proses : Menghapus elemen pertama List */
 /* I.S. List tidak kosong */
 /* F.S. val adalah nilai elemen pertama l sebelum penghapusan, */
@@ -323,14 +346,14 @@ void deleteFirst(ListStatik *l, ElType *val)
 {   /* Kamus Lokal */
     int i = 0, j = listLength(*l) - 1;
     /* Algoritma */
-    *val = ELMT(*l, 0);
+    *val = ELMTLIST(*l, 0);
     for (i; i < j; i++) {
-        ELMT(*l, i) = ELMT(*l, i + 1);
+        ELMTLIST(*l, i) = ELMTLIST(*l, i + 1);
     }
-    ELMT(*l, listLength(*l) - 1) = ItemMarkLS;
+    ELMTLIST(*l, listLength(*l) - 1) = ItemMarkLS;
 }
 /* *** Menghapus elemen pada index tertentu *** */
-void deleteAt(ListStatik *l, ElType *val, IdxType idx)
+void deleteAt(ListStatik *l, ElTypeList *val, IdxType idx)
 /* Proses : Menghapus elemen pada index idx List */
 /* I.S. List tidak kosong, idx adalah index yang valid di l */
 /* F.S. val adalah nilai elemen pada index idx l sebelum penghapusan, */
@@ -340,14 +363,14 @@ void deleteAt(ListStatik *l, ElType *val, IdxType idx)
 {   /* Kamus Lokal */
     int i = idx;
     /* Algoritma */
-    *val = ELMT(*l, idx);
-    ELMT(*l, idx) = ItemMarkLS;
+    *val = ELMTLIST(*l, idx);
+    ELMTLIST(*l, idx) = ItemMarkLS;
     for (i; i < listLength(*l) - 1; i++) {
-        ELMT(*l, i) = ELMT(*l, i + 1);
+        ELMTLIST(*l, i) = ELMTLIST(*l, i + 1);
     }
-    ELMT(*l, listLength(*l)) = ItemMarkLS;
+    ELMTLIST(*l, listLength(*l)) = ItemMarkLS;
 }
-void deleteLast(ListStatik *l, ElType *val)
+void deleteLast(ListStatik *l, ElTypeList *val)
 /* Proses : Menghapus elemen terakhir List */
 /* I.S. List tidak kosong */
 /* F.S. val adalah nilai elemen terakhir l sebelum penghapusan, */
@@ -355,8 +378,8 @@ void deleteLast(ListStatik *l, ElType *val)
 /*      List l mungkin menjadi kosong */
 {   /* Kamus Lokal */
     /* Algoritma */
-    *val = ELMT(*l, getLastIdx(*l));
-    ELMT(*l, getLastIdx(*l)) = ItemMarkLS;
+    *val = ELMTLIST(*l, getLastIdx(*l));
+    ELMTLIST(*l, getLastIdx(*l)) = ItemMarkLS;
 }
 
 // /* ********** SORTING ********** */
@@ -377,9 +400,9 @@ void deleteLast(ListStatik *l, ElType *val)
 //                     j = i + 1;
 //                     for (j; j <= getLastIdx(*l); j++) {
 //                         if (IDX(*l, i) > IDX(*l, j)) {
-//                             temp = ELMT(*l, i);
-//                             ELMT(*l, i) = ELMT(*l, j);
-//                             ELMT(*l, j) = temp;
+//                             temp = ELMTLIST(*l, i);
+//                             ELMTLIST(*l, i) = ELMTLIST(*l, j);
+//                             ELMTLIST(*l, j) = temp;
 //                         }
 //                     }
 //                 }
@@ -389,9 +412,9 @@ void deleteLast(ListStatik *l, ElType *val)
 //                     j = i + 1;
 //                     for (j; j <= getLastIdx(*l); j++) {
 //                         if (IDX(*l, i) < IDX(*l, j)) {
-//                             temp = ELMT(*l, i);
-//                             ELMT(*l, i) = ELMT(*l, j);
-//                             ELMT(*l, j) = temp;
+//                             temp = ELMTLIST(*l, i);
+//                             ELMTLIST(*l, i) = ELMTLIST(*l, j);
+//                             ELMTLIST(*l, j) = temp;
 //                         }
 //                     }
 //                 }
@@ -417,9 +440,9 @@ void deleteLast(ListStatik *l, ElType *val)
 //                     j = i + 1;
 //                     for (j; j <= getLastIdx(*l); j++) {
 //                         if (TGT(EXP(*l, i), EXP(*l, j))) {
-//                             temp = ELMT(*l, i);
-//                             ELMT(*l, i) = ELMT(*l, j);
-//                             ELMT(*l, j) = temp;
+//                             temp = ELMTLIST(*l, i);
+//                             ELMTLIST(*l, i) = ELMTLIST(*l, j);
+//                             ELMTLIST(*l, j) = temp;
 //                         }
 //                     }
 //                 }
@@ -429,9 +452,9 @@ void deleteLast(ListStatik *l, ElType *val)
 //                     j = i + 1;
 //                     for (j; j <= getLastIdx(*l); j++) {
 //                         if (TLT(EXP(*l, i), EXP(*l, j))) {
-//                             temp = ELMT(*l, i);
-//                             ELMT(*l, i) = ELMT(*l, j);
-//                             ELMT(*l, j) = temp;
+//                             temp = ELMTLIST(*l, i);
+//                             ELMTLIST(*l, i) = ELMTLIST(*l, j);
+//                             ELMTLIST(*l, j) = temp;
 //                         }
 //                     }
 //                 }
@@ -457,9 +480,9 @@ void deleteLast(ListStatik *l, ElType *val)
 //                     j = i + 1;
 //                     for (j; j <= getLastIdx(*l); j++) {
 //                         if (TGT(DLV(*l, i), DLV(*l, j))) {
-//                             temp = ELMT(*l, i);
-//                             ELMT(*l, i) = ELMT(*l, j);
-//                             ELMT(*l, j) = temp;
+//                             temp = ELMTLIST(*l, i);
+//                             ELMTLIST(*l, i) = ELMTLIST(*l, j);
+//                             ELMTLIST(*l, j) = temp;
 //                         }
 //                     }
 //                 }
@@ -469,9 +492,9 @@ void deleteLast(ListStatik *l, ElType *val)
 //                     j = i + 1;
 //                     for (j; j <= getLastIdx(*l); j++) {
 //                         if (TLT(DLV(*l, i), DLV(*l, j))) {
-//                             temp = ELMT(*l, i);
-//                             ELMT(*l, i) = ELMT(*l, j);
-//                             ELMT(*l, j) = temp;
+//                             temp = ELMTLIST(*l, i);
+//                             ELMTLIST(*l, i) = ELMTLIST(*l, j);
+//                             ELMTLIST(*l, j) = temp;
 //                         }
 //                     }
 //                 }
