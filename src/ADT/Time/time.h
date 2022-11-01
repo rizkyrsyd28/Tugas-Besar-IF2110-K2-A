@@ -7,7 +7,7 @@
 #include "../boolean.h"
 
 /* fungsi ADT TIME
-Digunakan untuk menyajikan waktu kadaluarsa suatu makanan 
+Digunakan untuk menyajikan waktu kadaluarsa suatu makanan
 Dan untuk waktu delivery makanan*/
 
 /* *** Definisi TYPE TIME <DD:MM:SS> *** */
@@ -71,5 +71,6 @@ boolean TEQ (TIME T1, TIME T2);
 boolean TNEQ (TIME T1, TIME T2);
 boolean TLT (TIME T1, TIME T2);
 boolean TGT (TIME T1, TIME T2);
+TIME roundToEvenHours(TIME T);
 
 #endif

@@ -21,17 +21,8 @@
 /* Nilai elemen tak terdefinisi*/
 
 /* Definisi elemen dan koleksi objek */
-typedef union info {
-   Makanan m;
-   NTree r;
-   int mark;
-} Info;
 typedef int IdxType;
-typedef struct item {
-   Info itemInfo;
-   int type;
-} Item;
-typedef Item ElTypeList;  /* type elemen List */
+typedef Makanan ElTypeList;  /* type elemen List */
 typedef struct {
    ElTypeList contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
 } ListStatik;
@@ -43,13 +34,14 @@ typedef struct {
 #define TYPE(l, i) ((l).contents[(i)]).type
 
 
+boolean timeEqual(TIME a, TIME b);
+
 boolean isMark(ElTypeList a);
 // Mengembalikan apakah ElTypeList a adalah mark
 boolean different(ElTypeList a, ElTypeList b);
 // Mengembalikan apakah ElTypeList a dan b berbeda
 
 Makanan getMakanan(ID id, ListStatik foods);
-TreeNode getResep(ID id, ListStatik recipes);
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */

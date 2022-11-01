@@ -171,3 +171,16 @@ boolean TGT (TIME T1, TIME T2) {
 }
 /* Mengirimkan true jika T1>T2, false jika tidak */
 /* *** Operator aritmatika TIME *** */
+
+TIME roundToEvenHours(TIME T) {
+	TIME a = T;
+	boolean isEven = (Hour(T) % 2 == 0);
+	if (Minute(a) == 30) {
+		if (!isEven) {
+			Hour(a)++;
+		}
+	} else if (Minute(a) > 30) {
+		Hour(a)++;
+	}
+	Minute(a) = 0;
+}

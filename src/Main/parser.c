@@ -21,6 +21,9 @@ ListStatik konfigMakanan (){
     ListStatik listMakanan;
     CreateListStatik(&listMakanan);
 
+    ListStatik listMakanan;
+    CreateListStatik(&listMakanan);
+
     Makanan Mkn;
     FILE *makananFile;
 
@@ -127,11 +130,9 @@ ListStatik konfigMakanan (){
             copyString(buffer, str(actMkn(Mkn)));
             len(actMkn(Mkn)) = lengthString(buffer);
         }
-        printMakanan(Mkn); printf("\n");
-        if (isEmpty(listMakanan)){
-            printf("test");
-        }
-        insertFood(&listMakanan, Mkn, i);
+
+        insertLast(&listMakanan, Mkn);
+        
     }
     fclose(makananFile);
     return listMakanan;

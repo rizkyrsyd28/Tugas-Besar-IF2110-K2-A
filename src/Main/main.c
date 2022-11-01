@@ -53,9 +53,7 @@ int main () {
 
     // Konfigurasi Makanan
     ListStatik listMakanan;
-    CreateListStatik(&listMakanan);
-    //listMakanan = konfigMakanan();
-    int listMakananLength = listLength(listMakanan);
+    listMakanan = konfigMakanan();
     printf("-> Konfigurasi Makanan - DONE\n");
 
     // Konfigurasi Peta
@@ -160,7 +158,6 @@ int main () {
             printf("===============         FRY          ===============\n");
             printf("====================================================\n");
 
-            printf("%d", listMakananLength);
         }
 
         
