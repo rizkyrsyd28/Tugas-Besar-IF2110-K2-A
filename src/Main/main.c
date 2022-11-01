@@ -56,8 +56,8 @@ int main () {
 
     // Konfigurasi Makanan
     ListStatik foodList;
-    int foodListLength = listLength(foodList);
     foodList = konfigMakanan();
+    int foodListLength = listLength(foodList);
     printf("-> Konfigurasi Makanan - DONE\n");
 
     // Konfigurasi Peta
