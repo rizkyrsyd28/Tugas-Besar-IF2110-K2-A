@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "../Time/time.c"
 
-Makanan Empty = {-1, {"Empty", 0}, {-1, -1, -1}, {"Empty", 0}, {-1, -1, -1}};
+// Makanan EmptyFood = {-1, {"Empty", 0}, {-1, -1, -1}, {"Empty", 0}, {-1, -1, -1}};
 
 // KONSTRUKTOR
 void CreateEmptyMakanan (Makanan *mkn){
