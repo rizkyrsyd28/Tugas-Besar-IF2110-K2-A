@@ -13,7 +13,7 @@ boolean different(ElType a, ElType b) {
     } else if (a.type == 1) {
         return (a.itemInfo.m.id != b.itemInfo.m.id);
     } else if (a.type == 2) {
-        return a.itemInfo.r.Id != b.itemInfo.r.Id;
+        return Parent(a.itemInfo.r) != Parent(b.itemInfo.r);
     } else {
         return false;
     }
