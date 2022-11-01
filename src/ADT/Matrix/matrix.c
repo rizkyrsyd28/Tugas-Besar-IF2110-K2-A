@@ -9,7 +9,7 @@ void createMatrix(int nRows, int nCols, Matrix *m) {
 	COL_EFF(*m) = nCols;
 	for (i = 0; i < nRows; i++) {
         for (j = 0; j < nCols; j++) {
-            ELMT(*m, i, j) = '*';
+            ELMTMAT(*m, i, j) = '*';
         }
     }
 }
@@ -44,7 +44,7 @@ void readMatrix(Matrix *m, int nRow, int nCol) {
 	createMatrix(nRow, nCol, m);
 	for (i = 0; i < nRow; i++) {
 		for (j = 0; j < nCol; j++) {
-			scanf("%c", &ELMT(*m, i, j));
+			scanf("%c", &ELMTMAT(*m, i, j));
 		}
 	}
 }
@@ -53,7 +53,7 @@ void displayMatrix(Matrix m) {
 	int i, j;
 	for (i = 0; i < ROW_EFF(m); i++) {
 		for (j = 0; j < COL_EFF(m); j++) {
-			printf("%c", ELMT(m, i, j));
+			printf("%c", ELMTMAT(m, i, j));
 			if (j != COL_EFF(m)-1) {
 				printf(" ");
 			}
@@ -61,8 +61,6 @@ void displayMatrix(Matrix m) {
 		printf("\n");
 	}
 }
-
-
 
 /* ********** KELOMPOK TEST TERHADAP Matrix ********** */
 boolean isSquare(Matrix m) {
@@ -75,7 +73,7 @@ boolean isSymmetric(Matrix m) {
 	if (isSquare(m)) {
 		for (i = 0; i < ROW_EFF(m); i++) {
 			for (j = 0; j < COL_EFF(m); j++) {
-				if (ELMT(m, i, j) != ELMT(m, j, i)) {
+				if (ELMTMAT(m, i, j) != ELMTMAT(m, j, i)) {
 					return false;
 				}
 			}
@@ -101,7 +99,7 @@ boolean isCan(Matrix m, int i, int j,char c)				//i dan j adalah posisi nilai ya
             Col = j - 1;
             while (Col <= j + 1 && !valid) {
                 if (isMatIdxEff(m, Row, Col)) {
-                    if (ELMT(m, Row, Col) ==  c) {
+                    if (ELMTMAT(m, Row, Col) ==  c) {
                         valid = true;
                     }
                     else {
@@ -116,7 +114,7 @@ boolean isCan(Matrix m, int i, int j,char c)				//i dan j adalah posisi nilai ya
         }
         else {
             if (isMatIdxEff(m, Row, j)) {
-                if (ELMT(m, Row, j) == c) {
+                if (ELMTMAT(m, Row, j) == c) {
                     valid = true;
                 }
                 else {
@@ -131,6 +129,22 @@ boolean isCan(Matrix m, int i, int j,char c)				//i dan j adalah posisi nilai ya
 
     return valid;
 	
+}
+
+boolean canSwap(Matrix m, POINT des){
+	return ELMTMAT(m, Ordinat(des), Absis(des)) == ' ';
+}
+
+void swapElmt(Matrix * m, POINT *src, POINT des){
+	if (canSwap(*m, des)){
+		char temp = ELMTMAT(*m, Ordinat(des), Absis(des));
+		ELMTMAT(*m, Ordinat(des), Absis(des)) = ELMTMAT(*m, Ordinat(*src), Absis(*src));
+		ELMTMAT(*m, Ordinat(*src), Absis(*src)) = temp;
+		*src = des;
+	}
+	else { 
+		printf("mentok\n");
+	}
 }
 
 //Disini misal mau ngecek bisa fry atau boil atau buy apapun itu caranya kalo perintah Buy maka harus ada program yang ngaish tau kalo perintah buy
