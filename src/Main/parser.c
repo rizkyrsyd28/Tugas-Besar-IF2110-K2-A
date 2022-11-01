@@ -16,8 +16,11 @@ void giveMark(char* str){
     str[lengthString(str)] = '.';
 }
 
-void konfigMakanan (){
+ListStatik konfigMakanan (){
     char *makananPath = "../TextFile/makanan.txt";
+
+    ListStatik listMakanan;
+    CreateListStatik(&listMakanan);
 
     Makanan Mkn;
     FILE *makananFile;
@@ -127,9 +130,11 @@ void konfigMakanan (){
             len(actMkn(Mkn)) = lengthString(buffer);
         }
 
-        printMakanan(Mkn); printf("\n");
+        insertLast(&listMakanan, Mkn);
+        
     }
     fclose(makananFile);
+    return listMakanan;
 }
 
 //Menampilkan ASCIIArt dibagian awal
