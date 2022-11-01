@@ -1,7 +1,7 @@
 #include "liststatik.h"
 #include <stdio.h>
 
-Makanan FoodMark = {-1, {"Empty", 0}, {-1, -1, -1}, {"Empty", 0}, {0, 0},{-1, -1, -1}};
+Makanan FoodMark = {-1, {"Empty", 0}, {-1, -1, -1}, {"Empty", 0}, {0, 0}, {-1, -1, -1}};
 
 boolean timeEqual(TIME a, TIME b) {
     return ((Day(a) == Day(b)) && (Minute(a) == Minute(b)) && (Hour(a) == Hour(b)));
@@ -110,77 +110,6 @@ boolean isFull(ListStatik l)
     return listLength(l) == CAPACITY;
 }
 
-/* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
-/* *** Mendefinisikan isi List dari pembacaan *** */
-// void readList(ListStatik *l)
-// /* I.S. l sembarang */
-// /* F.S. List l terdefinisi */
-// /* Proses: membaca banyaknya elemen l dan mengisi nilainya */
-// /* 1. Baca banyaknya elemen diakhiri enter, misalnya n */
-// /*    Pembacaan diulangi sampai didapat n yang benar yaitu 0 <= n <= CAPACITY */
-// /*    Jika n tidak valid, tidak diberikan pesan kesalahan */
-// /* 2. Jika 0 < n <= CAPACITY; Lakukan n kali:
-//           Baca elemen mulai dari indeks 0 satu per satu diakhiri enter */
-// /*    Jika n = 0; hanya terbentuk List kosong */
-// {
-//     /* Kamus Lokal */
-//     int idx, i = 0;
-//     /* Algoritma */
-//     CreateListStatik(l);
-//     do
-//     {
-//         scanf("%d", &idx);
-//     } while (idx < 0 || idx > CAPACITY);
-    
-//     for (i; i < idx; i++) {
-//         scanf("%d", &(ELMTLIST(*l, i)));
-//     }
-// }
-// void printList(ListStatik l)
-// /* Proses : Menuliskan isi List dengan traversal, List ditulis di antara kurung
-//    siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan
-//    karakter di depan, di tengah, atau di belakang, termasuk spasi dan enter */
-// /* I.S. l boleh kosong */
-// /* F.S. Jika l tidak kosong: [e1,e2,...,en] */
-// /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
-// /* Jika List kosong : menulis [] */
-// {
-//     /* Kamus Lokal */
-//     int i = 0;
-//     /* Algoritma */
-//     printf("[");
-//     for (i; isIdxEff(l, i); i++) {
-//         if (i != 0) {
-// 			printf(",");
-// 		}
-// 		printf("%d", ELMTLIST(l,i));
-//     }
-//     printf("]\n");
-// }
-
-// /* ********** OPERATOR ARITMATIKA ********** */
-// /* *** Aritmatika List : Penjumlahan, pengurangan, perkalian, ... *** */
-// ListStatik plusMinusList(ListStatik l1, ListStatik l2, boolean plus)
-// /* Prekondisi : l1 dan l2 berukuran sama dan tidak kosong */
-// /* Jika plus = true, mengirimkan  l1+l2, yaitu setiap elemen l1 dan l2 pada
-//        indeks yang sama dijumlahkan */
-// /* Jika plus = false, mengirimkan l1-l2, yaitu setiap elemen l1 dikurangi
-//        elemen l2 pada indeks yang sama */
-// {
-//     /* Kamus Lokal */
-//     int i = 0;
-//     ListStatik l;
-//     /* Algoritma */
-//     CreateListStatik(&l);
-//     for (i; i < listLength(l1); i++) {
-//         if (plus) {
-//             ELMTLIST(l, i) = ELMTLIST(l1, i) + ELMTLIST(l2, i);
-//         } else {
-//             ELMTLIST(l, i) = ELMTLIST(l1, i) - ELMTLIST(l2, i);
-//         }
-//     }
-//     return l;
-// }
 
 /* ********** OPERATOR RELASIONAL ********** */
 /* *** Operasi pembandingan List: *** */
@@ -223,64 +152,6 @@ int indexOf(ListStatik l, ElTypeList val)
     }
 }
 
-/* ********** NILAI EKSTREM ********** */
-// void extremeFoodId(ListStatik l, ElTypeList *max, ElTypeList *min)
-// /* I.S. List l tidak kosong */
-// /* F.S. Max berisi nilai terbesar dalam l;
-//         Min berisi nilai terkecil dalam l */
-// {   /* Kamus Lokal */
-//     int i = 1;
-//     /* Algoritma */
-//     *max = ELMTLIST(l, 0);
-//     *min = ELMTLIST(l, 0);
-//     for (i; i < listLength(l); i++) {
-//         if (IDX(l, i) > (*max).id) {
-//             *max = ELMTLIST(l, i);
-//         }
-//         if (IDX(l, i) < (*min).id) {
-//             *min = ELMTLIST(l, i);
-//         }
-//     }
-// }
-
-// void extremeFoodExp(ListStatik l, ElTypeList *max, ElTypeList *min)
-// /* I.S. List l tidak kosong */
-// /* F.S. Max berisi nilai terbesar dalam l;
-//         Min berisi nilai terkecil dalam l */
-// {   /* Kamus Lokal */
-//     int i = 1;
-//     /* Algoritma */
-//     *max = ELMTLIST(l, 0);
-//     *min = ELMTLIST(l, 0);
-//     for (i; i < listLength(l); i++) {
-//         if (TGT(EXP(l, i), (*max).expired)) {
-//             *max = ELMTLIST(l, i);
-//         }
-//         if (TLT(EXP(l, i), (*min).expired)) {
-//             *min = ELMTLIST(l, i);
-//         }
-//     }
-// }
-
-// void extremeFoodDlv(ListStatik l, ElTypeList *max, ElTypeList *min)
-// /* I.S. List l tidak kosong */
-// /* F.S. Max berisi nilai terbesar dalam l;
-//         Min berisi nilai terkecil dalam l */
-// {   /* Kamus Lokal */
-//     int i = 1;
-//     /* Algoritma */
-//     *max = ELMTLIST(l, 0);
-//     *min = ELMTLIST(l, 0);
-//     for (i; i < listLength(l); i++) {
-//         if (TGT(DLV(l, i), (*max).delivery)) {
-//             *max = ELMTLIST(l, i);
-//         }
-//         if (TLT(DLV(l, i), (*min).delivery)) {
-//             *min = ELMTLIST(l, i);
-//         }
-//     }
-// }
-
 /* ********** MENAMBAH ELEMEN ********** */
 /* *** Menambahkan elemen terakhir *** */
 void insertFirst(ListStatik *l, ElTypeList val)
@@ -322,16 +193,6 @@ void insertLast(ListStatik *l, ElTypeList val)
     }
 }
 
-// void insertFood(ListStatik *l, Makanan val, int Idx) {
-//     Item a;
-//     a.itemInfo.m = val;
-//     a.type = 1;
-//     if (isEmpty(*l)) {
-//         insertFirst(l, a);
-//     } else if (isIdxEff(*l, Idx)) {
-//         insertAt(l, a, Idx);
-//     }
-// }
 
 /* ********** MENGHAPUS ELEMEN ********** */
 /* *** Menghapus elemen pertama *** */
@@ -359,14 +220,14 @@ void deleteAt(ListStatik *l, ElTypeList *val, IdxType idx)
 /*      List l mungkin menjadi kosong */
 /* *** Menghapus elemen terakhir *** */
 {   /* Kamus Lokal */
-    int i = idx;
+    int i = idx, j = listLength(*l);
     /* Algoritma */
     *val = ELMTLIST(*l, idx);
     ELMTLIST(*l, idx) = FoodMark;
-    for (i; i < listLength(*l) - 1; i++) {
+    for (i; i < j - 1; i++) {
         ELMTLIST(*l, i) = ELMTLIST(*l, i + 1);
     }
-    ELMTLIST(*l, listLength(*l)) = FoodMark;
+    ELMTLIST(*l, j - 1) = FoodMark;
 }
 void deleteLast(ListStatik *l, ElTypeList *val)
 /* Proses : Menghapus elemen terakhir List */

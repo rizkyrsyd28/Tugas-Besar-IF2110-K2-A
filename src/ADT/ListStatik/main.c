@@ -5,8 +5,8 @@ int main() {
 
     ListStatik a;
     CreateListStatik(&a);
-    Makanan uwa = {19, {"MyFood", 6}, {23, 21, 9}, {"MyAction", 8}, {23, 21, 9}};
-    Makanan uwb = {19, {"MyFood", 6}, {23, 21, 9}, {"MyAction", 8}, {23, 21, 9}};
+    Makanan uwa = {19, {"MyFood", 6}, {23, 21, 9}, {"MyAction", 8}, {2, 2}, {23, 21, 9}};
+    Makanan uwb = {19, {"MyFood", 6}, {23, 21, 9}, {"MyAction", 8}, {3, 3}, {23, 21, 9}};
     Makanan trash;
 
     if (isEmpty(a)) {
@@ -14,9 +14,12 @@ int main() {
     }
 
     insertFirst(&a, uwa);
-    insertFirst(&a, uwb);
+    insertLast(&a, uwb);
+    insertAt(&a, uwb, 1);
     printf("%d\n", listLength(a));
     deleteFirst(&a, &trash);
+    printf("%d\n", listLength(a));
+    deleteAt(&a, &trash, 0);
     printf("%d\n", listLength(a));
 
     return 0;
