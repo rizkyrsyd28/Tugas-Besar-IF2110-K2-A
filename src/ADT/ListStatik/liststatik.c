@@ -325,6 +325,17 @@ void insertLast(ListStatik *l, ElType val)
     ELMT(*l, listLength(*l)) = val;
 }
 
+void insertFood(ListStatik *l, Makanan val, int Idx) {
+    Item a;
+    a.itemInfo.m = val;
+    a.type = 1;
+    if (isEmpty(*l)) {
+        insertFirst(l, a);
+    } else if (isIdxEff(*l, Idx)) {
+        insertAt(l, a, Idx);
+    }
+}
+
 /* ********** MENGHAPUS ELEMEN ********** */
 /* *** Menghapus elemen pertama *** */
 void deleteFirst(ListStatik *l, ElType *val) 
