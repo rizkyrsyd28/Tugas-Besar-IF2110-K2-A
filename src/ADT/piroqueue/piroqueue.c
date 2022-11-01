@@ -105,9 +105,9 @@ void PrintPrioQueueTime (PrioQueueTime Q){
                 printf("%d. ", nomor);
                 nomor+=1;
                 printWord(nameMkn(Elmt(Q, i)));
-                print(" - ");
+                printf(" - ");
                 TulisTIMEKadaluarsa(expMkn(Elmt(Q, i)));
-                printf('\n');
+                printf("\n");
                 // printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
             }
         }
@@ -116,17 +116,17 @@ void PrintPrioQueueTime (PrioQueueTime Q){
                 printf("%d. ", nomor);
                 nomor+=1;
                 printWord(nameMkn(Elmt(Q, i)));
-                print(" - ");
+                printf(" - ");
                 TulisTIMEKadaluarsa(expMkn(Elmt(Q, i)));
-                printf('\n');
+                printf("\n");
             }
             for (int i = 0; i <= Tail(Q); i++){
                 printf("%d. ", nomor);
                 nomor+=1;
                 printWord(nameMkn(Elmt(Q, i)));
-                print(" - ");
+                printf(" - ");
                 TulisTIMEKadaluarsa(expMkn(Elmt(Q, i)));
-                printf('\n');
+                printf("\n");
             }
         }
     }
@@ -171,4 +171,22 @@ void DequeueAt(PrioQueueTime *Q, Makanan M, Makanan *X){
 void printExp(PrioQueueTime Q, int idx) {
     TIME exp = roundToEvenHours(expMkn(Elmt(Q, idx)));
     printf("%d jam", Hour(exp));
+}
+
+void decrementNExp(PrioQueueTime *Q, int N) {
+    if (!IsEmptyQueue(*Q)) {
+        if (Tail(*Q) > Head(*Q)){
+            for (int i = Head(*Q); i <= Tail(*Q); i++){
+                expMkn(Elmt(*Q, i)) = PrevNMinute(expMkn(Elmt(*Q, i)), N);
+            }
+        }
+        else {
+            for(int i = Head(*Q); i < MaxEl(*Q); i++){
+                expMkn(Elmt(*Q, i)) = PrevNMinute(expMkn(Elmt(*Q, i)), N);
+            }
+            for (int i = 0; i <= Tail(*Q); i++){
+                expMkn(Elmt(*Q, i)) = PrevNMinute(expMkn(Elmt(*Q, i)), N);
+            }
+        }
+    }
 }

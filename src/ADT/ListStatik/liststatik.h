@@ -29,9 +29,6 @@ typedef struct {
 
 #define ELMTLIST(l, i) (l).contents[(i)]
 #define CONT(l, i) ((l).contents[(i)]).itemInfo
-#define GETFOOD(l, i) ELMTLIST(l,i).itemInfo.m
-#define GETRECIPE(l, i) ELMTLIST(l,i).itemInfo.r
-#define TYPE(l, i) ((l).contents[(i)]).type
 
 
 boolean timeEqual(TIME a, TIME b);

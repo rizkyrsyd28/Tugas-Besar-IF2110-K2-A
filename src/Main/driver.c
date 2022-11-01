@@ -4,7 +4,7 @@
 
 
 int main(){
-    konfigMap();
+    // konfigMap();
     //konfigMakanan();
     // ASCIIArt();
 
@@ -34,5 +34,5 @@ int main(){
 
 	displayMatrix(m);
 
-    return 0;
+    // return 0;
 }

@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../ADT/Makanan/makanan.c"
-//#include "../ADT/ListStatik/liststatik.c"
+#include "../ADT/ListStatik/liststatik.c"
 #include "../ADT/MesinKata/wordmachine.c"
 #include "../ADT/Matrix/matrix.c"
 #include "../ADT/Resep/resep.c"
@@ -16,8 +16,10 @@ void giveMark(char* str){
     str[lengthString(str)] = '.';
 }
 
-void konfigMakanan (){
+ListStatik konfigMakanan (){
     char *makananPath = "../TextFile/makanan.txt";
+    ListStatik listMakanan;
+    CreateListStatik(&listMakanan);
 
     Makanan Mkn;
     FILE *makananFile;
@@ -42,7 +44,6 @@ void konfigMakanan (){
         n = WordToInt(currentWord);
         ADVWORD(buffer, &idx);
     }
-    printf("%d\n", n);
 
     int i;
     int j;
@@ -50,6 +51,7 @@ void konfigMakanan (){
     int count;
     boolean check;
     int hour, day, minute;
+    int x, y;
     for (i = 0; i < n; i++){
         CreateEmptyMakanan(&Mkn);
 
@@ -114,22 +116,44 @@ void konfigMakanan (){
         Hour(dlvMkn(Mkn)) = hour;
         Minute(dlvMkn(Mkn)) = minute;
 
+        // =============== BACA SIZE ===============
+        fgets(buffer, bufferLength, makananFile);
+        giveMark(buffer);
+        count = 1;
+        STARTWORD(buffer, &idx);
+        while (!endWord){
+            if ( count == 1){
+                x = WordToInt(currentWord);
+                count++;
+            } else if (count == 2){
+                y = WordToInt(currentWord);
+                count++;
+            }
+            ADVWORD(buffer, &idx);
+        }
+        sizeMkn(Mkn).xSize = x;
+        sizeMkn(Mkn).ySize = y;
+
         // =============== BACA ACTION ===============
         if (i == n-1){
             // untuk paling terakhir, karakter trakhir dari string tidak ada '\n', jadi tidak perlu diubah.
             fgets(buffer, bufferLength, makananFile);
+            upper(buffer);
             copyString(buffer, str(actMkn(Mkn)));
             len(actMkn(Mkn)) = lengthString(buffer);
         } else {
             fgets(buffer, bufferLength, makananFile);
+            upper(buffer);
             buffer[lengthString(buffer)-1] = '\0';
             copyString(buffer, str(actMkn(Mkn)));
             len(actMkn(Mkn)) = lengthString(buffer);
         }
-
         printMakanan(Mkn); printf("\n");
+        insertLast(&listMakanan, Mkn);
+        
     }
     fclose(makananFile);
+    return listMakanan;
 }
 
 //Menampilkan ASCIIArt dibagian awal
