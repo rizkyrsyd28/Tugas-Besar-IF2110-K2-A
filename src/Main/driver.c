@@ -5,14 +5,14 @@
 
 int main(){
     // konfigMap();
-    konfigMakanan();
+    // konfigMakanan();
     // ASCIIArt();
 
-    // Cookbook cb = konfigResep();
+    Cookbook cb = konfigResep();
 
-    // for (int i = 0;  i < 6; i++){
-    //     printTree(Resep(cb, i), 2);
-    // }
+    for (int i = 0;  i < 6; i++){
+        printTree(Resep(cb, i), 2);
+    }
 
     return 0;
 }
