@@ -1,7 +1,7 @@
 #include "liststatik.h"
 #include <stdio.h>
 
-Makanan FoodMark = {-1, {"Empty", 0}, {-1, -1, -1}, {"Empty", 0}, {-1, -1, -1}};
+Makanan FoodMark = {-1, {"Empty", 0}, {-1, -1, -1}, {"Empty", 0}, {0, 0},{-1, -1, -1}};
 
 boolean timeEqual(TIME a, TIME b) {
     return ((Day(a) == Day(b)) && (Minute(a) == Minute(b)) && (Hour(a) == Hour(b)));

@@ -9,10 +9,16 @@
 #define MAKANAN_H
 
 typedef struct {
+    int xSize;
+    int ySize;
+} Size;
+
+typedef struct {
     int id;
     Word name;
     TIME expired;
     Word action;
+    Size area;
     TIME delivery;
 } Makanan;
 
@@ -21,6 +27,9 @@ typedef struct {
 #define nameMkn(M) (M).name
 #define expMkn(M) (M).expired
 #define actMkn(M) (M).action
+#define sizeMkn(M) (M).area
+#define xSizeMkn(M) (M).area.xSize
+#define ySizeMkn(M) (M).area.ySize
 #define dlvMkn(M) (M).delivery
 
 // KONSTRUKTOR
