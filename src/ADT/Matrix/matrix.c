@@ -9,7 +9,7 @@ void createMatrix(int nRows, int nCols, Matrix *m) {
 	COL_EFF(*m) = nCols;
 	for (i = 0; i < nRows; i++) {
         for (j = 0; j < nCols; j++) {
-            ELMT(*m, i, j) = '*';
+            ElmtMat(*m, i, j) = '*';
         }
     }
 }
@@ -44,7 +44,7 @@ void readMatrix(Matrix *m, int nRow, int nCol) {
 	createMatrix(nRow, nCol, m);
 	for (i = 0; i < nRow; i++) {
 		for (j = 0; j < nCol; j++) {
-			scanf("%c", &ELMT(*m, i, j));
+			scanf("%c", &ElmtMat(*m, i, j));
 		}
 	}
 }
@@ -53,7 +53,7 @@ void displayMatrix(Matrix m) {
 	int i, j;
 	for (i = 0; i < ROW_EFF(m); i++) {
 		for (j = 0; j < COL_EFF(m); j++) {
-			printf("%c", ELMT(m, i, j));
+			printf("%c", ElmtMat(m, i, j));
 			if (j != COL_EFF(m)-1) {
 				printf(" ");
 			}
@@ -75,7 +75,7 @@ boolean isSymmetric(Matrix m) {
 	if (isSquare(m)) {
 		for (i = 0; i < ROW_EFF(m); i++) {
 			for (j = 0; j < COL_EFF(m); j++) {
-				if (ELMT(m, i, j) != ELMT(m, j, i)) {
+				if (ElmtMat(m, i, j) != ElmtMat(m, j, i)) {
 					return false;
 				}
 			}
@@ -101,7 +101,7 @@ boolean isCan(Matrix m, int i, int j,char c)				//i dan j adalah posisi nilai ya
             Col = j - 1;
             while (Col <= j + 1 && !valid) {
                 if (isMatIdxEff(m, Row, Col)) {
-                    if (ELMT(m, Row, Col) ==  c) {
+                    if (ElmtMat(m, Row, Col) ==  c) {
                         valid = true;
                     }
                     else {
@@ -116,7 +116,7 @@ boolean isCan(Matrix m, int i, int j,char c)				//i dan j adalah posisi nilai ya
         }
         else {
             if (isMatIdxEff(m, Row, j)) {
-                if (ELMT(m, Row, j) == c) {
+                if (ElmtMat(m, Row, j) == c) {
                     valid = true;
                 }
                 else {

@@ -19,7 +19,7 @@ typedef struct
 /* *** Selektor *** */
 #define ROW_EFF(M) (M).rowEff
 #define COL_EFF(M) (M).colEff
-#define ELMT(M, i, j) (M).mem[(i)][(j)]
+#define ElmtMat(M, i, j) (M).mem[(i)][(j)]
 
 /* *** Konstruktor membentuk Matrix *** */
 void createMatrix(int nRows, int nCols, Matrix *m);

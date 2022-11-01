@@ -185,10 +185,10 @@ Matrix konfigMap(){
         while(!endWord){
             for (int j = 1; j < m + 1; j++){
                 if (currentWord.TabWord[j-1] == '#'){
-                    ELMT(Map, i, j) = ' ';
+                    ElmtMat(Map, i, j) = ' ';
                 }
                 else{
-                    ELMT(Map, i, j) = currentWord.TabWord[j-1];
+                    ElmtMat(Map, i, j) = currentWord.TabWord[j-1];
                 }
             }
             ADVWORD(buffer, &idx);
@@ -270,6 +270,6 @@ Cookbook konfigResep(){
     }
 
     NResep(C) = t;
-    Resep(C) = Trees;
+    Buku(C) = Trees;
     return C;
 }

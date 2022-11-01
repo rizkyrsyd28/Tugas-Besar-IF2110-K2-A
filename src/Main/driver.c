@@ -4,16 +4,15 @@
 
 
 int main(){
-    konfigMap();
+    // konfigMap();
     //konfigMakanan();
     // ASCIIArt();
 
-    // NTree * Trees = konfigResep(Trees);
+    Cookbook cb = konfigResep();
 
-    // for (int i = 0;  i < 4; i++){
-    //     printTree(Trees[i], 2);
-    //     printf("\nDepth : %d\n", depth(Trees[i]));
-    // }
+    for (int i = 0;  i < 6; i++){
+        printTree(Resep(cb, i), 2);
+    }
 
     return 0;
 }
