@@ -104,23 +104,33 @@ void PrintPrioQueueTime (PrioQueueTime Q){
             for (int i = Head(Q); i <= Tail(Q); i++){
                 printf("%d. ", nomor);
                 nomor+=1;
-                printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
+                printWord(nameMkn(Elmt(Q, i)));
+                print(" - ");
+                TulisTIMEKadaluarsa(expMkn(Elmt(Q, i)));
+                printf('\n');
+                // printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
             }
         }
         else {
             for(int i = Head(Q); i < MaxEl(Q); i++){
                 printf("%d. ", nomor);
                 nomor+=1;
-                printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
+                printWord(nameMkn(Elmt(Q, i)));
+                print(" - ");
+                TulisTIMEKadaluarsa(expMkn(Elmt(Q, i)));
+                printf('\n');
             }
             for (int i = 0; i <= Tail(Q); i++){
                 printf("%d. ", nomor);
                 nomor+=1;
-                printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
+                printWord(nameMkn(Elmt(Q, i)));
+                print(" - ");
+                TulisTIMEKadaluarsa(expMkn(Elmt(Q, i)));
+                printf('\n');
             }
         }
     }
-    printf("#\n");
+    printf("\n");
 }
 /* Mencetak isi queue Q ke layar */
 /* I.S. Q terdefinisi, mungkin kosong */
