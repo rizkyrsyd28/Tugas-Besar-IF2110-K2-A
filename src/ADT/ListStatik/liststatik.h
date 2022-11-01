@@ -23,7 +23,7 @@
 /* Definisi elemen dan koleksi objek */
 typedef union info {
    Makanan m;
-   TreeNode r;
+   NTree r;
    int mark;
 } Info;
 typedef int IdxType;
