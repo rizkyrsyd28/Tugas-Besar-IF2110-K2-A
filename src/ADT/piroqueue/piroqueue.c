@@ -172,3 +172,21 @@ void printExp(PrioQueueTime Q, int idx) {
     TIME exp = roundToEvenHours(expMkn(Elmt(Q, idx)));
     printf("%d jam", Hour(exp));
 }
+
+void decrementNExp(PrioQueueTime *Q, int N) {
+    if (!isEmptyQueue(*Q)) {
+        if (Tail(*Q) > Head(*Q)){
+            for (int i = Head(*Q); i <= Tail(*Q); i++){
+                expMkn(Elmt(*Q, i)) = PrevNMinute(expMkn(Elmt(*Q, i)), N);
+            }
+        }
+        else {
+            for(int i = Head(*Q); i < MaxEl(*Q); i++){
+                expMkn(Elmt(*Q, i)) = PrevNMinute(expMkn(Elmt(*Q, i)), N);
+            }
+            for (int i = 0; i <= Tail(*Q); i++){
+                expMkn(Elmt(*Q, i)) = PrevNMinute(expMkn(Elmt(*Q, i)), N);
+            }
+        }
+    }
+}

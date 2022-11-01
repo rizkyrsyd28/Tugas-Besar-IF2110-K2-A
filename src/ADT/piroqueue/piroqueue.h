@@ -85,4 +85,6 @@ void DequeueAt(PrioQueueTime *Q, Makanan M, Makanan *X);
 
 void printExp(PrioQueueTime Q, int idx);
 
+void decrementMin(PrioQueueTime *Q);
+
 #endif
