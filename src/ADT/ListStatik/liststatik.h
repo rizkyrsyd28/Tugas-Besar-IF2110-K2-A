@@ -44,7 +44,9 @@ typedef struct {
 
 
 boolean isMark(ElType a);
+// Mengembalikan apakah ElType a adalah mark
 boolean different(ElType a, ElType b);
+// Mengembalikan apakah ElType a dan b berbeda
 
 Makanan getMakanan(ID id, ListStatik foods);
 TreeNode getResep(ID id, ListStatik recipes);

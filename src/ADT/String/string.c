@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "string.h"
 
-void createEmpty(char* str){
+void createStringEmpty(char* str){
 // Membuat string (kembali) menjadi string kosong
     int length = lengthString(str);
     int i;

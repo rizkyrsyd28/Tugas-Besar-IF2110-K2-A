@@ -3,9 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../ADT/Makanan/makanan.c"
+//#include "../ADT/ListStatik/liststatik.c"
 #include "../ADT/MesinKata/wordmachine.c"
 #include "../ADT/Matrix/matrix.c"
-#include "../ADT/Tree/nTree.c"
+#include "../ADT/Resep/resep.c"
 #include "../ADT/boolean.h"
 
 void giveMark(char* str){
@@ -193,11 +194,13 @@ Matrix konfigMap(){
             ADVWORD(buffer, &idx);
         }
     }
-    displayMatrix(Map);
+    
+    //displayMatrix(Map);
     return Map;
 }
 
-NTree* konfigResep(){
+Cookbook konfigResep(){
+    Cookbook C;
     FILE * fResep;
     
     int bufferLength = 30;
@@ -266,6 +269,7 @@ NTree* konfigResep(){
         }
     }
 
-
-    return Trees;
+    NResep(C) = t;
+    Resep(C) = Trees;
+    return C;
 }
