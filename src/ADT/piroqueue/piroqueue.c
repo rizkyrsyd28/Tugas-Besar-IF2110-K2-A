@@ -2,17 +2,17 @@
 #include <stdio.h>
 
 /* ********* Prototype ********* */
-boolean IsEmpty (PrioQueueTime Q){
+boolean IsEmptyQueue (PrioQueueTime Q){
     return (Head(Q) == Nil && Tail(Q) == Nil);
 }
 /* Mengirim true jika Q kosong: lihat definisi di atas */
-boolean IsFull (PrioQueueTime Q){
+boolean IsFullQueue (PrioQueueTime Q){
     return (NBElmt(Q) == MaxEl(Q));
 }
 /* Mengirim true jika tabel penampung elemen Q sudah penuh */
 /* yaitu mengandung elemen sebanyak MaxEl */
 int NBElmt (PrioQueueTime Q){
-    if(IsEmpty(Q)){
+    if(IsEmptyQueue(Q)){
         return 0;
     }
     else{
@@ -25,7 +25,7 @@ int NBElmt (PrioQueueTime Q){
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
 
 /* *** Kreator *** */
-void MakeEmpty (PrioQueueTime * Q, int Max){
+void MakeEmptyQueue (PrioQueueTime * Q, int Max){
     MaxEl(*Q) = Max;
     (*Q).T = (Makanan *) malloc (Max * sizeof(Makanan));
     Head(*Q) = Nil;
@@ -48,7 +48,7 @@ void DeAlokasi(PrioQueueTime * Q){
 
 /* *** Primitif Add/Delete *** */
 void Enqueue (PrioQueueTime * Q, Makanan M){
-    if (IsEmpty(*Q)){
+    if (IsEmptyQueue(*Q)){
         Head(*Q) = 0;
         Tail(*Q) = 0;
         InfoTail(*Q) = M;
@@ -97,7 +97,7 @@ void Dequeue (PrioQueueTime * Q, Makanan * X){
 
 /* Operasi Tambahan */
 void PrintPrioQueueTime (PrioQueueTime Q){
-    if (!IsEmpty(Q))
+    if (!IsEmptyQueue(Q))
     {
         int nomor = 1;
         if (Tail(Q) > Head(Q)){
