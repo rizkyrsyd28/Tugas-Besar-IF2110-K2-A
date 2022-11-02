@@ -85,6 +85,7 @@ int main () {
     int i;
     int count;
     boolean subprogram = false;
+    int idxFood;
 
 
     // =========== PENJALANAN PROGRAM UTAMA ===========
@@ -206,8 +207,9 @@ int main () {
                         validAction = false; // Karena tidak melakukan apa-apa
                     } else {
                         // Inputnya telah sesuai dengan penomoran 
-                        // Algoritma untuk pelaksanaan pengolahan
-                        printf("test\n");
+                        // Mencari idx makanan pada list makanan sesuai penomoran input user
+                        idxFood = searchIndexOlahMakanan(foodList, "BUY", WordToInt(currentWord));
+                        printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
                     }
                 }
             }
@@ -263,8 +265,9 @@ int main () {
                         validAction = false; // Karena tidak melakukan apa-apa
                     } else {
                         // Inputnya telah sesuai dengan penomoran 
-                        // Algoritma untuk pelaksanaan pengolahan
-                        printf("test\n");
+                        // Mencari idx makanan pada list makanan sesuai penomoran input user
+                        idxFood = searchIndexOlahMakanan(foodList, "MIX", WordToInt(currentWord));
+                        printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
                     }
                 }
             }
@@ -319,8 +322,9 @@ int main () {
                         validAction = false; // Karena tidak melakukan apa-apa
                     } else {
                         // Inputnya telah sesuai dengan penomoran 
-                        // Algoritma untuk pelaksanaan pengolahan
-                        printf("test\n");
+                        // Mencari idx makanan pada list makanan sesuai penomoran input user
+                        idxFood = searchIndexOlahMakanan(foodList, "CHOP", WordToInt(currentWord));
+                        printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
                     }
                 }
             }
@@ -376,8 +380,9 @@ int main () {
                         validAction = false; // Karena tidak melakukan apa-apa
                     } else {
                         // Inputnya telah sesuai dengan penomoran 
-                        // Algoritma untuk pelaksanaan pengolahan
-                        printf("test\n");
+                        // Mencari idx makanan pada list makanan sesuai penomoran input user
+                        idxFood = searchIndexOlahMakanan(foodList, "FRY", WordToInt(currentWord));
+                        printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
                     }
                 }
             }
@@ -432,8 +437,9 @@ int main () {
                         validAction = false; // Karena tidak melakukan apa-apa
                     } else {
                         // Inputnya telah sesuai dengan penomoran 
-                        // Algoritma untuk pelaksanaan pengolahan
-                        printf("test\n");
+                        // Mencari idx makanan pada list makanan sesuai penomoran input user
+                        idxFood = searchIndexOlahMakanan(foodList, "BOIL", WordToInt(currentWord));
+                        printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
                     }
                 }
             }
@@ -588,7 +594,41 @@ int main () {
             printf("WAIT (x) (y)    - Mempercepat time selama x jam dan y menit\n");
             printf("UNDO            - Mengembalikan kondisi sebelum terlaksananya action terakhir\n");
             printf("REDO            - Melakukan kembali action yang telah di-undo\n");
+            printf("FRIDGE SHOW     - Menampilkan isi kulkas\n");
+            printf("FRIDGE TAKE     - Mengambil isi kulkas\n");
             validAction = false; // Action ini tidak menghabiskan waktu
+        }
+        else if (isWordStringEqual(currentWord, "FRIDGE")){
+            printf("====================================================\n");
+            printf("===============        FRIDGE        ===============\n");
+            printf("====================================================\n");
+
+            while (!endWord){ 
+                ADVWORD(command, &idx);
+            }
+
+            if (!isCan(map, Absis(Lokasi(sim)), Ordinat(Lokasi(sim)), 'K')){
+                printf("Simulator tidak bersebelahan dengan tempat FRIDGE.\n");
+                printf("Pastikan Simulator berada di sebelah petak 'K'\n");
+                validAction = false;
+            }
+            else {
+                if (isWordStringEqual(currentWord, "SHOW")){
+                    validAction = false; // Melihat isi kulkas tidak membuang waktu
+                    printf("SHOW\n");
+                }
+                else if (isWordStringEqual(currentWord, "TAKE")){
+                    printf("TAKE\n");
+                } 
+                else if (isWordStringEqual(currentWord, "PUT")){
+                    printf("PUT\n");
+                } else {
+                    printf("Input selain 'SHOW', 'TAKE', dan 'PUT' tidak diterima.\n");
+                    validAction = false; // Invalid Input
+                }
+            }
+
+
         }
 
         else {

@@ -168,12 +168,8 @@ void deleteLast(ListStatik *l, ElTypeList *val);
 /*      Banyaknya elemen List berkurang satu */
 /*      List l mungkin menjadi kosong */
 
-/* ********** SORTING ********** */
-// void sortList(ListStatik *l, boolean asc);
-/* I.S. l boleh kosong */
-/* F.S. Jika asc = true, l terurut membesar */
-/*      Jika asc = false, l terurut mengecil */
-/* Proses : Mengurutkan l dengan salah satu algoritma sorting,
-   algoritma bebas */
+int searchIndexOlahMakanan(ListStatik l, char* command, int count);
+/* Mengembalikan index dari makanan pada list makanan sesuai yang dibutuhkan oleh fungsi pengolahan makanan
+    Fungsi yang dimaksud adalah Buy, Mix, Chop, Fry, dan Boil */
 
 #endif
