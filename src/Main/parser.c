@@ -148,7 +148,6 @@ ListStatik konfigMakanan (){
             copyString(buffer, str(actMkn(Mkn)));
             len(actMkn(Mkn)) = lengthString(buffer);
         }
-        printMakanan(Mkn); printf("\n");
         insertLast(&listMakanan, Mkn);
         
     }
