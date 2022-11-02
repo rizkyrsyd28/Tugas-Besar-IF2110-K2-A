@@ -58,6 +58,11 @@ int main () {
     foodList = konfigMakanan();
     int foodListLength = listLength(foodList);
     printf("-> Konfigurasi Makanan - DONE\n");
+    
+    // Konfigurasi Resep
+    Cookbook bukuResep;
+    bukuResep = konfigResep();
+    printf("-> Konfigurasi Resep - DONE\n");
 
     // Konfigurasi Peta
     Matrix map;
@@ -378,6 +383,10 @@ int main () {
             printf("===============       COOKBOOK       ===============\n");
             printf("====================================================\n");
             validAction = false; // Action ini tidak menghabiskan waktu
+			printf("List Resep");
+			printf("\n");
+			printf("(aksi yang diperlukan - bahan...)\n");
+            printResep(bukuResep, foodList);
         }
 
         else if (isWordStringEqual(currentWord, "INVENTORY")){
