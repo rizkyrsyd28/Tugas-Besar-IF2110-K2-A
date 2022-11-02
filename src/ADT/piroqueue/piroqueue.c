@@ -1,5 +1,6 @@
 #include "piroqueue.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 /* ********* Prototype ********* */
 boolean IsEmptyQueue (PrioQueueTime Q){

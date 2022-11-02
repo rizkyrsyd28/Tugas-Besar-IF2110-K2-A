@@ -13,9 +13,10 @@ typedef struct {
 
 /*** SELEKTOR ***/
 #define NResep(c) (c).NResep /* selektor jumlah resep */
-#define Resep(c) (c).Resep  /* selektor list resep */
+#define Buku(c) (c).Resep  /* selektor list resep */
+#define Resep(c,i) (c).Resep[i] /* selektor element list resep */
 
-boolean canMake(Makanan mkn, PrioQueueTime pq);
+boolean canMake(ID Id, PrioQueueTime pq);
 /* Mengirim True jika semua bahan yang diperlukan untuk membuat suatu resep tersedia di inventory*/
 
 void printResep(Cookbook cb, ListStatik foods);

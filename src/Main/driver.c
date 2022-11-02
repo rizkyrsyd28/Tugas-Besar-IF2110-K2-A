@@ -8,7 +8,7 @@ int main(){
     //konfigMakanan();
     // ASCIIArt();
 
-    // NTree * Trees = konfigResep(Trees);
+    Cookbook cb = konfigResep();
 
     // for (int i = 0;  i < 4; i++){
     //     printTree(Trees[i], 2);
