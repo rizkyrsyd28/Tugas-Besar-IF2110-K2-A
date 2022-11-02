@@ -88,46 +88,68 @@ boolean isSymmetric(Matrix m) {
 /*								--------------------------------ADT TAMBAHAN UNTUK PROSES MOVE DLL ITU---------------------------------------------------				*/
 boolean isCan(Matrix m, int i, int j,char c)				//i dan j adalah posisi nilai yang kita ingin cek	
 {
-	//Mengirimkan true jika S ada di sekitar T dimana T untuk telepon
-	int Row = i - 1;
-	int Col;
-    boolean valid = false;
+	// Cari dahulu char C ada di petak apa
+	int x, y, row, col;
+	for (x = 0; x < ROW_EFF(m); x++){
+		for (y = 0; y < COL_EFF(m); y++){
+			if (ELMTMAT(m, x, y) == c){
+				// Ditukar karena baris adalah sumbu y dan kolom adalah sumbu x
+				row = y;
+				col = x;
+			}
+		}
+	}
 
-    /* Algoritma */
-    while (Row <= i+1 && !valid) {
-        if (Row == i) {
-            Col = j - 1;
-            while (Col <= j + 1 && !valid) {
-                if (isMatIdxEff(m, Row, Col)) {
-                    if (ELMTMAT(m, Row, Col) ==  c) {
-                        valid = true;
-                    }
-                    else {
-                        Col++;
-                    }
-                }
-                else {
-                   Col++;
-                }
-            }
-            Row++;
-        }
-        else {
-            if (isMatIdxEff(m, Row, j)) {
-                if (ELMTMAT(m, Row, j) == c) {
-                    valid = true;
-                }
-                else {
-                    Row++;
-                }
-            }
-            else {
-                Row++;
-            }
-        }
-    }
+	// Cek apakah bersebelahan
+	if (i == row){
+		return (j == col-1 || j == col+1);
+	} else if (j == col){
+		return (i == row-1 || i == row+1);
+	} else {
+		return false;
+	}
 
-    return valid;
+
+	// //Mengirimkan true jika S ada di sekitar T dimana T untuk telepon
+	// int Row = i - 1;
+	// int Col;
+    // boolean valid = false;
+
+    // /* Algoritma */
+    // while (Row <= i+1 && !valid) {
+    //     if (Row == i) {
+    //         Col = j - 1;
+    //         while (Col <= j + 1 && !valid) {
+    //             if (isMatIdxEff(m, Row, Col)) {
+    //                 if (ELMTMAT(m, Row, Col) ==  c) {
+    //                     valid = true;
+    //                 }
+    //                 else {
+    //                     Col++;
+    //                 }
+    //             }
+    //             else {
+    //                Col++;
+    //             }
+    //         }
+    //         Row++;
+    //     }
+    //     else {
+    //         if (isMatIdxEff(m, Row, j)) {
+    //             if (ELMTMAT(m, Row, j) == c) {
+    //                 valid = true;
+    //             }
+    //             else {
+    //                 Row++;
+    //             }
+    //         }
+    //         else {
+    //             Row++;
+    //         }
+    //     }
+    // }
+
+    // return valid;
 	
 }
 
@@ -143,7 +165,7 @@ void swapElmt(Matrix * m, POINT *src, POINT des){
 		*src = des;
 	}
 	else { 
-		printf("mentok\n");
+		printf("Simulator tidak bisa masuk ke petak tersebut.\n");
 	}
 }
 
