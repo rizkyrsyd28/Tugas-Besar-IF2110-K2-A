@@ -13,7 +13,7 @@
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk POINT *** */
-void CreatePoint (POINT * P, float X, float Y){
+void CreatePoint (POINT * P, int X, int Y){
 /* Membentuk sebuah POINT dari komponen-komponennya */
     Absis(*P) = X;
     Ordinat(*P) = Y;
@@ -26,10 +26,10 @@ void BacaPOINT (POINT * P){
 /* F.S. P terdefinisi */
     
     // KAMUS 
-    float X, Y;
+    int X, Y;
 
     //ALGORITMA
-    scanf("%f %f", &X, &Y);
+    scanf("%d %d", &X, &Y);
     CreatePoint(P, X, Y); ////
 }
 
@@ -43,7 +43,7 @@ void TulisPOINT (POINT P){
 /* F.S. P tertulis di layar dengan format "(X,Y)" */                
 
     // ALGORTIMA
-    printf("(%.2f,%.2f)", Absis(P), Ordinat(P));
+    printf("(%d, %d)\n", Absis(P), Ordinat(P));
 }
 
 /* *** Kelompok operasi relasional terhadap POINT *** */
@@ -92,7 +92,7 @@ POINT NextX (POINT P){
 /* Mengirim salinan P dengan absis ditambah satu */              
     
     // ALGORTIMA
-    Absis(P) += 1;
+    Absis(P)++;
 
     return P;
 }
@@ -100,11 +100,29 @@ POINT NextY (POINT P){
 /* Mengirim salinan P dengan ordinat ditambah satu */
     
     // ALGORITMA
-    Ordinat(P) += 1;
+    Ordinat(P)--;
 
     return P;
 }
-POINT PlusDelta (POINT P, float deltaX, float deltaY){
+
+POINT BackX (POINT P){
+/* Mengirim salinan P dengan absis ditambah satu */              
+    
+    // ALGORTIMA
+    Absis(P)--;
+
+    return P;
+}
+POINT BackY (POINT P){
+/* Mengirim salinan P dengan ordinat ditambah satu */
+    
+    // ALGORITMA
+    Ordinat(P)++;
+
+    return P;
+}
+
+POINT PlusDelta (POINT P, int deltaX, int deltaY){
 /* Mengirim salinan P yang absisnya adalah Absis(P) + deltaX dan ordinatnya adalah Ordinat(P) + deltaY */
 
     // ALGORTIMA
@@ -129,19 +147,8 @@ POINT MirrorOf (POINT P, boolean SbX){
 
     return P;
 }
-float Jarak0 (POINT P){
-/* Menghitung jarak P ke (0,0) */
-    // ALGORITMA
-    return sqrt(pow(Absis(P), 2) + pow(Ordinat(P) ,2));
-}
-float Panjang (POINT P1, POINT P2){
-/* Menghitung panjang garis yang dibentuk P1 dan P2 */
-/* Perhatikanlah bahwa di sini spec fungsi kurang baik sebab menyangkut ADT Garis. */
-/* Tuliskan spec fungsi yang lebih tepat. */
-    return sqrt(pow(Absis(P1) - Absis(P2), 2) + 
-                pow(Ordinat(P1) - Ordinat(P2) ,2));
-}
-void Geser (POINT *P, float deltaX, float deltaY){
+
+void Geser (POINT *P, int deltaX, int deltaY){
 /* I.S. P terdefinisi */
 /* F.S. P digeser, absisnya sebesar deltaX dan ordinatnya sebesar deltaY */
     // ALGORITMA
@@ -176,16 +183,4 @@ void Mirror (POINT *P, boolean SbX){
     }
 /* Jika SbX true maka dicerminkan terhadap sumbu X */
 /* Jika SbX false maka dicerminkan terhadap sumbu Y */
-}
-void Putar (POINT *P, float Sudut){
-/* I.S. P terdefinisi */
-/* F.S. P digeser sebesar Sudut derajat dengan sumbu titik (0,0) */
-    // KAMUS 
-    float tempAbs = Absis(*P); 
-
-    // ALGORITMA
-    Sudut = (-1) * Sudut * (PI/180.0);
-
-    Absis(*P) = Absis(*P) * cosf(Sudut) - Ordinat(*P) * sinf(Sudut);
-    Ordinat(*P) = tempAbs * sinf(Sudut) + Ordinat(*P) * cosf(Sudut);    
 }

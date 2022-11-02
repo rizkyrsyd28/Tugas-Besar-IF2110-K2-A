@@ -148,7 +148,7 @@ ListStatik konfigMakanan (){
             copyString(buffer, str(actMkn(Mkn)));
             len(actMkn(Mkn)) = lengthString(buffer);
         }
-        printMakanan(Mkn); printf("\n");
+        // printMakanan(Mkn); printf("\n"); // Line ini hanya dijalankan untuk mengecek
         insertLast(&listMakanan, Mkn);
         
     }
@@ -210,10 +210,10 @@ Matrix konfigMap(){
         while(!endWord){
             for (int j = 1; j < m + 1; j++){
                 if (currentWord.TabWord[j-1] == '#'){
-                    ELMT(Map, i, j) = ' ';
+                    ELMTMAT(Map, i, j) = ' ';
                 }
                 else{
-                    ELMT(Map, i, j) = currentWord.TabWord[j-1];
+                    ELMTMAT(Map, i, j) = currentWord.TabWord[j-1];
                 }
             }
             ADVWORD(buffer, &idx);
@@ -295,6 +295,6 @@ Cookbook konfigResep(){
     }
 
     NResep(C) = t;
-    Resep(C) = Trees;
+    Resep(C) = Trees; 
     return C;
 }

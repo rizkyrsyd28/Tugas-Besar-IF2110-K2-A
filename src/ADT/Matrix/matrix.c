@@ -9,7 +9,7 @@ void createMatrix(int nRows, int nCols, Matrix *m) {
 	COL_EFF(*m) = nCols;
 	for (i = 0; i < nRows; i++) {
         for (j = 0; j < nCols; j++) {
-            ELMT(*m, i, j) = '*';
+            ELMTMAT(*m, i, j) = '*';
         }
     }
 }
@@ -44,7 +44,7 @@ void readMatrix(Matrix *m, int nRow, int nCol) {
 	createMatrix(nRow, nCol, m);
 	for (i = 0; i < nRow; i++) {
 		for (j = 0; j < nCol; j++) {
-			scanf("%c", &ELMT(*m, i, j));
+			scanf("%c", &ELMTMAT(*m, i, j));
 		}
 	}
 }
@@ -53,7 +53,7 @@ void displayMatrix(Matrix m) {
 	int i, j;
 	for (i = 0; i < ROW_EFF(m); i++) {
 		for (j = 0; j < COL_EFF(m); j++) {
-			printf("%c", ELMT(m, i, j));
+			printf("%c", ELMTMAT(m, i, j));
 			if (j != COL_EFF(m)-1) {
 				printf(" ");
 			}
@@ -61,8 +61,6 @@ void displayMatrix(Matrix m) {
 		printf("\n");
 	}
 }
-
-
 
 /* ********** KELOMPOK TEST TERHADAP Matrix ********** */
 boolean isSquare(Matrix m) {
@@ -75,7 +73,7 @@ boolean isSymmetric(Matrix m) {
 	if (isSquare(m)) {
 		for (i = 0; i < ROW_EFF(m); i++) {
 			for (j = 0; j < COL_EFF(m); j++) {
-				if (ELMT(m, i, j) != ELMT(m, j, i)) {
+				if (ELMTMAT(m, i, j) != ELMTMAT(m, j, i)) {
 					return false;
 				}
 			}
@@ -90,47 +88,85 @@ boolean isSymmetric(Matrix m) {
 /*								--------------------------------ADT TAMBAHAN UNTUK PROSES MOVE DLL ITU---------------------------------------------------				*/
 boolean isCan(Matrix m, int i, int j,char c)				//i dan j adalah posisi nilai yang kita ingin cek	
 {
-	//Mengirimkan true jika S ada di sekitar T dimana T untuk telepon
-	int Row = i - 1;
-	int Col;
-    boolean valid = false;
+	// Cari dahulu char C ada di petak apa
+	int x, y, row, col;
+	for (x = 0; x < ROW_EFF(m); x++){
+		for (y = 0; y < COL_EFF(m); y++){
+			if (ELMTMAT(m, x, y) == c){
+				// Ditukar karena baris adalah sumbu y dan kolom adalah sumbu x
+				row = y;
+				col = x;
+			}
+		}
+	}
 
-    /* Algoritma */
-    while (Row <= i+1 && !valid) {
-        if (Row == i) {
-            Col = j - 1;
-            while (Col <= j + 1 && !valid) {
-                if (isMatIdxEff(m, Row, Col)) {
-                    if (ELMT(m, Row, Col) ==  c) {
-                        valid = true;
-                    }
-                    else {
-                        Col++;
-                    }
-                }
-                else {
-                   Col++;
-                }
-            }
-            Row++;
-        }
-        else {
-            if (isMatIdxEff(m, Row, j)) {
-                if (ELMT(m, Row, j) == c) {
-                    valid = true;
-                }
-                else {
-                    Row++;
-                }
-            }
-            else {
-                Row++;
-            }
-        }
-    }
+	// Cek apakah bersebelahan
+	if (i == row){
+		return (j == col-1 || j == col+1);
+	} else if (j == col){
+		return (i == row-1 || i == row+1);
+	} else {
+		return false;
+	}
 
-    return valid;
+
+	// //Mengirimkan true jika S ada di sekitar T dimana T untuk telepon
+	// int Row = i - 1;
+	// int Col;
+    // boolean valid = false;
+
+    // /* Algoritma */
+    // while (Row <= i+1 && !valid) {
+    //     if (Row == i) {
+    //         Col = j - 1;
+    //         while (Col <= j + 1 && !valid) {
+    //             if (isMatIdxEff(m, Row, Col)) {
+    //                 if (ELMTMAT(m, Row, Col) ==  c) {
+    //                     valid = true;
+    //                 }
+    //                 else {
+    //                     Col++;
+    //                 }
+    //             }
+    //             else {
+    //                Col++;
+    //             }
+    //         }
+    //         Row++;
+    //     }
+    //     else {
+    //         if (isMatIdxEff(m, Row, j)) {
+    //             if (ELMTMAT(m, Row, j) == c) {
+    //                 valid = true;
+    //             }
+    //             else {
+    //                 Row++;
+    //             }
+    //         }
+    //         else {
+    //             Row++;
+    //         }
+    //     }
+    // }
+
+    // return valid;
 	
+}
+
+boolean canSwap(Matrix m, POINT des){
+	return ELMTMAT(m, Ordinat(des), Absis(des)) == ' ';
+}
+
+void swapElmt(Matrix * m, POINT *src, POINT des){
+	if (canSwap(*m, des)){
+		char temp = ELMTMAT(*m, Ordinat(des), Absis(des));
+		ELMTMAT(*m, Ordinat(des), Absis(des)) = ELMTMAT(*m, Ordinat(*src), Absis(*src));
+		ELMTMAT(*m, Ordinat(*src), Absis(*src)) = temp;
+		*src = des;
+	}
+	else { 
+		printf("Simulator tidak bisa masuk ke petak tersebut.\n");
+	}
 }
 
 //Disini misal mau ngecek bisa fry atau boil atau buy apapun itu caranya kalo perintah Buy maka harus ada program yang ngaish tau kalo perintah buy
