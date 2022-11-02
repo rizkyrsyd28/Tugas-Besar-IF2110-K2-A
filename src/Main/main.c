@@ -358,9 +358,14 @@ int main () {
             printf("===============       CATALOG        ===============\n");
             printf("====================================================\n");
             validAction = false; // Action ini tidak menghabiskan waktu
-
-            for (i = 0; i < foodListLength; i++){
-                printMakanan(ELMTLIST(foodList, i));
+			//Note : Aku bikin fungsi baru printCatalog di makanan.c
+			printf("List Makanan");
+			printf("\n");
+			printf("(nama - durasi kedaluwarsa - aksi yang diperlukan - delivery time)");
+			printf("\n");
+			for (i = 0; i < foodListLength; i++){
+            	printf("%d. ",i+1);
+                printCatalog(ELMTLIST(foodList, i));
                 printf("\n");
             }
 

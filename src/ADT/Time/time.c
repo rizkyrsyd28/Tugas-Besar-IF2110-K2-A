@@ -36,11 +36,11 @@ void BacaTIME (TIME * T) {
 void TulisTIMEKadaluarsa (TIME T) {
 	if(Day(T) != 0 && Hour(T) != 0 && Minute(T) != 0)
 	{
-		printf("%d hari, %d jam, %d menit", Day(T), Hour(T), Minute(T));
+		printf("%d hari %d jam %d menit", Day(T), Hour(T), Minute(T));
 	}
 	else if(Day(T) == 0 && Hour(T) != 0 && Minute(T) != 0)
 	{
-		printf("%d jam, %d menit", Hour(T), Minute(T));
+		printf("%d jam %d menit", Hour(T), Minute(T));
 	}
 	else if(Day(T) == 0 && Hour(T) == 0 && Minute(T) != 0)
 	{
@@ -48,7 +48,7 @@ void TulisTIMEKadaluarsa (TIME T) {
 	}
 	else if(Day(T) != 0 && Hour(T) == 0 && Minute(T) != 0)
 	{
-		printf("%d hari,%d menit", Day(T),Minute(T));
+		printf("%d hari %d menit", Day(T),Minute(T));
 	}
 	else if(Day(T) == 0 && Hour(T) != 0 && Minute(T) == 0)
 	{
@@ -60,11 +60,11 @@ void TulisTIMEKadaluarsa (TIME T) {
 	}
 	else if(Day(T) != 0 && Hour(T) != 0 && Minute(T) == 0)
 	{
-		printf("%d hari, %d jam", Day(T), Hour(T), Minute(T));
+		printf("%d hari %d jam", Day(T), Hour(T), Minute(T));
 	}
 	else if(Day(T) == 0 && Hour(T) == 0 && Minute(T) == 0)
 	{
-		printf("Kadaluarsa");
+		printf("0");
 	}
 	
 	
