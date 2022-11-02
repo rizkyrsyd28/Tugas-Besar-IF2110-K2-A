@@ -8,7 +8,6 @@
 
 #define MAX_COMMAND 30
 
-
 void getInput(char* string){
     // Fungsi untuk meminta input oleh user
     fgets(string, MAX_COMMAND, stdin);
@@ -122,19 +121,34 @@ int main () {
             while (!endWord){ 
                 ADVWORD(command, &idx);
             }
+
+            POINT src = Lokasi(sim);
+            ADVWORD(command, &idx);
+
             if (isWordStringEqual(currentWord, "NORTH")){
-                printf("north\n");
+                swapElmt(&map, &Lokasi(sim), NextY(src));
+
             }
             else if (isWordStringEqual(currentWord, "EAST")){
-                printf("east\n");
+                swapElmt(&map, &Lokasi(sim), NextX(src));
+
             } 
             else if (isWordStringEqual(currentWord, "SOUTH")){
-                printf("north\n");
+                swapElmt(&map, &Lokasi(sim), BackY(src));
+
             }
             else if (isWordStringEqual(currentWord, "WEST")){
-                printf("west\n");
+                swapElmt(&map, &Lokasi(sim), BackX(src));
+
             } else {
                 printf("Input selain 'NORTH', 'SOUTH', 'WEST', dan 'EAST' tidak diterima.\n");
+            }
+
+            if (NEQ(src, Lokasi(sim))){
+                validAction = true;
+            }
+            else{
+                validAction = false;
             }
 
         }

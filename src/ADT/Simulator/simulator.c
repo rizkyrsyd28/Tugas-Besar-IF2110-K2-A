@@ -25,8 +25,8 @@ void ReadSimulator(Simulator *S){
     STARTWORD(temp,&idx);
     nama = currentWord;
 
-    Absis(P) = 0;
-    Ordinat(P) = 0;
+    Absis(P) = 1;
+    Ordinat(P) = 1;
     CreateSimulator(S,nama,P,Q);
 }
 
@@ -46,7 +46,7 @@ void DisplayNama(Simulator S)
 
 void DisplayLokasi(Simulator S){
     //Menampilkan koordinat lokasi
-    printf("(%.0f,%.0f)", Absis(Lokasi(S)), Ordinat(Lokasi(S)));
+    printf("(%d,%d)", Absis(Lokasi(S))-1, Ordinat(Lokasi(S))-1);
 }
 
 void DisplayInventory (Simulator S)
