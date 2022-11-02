@@ -64,7 +64,7 @@ void TulisTIMEKadaluarsa (TIME T) {
 	}
 	else if(Day(T) == 0 && Hour(T) == 0 && Minute(T) == 0)
 	{
-		printf("Kadaluarsa");
+		printf("0");
 	}
 	
 	

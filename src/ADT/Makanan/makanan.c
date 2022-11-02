@@ -48,6 +48,28 @@ void printMakanan (Makanan mkn){
 }
 
 
+void printCatalog (Makanan mkn){
+// Melakukan print makanan agar pada terminal
+// e.g. [11,Ayam Mentah,<0,0,1>,<0,2,0>,FRY]
+    int i;
+    for (i = 0; i < len(nameMkn(mkn)); i++){
+        if (i == len(nameMkn(mkn))-1 ){
+            printf("%c - ", str(nameMkn(mkn))[i]);
+        } else {
+            printf("%c", str(nameMkn(mkn))[i]);
+        }
+    }
+    TulisTIMEKadaluarsa(expMkn(mkn));
+    printf(" - ");
+    for (i = 0; i < len(actMkn(mkn)); i++){
+    printf("%c", str(actMkn(mkn))[i]);
+	}
+	printf(" - ");
+    TulisTIMEKadaluarsa(dlvMkn(mkn));
+    
+}
+
+
 // OPERASI PERBANDINGAN
 boolean isIDGreater(Makanan m1, Makanan m2)
 // Mengirimkan true bila ID m1 lebih besar dari ID m2
