@@ -67,6 +67,9 @@ int main () {
     // Konfigurasi Peta
     Matrix map;
     map = konfigMap();
+    POINT startLoc = searchCharInMatrix(map, 'S');
+    Absis(Lokasi(sim)) = Ordinat(startLoc);
+    Ordinat(Lokasi(sim)) = Absis(startLoc);
     printf("-> Konfigurasi Peta - DONE\n");
 
     // Konfigurasi Resep 

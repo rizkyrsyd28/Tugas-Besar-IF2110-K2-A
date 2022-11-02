@@ -75,6 +75,10 @@ boolean isSymmetric(Matrix m);
 /* Mengirimkan true jika m adalah matriks simetri : isSquare(m) 
    dan untuk setiap elemen m, m(i,j)=m(j,i) */
 
+POINT searchCharInMatrix(Matrix m, char c);
+/* Mengembalikan index posisi dari char C pada matrix M dalam bentuk POINT*/
+
+
 /*								--------------------------------ADT TAMBAHAN UNTUK PROSES MOVE DLL---------------------------------------------------				*/
 boolean isCan(Matrix M, int i, int j,char c);
 //Untuk memeriksa apakah berada dalam suatu daerah di map jika ya maka dapat melakukan perintah
