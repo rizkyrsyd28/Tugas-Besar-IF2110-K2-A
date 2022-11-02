@@ -155,7 +155,7 @@ int PencariMakanan(PrioQueueTime *Q, Makanan M){
 }
 
 void DequeueAt(PrioQueueTime *Q, Makanan M, Makanan *X){
-    int index = PencariMakanan(&*Q,M);
+    int index = PencariMakanan(Q,M);
     if(index==Head(*Q)){
         Dequeue(Q,X);
     }
