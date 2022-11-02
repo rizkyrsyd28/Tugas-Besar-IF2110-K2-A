@@ -148,6 +148,7 @@ ListStatik konfigMakanan (){
             copyString(buffer, str(actMkn(Mkn)));
             len(actMkn(Mkn)) = lengthString(buffer);
         }
+        // printMakanan(Mkn); printf("\n"); // Line ini hanya dijalankan untuk mengecek
         insertLast(&listMakanan, Mkn);
         
     }
