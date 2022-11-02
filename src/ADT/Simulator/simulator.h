@@ -55,7 +55,7 @@ void RemoveMakanan(PrioQueueTime *Q, Makanan M);
 
 void AddMakanan(PrioQueueTime *Q, Makanan X);
 
-void KedaluwarsaInventory(Simulator *S);
+void KedaluwarsaInventory(PrioQueueTime Q);
 
 void GeserLokasi (Simulator *S,int arah);
 //Mengubah koordinat lokasi

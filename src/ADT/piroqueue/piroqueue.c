@@ -100,7 +100,7 @@ void PrintPrioQueueTime (PrioQueueTime Q){
     if (!IsEmptyQueue(Q))
     {
         int nomor = 1;
-        if (Tail(Q) > Head(Q)){
+        if (Tail(Q) >= Head(Q)){
             for (int i = Head(Q); i <= Tail(Q); i++){
                 printf("%d. ", nomor);
                 nomor+=1;
@@ -155,7 +155,7 @@ int PencariMakanan(PrioQueueTime *Q, Makanan M){
 }
 
 void DequeueAt(PrioQueueTime *Q, Makanan M, Makanan *X){
-    int index = PencariMakanan(&*Q,M);
+    int index = PencariMakanan(Q,M);
     if(index==Head(*Q)){
         Dequeue(Q,X);
     }

@@ -64,18 +64,22 @@ int main ()
     //Olah Makanan Inventory
     printf("-----------------------OLAH MAKANAN INVENTORY----------------------\n");
     //Enqueue(&Inventory(S),Ayam);
-    OlahMakananInventory(&Inventory(S),5,0,Ayam,Sapi,Minyak,Sayur);
+    OlahMakananInventory(&Inventory(S),5,0,Sayur,Sapi,Minyak,Sayur);
     printf("\n");
     printf("Inventory masuk \n");
+    DisplayInventory(S);
+    printf("\n");
+    Makanan X;
+    OlahMakananInventory(&Inventory(S),2,0,Sayur,Sapi,Minyak,Sayur); //DequeueAt Sayur, Enqueue Sayur
     DisplayInventory(S);
     printf("\n");
 
     //Kedaluwarsa Inventory
     printf("-----------------------Kedaluwarsa INVENTORY----------------------\n");
-    //KedaluwarsaInventory(&S);
-    //printf("\n");
+    KedaluwarsaInventory(Inventory(S));//masih ga jalan
+    printf("\n");
     //printf("Kedaluwarsa berkurang\n");
-    //DisplayInventory(S);
+    DisplayInventory(S);
     
 
 }
