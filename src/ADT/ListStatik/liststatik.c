@@ -241,123 +241,20 @@ void deleteLast(ListStatik *l, ElTypeList *val)
     ELMTLIST(*l, getLastIdx(*l)) = FoodMark;
 }
 
-// /* ********** SORTING ********** */
-// void sortFoodId(ListStatik *l, boolean asc)
-// /* I.S. l boleh kosong */
-// /* F.S. Jika asc = true, l terurut membesar */
-// /*      Jika asc = false, l terurut mengecil */
-// /* Proses : Mengurutkan l dengan salah satu algoritma sorting,
-//    algoritma bebas */
-// {   /* Kamus Lokal */
-//     if (TYPE(*l) == 1) {
-//         int i = getFirstIdx(*l), j;
-//         Makanan temp;
-//         /* Algoritma */
-//         if (!isEmpty(*l)) {
-//             if (asc) {
-//                 for (i; i<=getLastIdx(*l) - 1; i++) {
-//                     j = i + 1;
-//                     for (j; j <= getLastIdx(*l); j++) {
-//                         if (IDX(*l, i) > IDX(*l, j)) {
-//                             temp = ELMTLIST(*l, i);
-//                             ELMTLIST(*l, i) = ELMTLIST(*l, j);
-//                             ELMTLIST(*l, j) = temp;
-//                         }
-//                     }
-//                 }
-//             } else if (!asc){
-//                 i = getFirstIdx(*l);
-//                 for (i; i<=getLastIdx(*l) - 1; i++) {
-//                     j = i + 1;
-//                     for (j; j <= getLastIdx(*l); j++) {
-//                         if (IDX(*l, i) < IDX(*l, j)) {
-//                             temp = ELMTLIST(*l, i);
-//                             ELMTLIST(*l, i) = ELMTLIST(*l, j);
-//                             ELMTLIST(*l, j) = temp;
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
-
-// void sortFoodExp(ListStatik *l, boolean asc)
-// /* I.S. l boleh kosong */
-// /* F.S. Jika asc = true, l terurut membesar */
-// /*      Jika asc = false, l terurut mengecil */
-// /* Proses : Mengurutkan l dengan salah satu algoritma sorting,
-//    algoritma bebas */
-// {   /* Kamus Lokal */
-//     if (TYPE(*l) == 1) {
-//         int i = getFirstIdx(*l), j;
-//         Makanan temp;
-//         /* Algoritma */
-//         if (!isEmpty(*l)) {
-//             if (asc) {
-//                 for (i; i <= getLastIdx(*l) - 1; i++) {
-//                     j = i + 1;
-//                     for (j; j <= getLastIdx(*l); j++) {
-//                         if (TGT(EXP(*l, i), EXP(*l, j))) {
-//                             temp = ELMTLIST(*l, i);
-//                             ELMTLIST(*l, i) = ELMTLIST(*l, j);
-//                             ELMTLIST(*l, j) = temp;
-//                         }
-//                     }
-//                 }
-//             } else if (!asc){
-//                 i = getFirstIdx(*l);
-//                 for (i; i <= getLastIdx(*l) - 1; i++) {
-//                     j = i + 1;
-//                     for (j; j <= getLastIdx(*l); j++) {
-//                         if (TLT(EXP(*l, i), EXP(*l, j))) {
-//                             temp = ELMTLIST(*l, i);
-//                             ELMTLIST(*l, i) = ELMTLIST(*l, j);
-//                             ELMTLIST(*l, j) = temp;
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
-
-// void sortFoodDlv(ListStatik *l, boolean asc)
-// /* I.S. l boleh kosong */
-// /* F.S. Jika asc = true, l terurut membesar */
-// /*      Jika asc = false, l terurut mengecil */
-// /* Proses : Mengurutkan l dengan salah satu algoritma sorting,
-//    algoritma bebas */
-// {   /* Kamus Lokal */
-//     if (TYPE(*l) == 1) {
-//         int i = getFirstIdx(*l), j;
-//         Makanan temp;
-//         /* Algoritma */
-//         if (!isEmpty(*l)) {
-//             if (asc) {
-//                 for (i; i<=getLastIdx(*l) - 1; i++) {
-//                     j = i + 1;
-//                     for (j; j <= getLastIdx(*l); j++) {
-//                         if (TGT(DLV(*l, i), DLV(*l, j))) {
-//                             temp = ELMTLIST(*l, i);
-//                             ELMTLIST(*l, i) = ELMTLIST(*l, j);
-//                             ELMTLIST(*l, j) = temp;
-//                         }
-//                     }
-//                 }
-//             } else if (!asc){
-//                 i = getFirstIdx(*l);
-//                 for (i; i<=getLastIdx(*l) - 1; i++) {
-//                     j = i + 1;
-//                     for (j; j <= getLastIdx(*l); j++) {
-//                         if (TLT(DLV(*l, i), DLV(*l, j))) {
-//                             temp = ELMTLIST(*l, i);
-//                             ELMTLIST(*l, i) = ELMTLIST(*l, j);
-//                             ELMTLIST(*l, j) = temp;
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
+int searchIndexOlahMakanan(ListStatik l, char* command, int count){
+/* Mengembalikan index dari makanan pada list makanan sesuai yang dibutuhkan oleh fungsi pengolahan makanan
+    Fungsi yang dimaksud adalah Buy, Mix, Chop, Fry, dan Boil */
+    int i = 0;
+    int len = listLength(l);
+    int localCount = count;
+    while (i < len  && localCount > 0){
+        if (isWordStringEqual(actMkn(ELMTLIST(l, i)), command)){
+            localCount--;
+        }
+        if (localCount > 0){
+            i++;
+        }
+    }
+    // Mengembalikan i saat count == 0
+    return i;
+}

@@ -84,21 +84,32 @@ boolean isSymmetric(Matrix m) {
 	}
 }
 
+POINT searchCharInMatrix(Matrix m, char c){
+/* Mengembalikan index posisi dari char C pada matrix M dalam bentuk POINT*/
+	int i, j;
+	POINT result;
+	for (i = 0; i < ROW_EFF(m); i++){
+		for (j =0; j < COL_EFF(m); j++){
+			if (ELMTMAT(m, i, j) == c){
+				Absis(result) = i;
+				Ordinat(result) = j;
+			}
+		}
+	}
+	return result;
+}
+
 
 /*								--------------------------------ADT TAMBAHAN UNTUK PROSES MOVE DLL ITU---------------------------------------------------				*/
 boolean isCan(Matrix m, int i, int j,char c)				//i dan j adalah posisi nilai yang kita ingin cek	
 {
 	// Cari dahulu char C ada di petak apa
-	int x, y, row, col;
-	for (x = 0; x < ROW_EFF(m); x++){
-		for (y = 0; y < COL_EFF(m); y++){
-			if (ELMTMAT(m, x, y) == c){
-				// Ditukar karena baris adalah sumbu y dan kolom adalah sumbu x
-				row = y;
-				col = x;
-			}
-		}
-	}
+	int row, col;
+	POINT loc = searchCharInMatrix(m, c);
+	
+	// Ditukar karena row adalah sumbu y dan col adalah sumbu x
+	row = Ordinat(loc);
+	col = Absis(loc);
 
 	// Cek apakah bersebelahan
 	if (i == row){
@@ -109,47 +120,6 @@ boolean isCan(Matrix m, int i, int j,char c)				//i dan j adalah posisi nilai ya
 		return false;
 	}
 
-
-	// //Mengirimkan true jika S ada di sekitar T dimana T untuk telepon
-	// int Row = i - 1;
-	// int Col;
-    // boolean valid = false;
-
-    // /* Algoritma */
-    // while (Row <= i+1 && !valid) {
-    //     if (Row == i) {
-    //         Col = j - 1;
-    //         while (Col <= j + 1 && !valid) {
-    //             if (isMatIdxEff(m, Row, Col)) {
-    //                 if (ELMTMAT(m, Row, Col) ==  c) {
-    //                     valid = true;
-    //                 }
-    //                 else {
-    //                     Col++;
-    //                 }
-    //             }
-    //             else {
-    //                Col++;
-    //             }
-    //         }
-    //         Row++;
-    //     }
-    //     else {
-    //         if (isMatIdxEff(m, Row, j)) {
-    //             if (ELMTMAT(m, Row, j) == c) {
-    //                 valid = true;
-    //             }
-    //             else {
-    //                 Row++;
-    //             }
-    //         }
-    //         else {
-    //             Row++;
-    //         }
-    //     }
-    // }
-
-    // return valid;
 	
 }
 
