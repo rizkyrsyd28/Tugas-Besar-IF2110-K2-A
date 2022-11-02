@@ -100,7 +100,7 @@ void PrintPrioQueueTime (PrioQueueTime Q){
     if (!IsEmptyQueue(Q))
     {
         int nomor = 1;
-        if (Tail(Q) > Head(Q)){
+        if (Tail(Q) >= Head(Q)){
             for (int i = Head(Q); i <= Tail(Q); i++){
                 printf("%d. ", nomor);
                 nomor+=1;
