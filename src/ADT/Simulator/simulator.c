@@ -127,14 +127,14 @@ void AddMakanan(PrioQueueTime *Q, Makanan X){
     Enqueue(Q,X);
 }
 
-void KedaluwarsaInventory(PrioQueueTime Q)
+void KedaluwarsaInventory(PrioQueueTime *Q)
 {
     int i = 0;
-    for(i;i<NBElmt(Q);i++){
-        Makanan M = Elmt(Q,i);
+    for(i;i<NBElmt(*Q);i++){
+        Makanan M = Elmt(*Q,i);
         PrevMinute(expMkn(M));
         if (Day(expMkn(M))==0 && Hour(expMkn(M))==0 && Minute(expMkn(M))<=0 ){
-            RemoveMakanan(&Q,M);
+            RemoveMakanan(Q,M);
         }
     }
 }

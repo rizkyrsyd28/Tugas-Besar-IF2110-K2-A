@@ -70,15 +70,14 @@ int main ()
     DisplayInventory(S);
     printf("\n");
     Makanan X;
-    OlahMakananInventory(&Inventory(S),2,0,Sayur,Sapi,Minyak,Sayur); //DequeueAt Sayur, Enqueue Sayur
+    OlahMakananInventory(&Inventory(S),4,0,Sayur,Sapi,Minyak,Sayur); //DequeueAt Sayur, Enqueue Sayur
     DisplayInventory(S);
     printf("\n");
 
     //Kedaluwarsa Inventory
     printf("-----------------------Kedaluwarsa INVENTORY----------------------\n");
-    KedaluwarsaInventory(Inventory(S));//masih ga jalan
+    KedaluwarsaInventory(&Inventory(S));
     printf("\n");
-    //printf("Kedaluwarsa berkurang\n");
     DisplayInventory(S);
     
 
