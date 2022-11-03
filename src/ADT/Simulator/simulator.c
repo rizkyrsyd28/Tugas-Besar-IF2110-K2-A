@@ -12,6 +12,7 @@ void ReadSimulator(Simulator *S){
     Word nama;
     POINT P;
     PrioQueueTime Q;
+    MakeEmptyQueue(&Q,100);
     int idx;
     // Menginputkan nama Simulator
     printf("Input nama Simulator: ");
@@ -57,75 +58,73 @@ void DisplayInventory (Simulator S)
     PrintPrioQueueTime(Inventory(S));
 }
 
-void OlahMakananInventory(Simulator *S, int command,int jumlah, Makanan X1, Makanan X2,Makanan X3, Makanan X4){
+void OlahMakananInventory(PrioQueueTime *Q, int command,int jumlah, Makanan X1, Makanan X2,Makanan X3, Makanan X4){
     //X4 itu buat yang diadd, X1,X2,X3 yang diremove. Kalo yang diremove ga sampe 3, isi asal aja yg ga kepake
     if (command==1){//MIX
-        MixOlahInventory(S,jumlah,X1,X2,X3,X4);
+        MixOlahInventory(Q,jumlah,X1,X2,X3,X4);
     }
     else if(command==2){//CHOP
-        ChopOlahInventory(S,X1,X4);
+        ChopOlahInventory(Q,X1,X4);
     }
     else if (command==3){//FRY
-        FryOlahInventory(S,jumlah,X1,X2,X4);
+        FryOlahInventory(Q,jumlah,X1,X2,X4);
     }
     else if(command==4){//BOIL
-        BoilOlahInventory(S,X1,X4);
+        BoilOlahInventory(Q,X1,X4);
     }
     else if (command ==5){
-        BuyOlahInventory(S,X4);
+        BuyOlahInventory(Q,X4);
     }
     //masukin makanan
 }
 
-void MixOlahInventory(Simulator *S, int jumlah, Makanan X1, Makanan X2, Makanan X3, Makanan X4){
+void MixOlahInventory(PrioQueueTime *Q, int jumlah, Makanan X1, Makanan X2, Makanan X3, Makanan X4){
     if (jumlah==2){
-        RemoveMakanan(S,X1);
-        RemoveMakanan(S,X2);
-        AddMakanan(S,X4);
+        RemoveMakanan(Q,X1);
+        RemoveMakanan(Q,X2);
+        AddMakanan(Q,X4);
     }
     else if(jumlah==3){
-        RemoveMakanan(S,X1);
-        RemoveMakanan(S,X2);
-        RemoveMakanan(S,X3);
-        AddMakanan(S,X4);
+        RemoveMakanan(Q,X1);
+        RemoveMakanan(Q,X2);
+        RemoveMakanan(Q,X3);
+        AddMakanan(Q,X4);
     }
 }
 
-void ChopOlahInventory (Simulator *S, Makanan X1, Makanan X2){
-    RemoveMakanan(S,X1);
-    AddMakanan(S,X2);
+void ChopOlahInventory (PrioQueueTime *Q, Makanan X1, Makanan X2){
+    RemoveMakanan(Q,X1);
+    AddMakanan(Q,X2);
 }
 
-void FryOlahInventory(Simulator *S,int jumlah, Makanan X1, Makanan X2, Makanan X3){
+void FryOlahInventory(PrioQueueTime *Q,int jumlah, Makanan X1, Makanan X2, Makanan X3){
     if (jumlah==1){
-        RemoveMakanan(S,X1);
-        AddMakanan(S,X3);
+        RemoveMakanan(Q,X1);
+        AddMakanan(Q,X3);
     }
     else if (jumlah==2){
-        RemoveMakanan(S,X1);
-        RemoveMakanan(S,X2);
-        AddMakanan(S,X3);
+        RemoveMakanan(Q,X1);
+        RemoveMakanan(Q,X2);
+        AddMakanan(Q,X3);
     }
 }
 
-void BoilOlahInventory(Simulator *S, Makanan X1, Makanan X2){
-    RemoveMakanan(S,X1);
-    AddMakanan(S,X2);
+void BoilOlahInventory(PrioQueueTime *Q, Makanan X1, Makanan X2){
+    RemoveMakanan(Q,X1);
+    AddMakanan(Q,X2);
 }
 
-void BuyOlahInventory(Simulator *S,Makanan X1){
-    AddMakanan(S,X1);
+void BuyOlahInventory(PrioQueueTime *Q,Makanan X1){
+    AddMakanan(Q,X1);
 }
 
-void RemoveMakanan(Simulator *S,Makanan M){
-    PrioQueueTime Q = Inventory(*S);
+void RemoveMakanan(PrioQueueTime *Q,Makanan M){
     Makanan X;
-    DequeueAt(&Q,M,&X);
+    DequeueAt(Q,M,&X);
 }
 
-void AddMakanan(Simulator *S, Makanan X){
-    PrioQueueTime Q = Inventory(*S);
-    Enqueue(&Q,X);
+void AddMakanan(PrioQueueTime *Q, Makanan X){
+    Enqueue(Q,X);
 }
 
 void KedaluwarsaInventory(Simulator *S)
@@ -135,7 +134,7 @@ void KedaluwarsaInventory(Simulator *S)
     for(i;i<NBElmt(Q);i++){
         Makanan M = Elmt(Q,i);
         PrevMinute(expMkn(M));
-        if (Day(expMkn(M))<=0 && Hour(expMkn(M))<=0 && Minute(expMkn(M))<=0 ){
+        if (Day(expMkn(M))==0 && Hour(expMkn(M))==0 && Minute(expMkn(M))<=0 ){
             RemoveMakanan(S,M);
         }
     }
@@ -156,26 +155,3 @@ void GeserLokasi (Simulator *S,int arah){
         Absis(Lokasi(*S))+=1;
     }
 }
-
-void DeliveryReady(Simulator *S, PrioQueueTime *D) {
-    int i;
-    for (i = 0; i < NBElmt(*D); i++){
-        Makanan M = Elmt(*D,i), temp;
-        if (Day(dlvMkn(M))<=0 && Hour(dlvMkn(M))<=0 && Minute(dlvMkn(M))<=0 ){
-            AddMakanan(S,M);
-            DequeueAt(D, M, &temp);
-        }
-    }
-}
-
-void RemoveDated(Simulator *S) {
-    int i;
-    PrioQueueTime Q = Inventory(*S);
-    for(i = 0;i<NBElmt(Q);i++){
-        Makanan M = Elmt(Q,i);
-        if (Day(expMkn(M))<=0 && Hour(expMkn(M))<=0 && Minute(expMkn(M))<=0 ){
-            RemoveMakanan(S,M);
-        }
-    }
-}
-

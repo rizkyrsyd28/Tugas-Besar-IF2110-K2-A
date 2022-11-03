@@ -93,4 +93,6 @@ void decrementNDel(PrioQueueTime *Q, int N);
 
 void decrementHMDel(PrioQueueTime *Q, int hours, int minutes);
 
+void decrementMin(PrioQueueTime *Q);
+
 #endif

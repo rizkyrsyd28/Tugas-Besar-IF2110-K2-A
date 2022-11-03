@@ -486,10 +486,10 @@ int main () {
             printf("====================================================\n");
             validAction = false; // Action ini tidak menghabiskan waktu
 
-            if (IsEmptyQueue(inventory)){
+            if (IsEmptyQueue(Inventory(sim))){
                 printf(" Tidak ada makanan pada inventory.\n");
             } else {
-                PrintPrioQueueTime(inventory);
+                PrintPrioQueueTime(Inventory(sim));
             }
         }
 

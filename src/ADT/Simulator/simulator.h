@@ -39,29 +39,26 @@ void DisplayLokasi (Simulator S);
 void DisplayInventory (Simulator S);
 //Menampilkan list inventory
 
-void OlahMakananInventory(Simulator *S, int command,int jumlah, Makanan X1, Makanan X2,Makanan X3, Makanan X4);
+void OlahMakananInventory(PrioQueueTime *Q, int command,int jumlah, Makanan X1, Makanan X2,Makanan X3, Makanan X4);
 
-void MixOlahInventory(Simulator *S, int jumlah, Makanan X1, Makanan X2, Makanan X3, Makanan X4);
+void MixOlahInventory(PrioQueueTime *Q, int jumlah, Makanan X1, Makanan X2, Makanan X3, Makanan X4);
 
-void ChopOlahInventory (Simulator *S, Makanan X1, Makanan X2);
+void ChopOlahInventory (PrioQueueTime *Q, Makanan X1, Makanan X2);
 
-void FryOlahInventory(Simulator *S,int jumlah, Makanan X1, Makanan X2, Makanan X3);
+void FryOlahInventory(PrioQueueTime *Q,int jumlah, Makanan X1, Makanan X2, Makanan X3);
 
-void BoilOlahInventory(Simulator *S, Makanan X1, Makanan X2);
+void BoilOlahInventory(PrioQueueTime *Q, Makanan X1, Makanan X2);
 
-void BuyOlahInventory(Simulator *S,Makanan X1);
+void BuyOlahInventory(PrioQueueTime *Q,Makanan X1);
 
-void RemoveMakanan(Simulator *S, Makanan M);
+void RemoveMakanan(PrioQueueTime *Q, Makanan M);
 
-void AddMakanan(Simulator *S, Makanan X);
+void AddMakanan(PrioQueueTime *Q, Makanan X);
 
 void KedaluwarsaInventory(Simulator *S);
 
 void GeserLokasi (Simulator *S,int arah);
 //Mengubah koordinat lokasi
 
-void DeliveryReady(Simulator *S, PrioQueueTime *D);
-
-void RemoveDated(Simulator *S);
 
 #endif
