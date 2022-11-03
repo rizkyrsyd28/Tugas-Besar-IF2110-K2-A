@@ -151,20 +151,28 @@ int PencariMakanan(PrioQueueTime *Q, Makanan M){
         }
         i + (i+1)%MaxEl(*Q);
     }
+    if (!found){
+        i = -1;
+    }
     return i;
 }
 
 void DequeueAt(PrioQueueTime *Q, Makanan M, Makanan *X){
     int index = PencariMakanan(Q,M);
-    if(index==Head(*Q)){
-        Dequeue(Q,X);
+    if (index == -1){
+        printf("Bahan Makanan tidak ada di Inventory\n");
     }
     else {
-        *X=Elmt(*Q,index);
-        for (index;index<NBElmt(*Q);index++){
-            Elmt(*Q,index) = Elmt(*Q,index+1);
+        if(index==Head(*Q)){
+            Dequeue(Q,X);
         }
-        Tail(*Q) = (Tail(*Q) - 1) % MaxEl(*Q);
+        else {
+            *X=Elmt(*Q,index);
+            for (index;index<NBElmt(*Q);index++){
+                Elmt(*Q,index) = Elmt(*Q,index+1);
+            }
+            Tail(*Q) = (Tail(*Q) - 1) % MaxEl(*Q);
+        }
     }
 }
 
