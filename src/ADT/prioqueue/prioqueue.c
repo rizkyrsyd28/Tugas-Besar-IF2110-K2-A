@@ -240,7 +240,7 @@ void DequeueAt(PrioQueueTime *Q, Makanan M, Makanan *X){
 void decrementNExp(PrioQueueTime *Q, int N) {
 /* Mengurangi setiap waktu expiry pada queue sebesar N menit*/
     if (!IsEmptyQueue(*Q)) {
-        if (Tail(*Q) > Head(*Q)){
+        if (Tail(*Q) >= Head(*Q)){
             for (int i = Head(*Q); i <= Tail(*Q); i++){
                 expMkn(Elmt(*Q, i)) = PrevNMinute(expMkn(Elmt(*Q, i)), N);
             }
@@ -267,7 +267,7 @@ void decrementHMExp(PrioQueueTime *Q, int hours, int minutes) {
 void decrementNDel(PrioQueueTime *Q, int N) {
 /* Mengurangi setiap waktu delivery pada queue sebesar N menit*/
     if (!IsEmptyQueue(*Q)) {
-        if (Tail(*Q) > Head(*Q)){
+        if (Tail(*Q) >= Head(*Q)){
             for (int i = Head(*Q); i <= Tail(*Q); i++){
                 dlvMkn(Elmt(*Q, i)) = PrevNMinute(dlvMkn(Elmt(*Q, i)), N);
             }

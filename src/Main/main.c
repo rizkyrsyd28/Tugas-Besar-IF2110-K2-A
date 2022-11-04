@@ -212,6 +212,12 @@ int main () {
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
                         idxFood = searchIndexOlahMakanan(foodList, "BUY", WordToInt(currentWord));
                         EnqueueDelivery(&deliveryList, ELMTLIST(foodList, idxFood));
+
+                        // Mengeluarkan pesan bahwa sudah dipesan.
+                        printWord(nameMkn(ELMTLIST(foodList, idxFood)));
+                        printf(" berhasil dipesan. Makanan akan diantar dalam ");
+                        TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
+                        printf("\n");
                         subprogram = false;
                     }
                 }
@@ -560,11 +566,8 @@ int main () {
                         totalWaitMinute = (waitHour * 60) + waitMinute;
                         currentTime = NextNMinute(currentTime, totalWaitMinute);
 
-                        // PrintPrioQueueTimeInventory(Inventory(sim));
                         decrementNExp(&(Inventory(sim)), totalWaitMinute);
                         decrementNDel(&deliveryList, totalWaitMinute);
-                        // PrintPrioQueueTimeDelivery(deliveryList);
-                        // PrintPrioQueueTimeInventory(Inventory(sim));
                         
                         printf("Waktu pada Delivery List dan Inventory telah disesuaikan.\n");
                     }
@@ -675,11 +678,12 @@ int main () {
         // Mengeluarkan dari Delivery List, memasukan ke inventory (bila sampai)
         while (!TGT(dlvMkn(InfoHead(deliveryList)), boundariesTime)){
             Dequeue(&deliveryList, &dumpMkn);
-            if (!TEQ(dlvMkn(InfoHead(deliveryList)), boundariesTime)){
-                
+            if (!TEQ(dlvMkn(dumpMkn), boundariesTime)){
+                // Hanya dilakukan jika tidak 0
                 // Mengurangi waktu kadaluarsa sesuai dengan sisa pada delivery
                 int remainder = TIMEtoint(dlvMkn(dumpMkn));
                 TIME newExpiry = inttoTIME(TIMEtoint(expMkn(dumpMkn)) + remainder);
+                // printf("%d %d %d\n", remainder, TIMEtoint(expMkn(dumpMkn)), newExpiry);
                 expMkn(dumpMkn) = newExpiry;
             }
             EnqueueInventory(&Inventory(sim), dumpMkn);
