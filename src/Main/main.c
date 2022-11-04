@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -693,5 +692,10 @@ int main () {
         while (!TGT(expMkn(InfoHead(Inventory(sim))), boundariesTime)){
             Dequeue(&Inventory(sim), &dumpMkn);
         }
+
+        if (program){
+            printf("test");
+        }
     }
+    return 0;
 }
