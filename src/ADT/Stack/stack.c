@@ -31,7 +31,7 @@ void Push(Stack * S, state X){
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
 
 /* ************ Menghapus sebuah elemen Stack ************ */
-void Pop(Stack * S, state* X){
+void Pop(Stack * S, state *X){
     *X = InfoTop(*S);
     Top(*S)--;
 }
@@ -64,22 +64,18 @@ Stack merge(Stack S1, Stack S2){
         Push(&output, x);
     }
     return output;
-}
+}*/
 
 void displayStack(Stack S){
     state X;
     int i = 0; 
     // ALGORITMA
-    if (IsEmpty(S)){
-        return;
-    }
-    
     for (int i = Top(S); i >= 0; i--){
         Pop(&S, &X);
         printf("%d\n", X);
     }
 
-}*/
+}
 
 void Undo(Stack *S_undo,Stack *S_redo, state *currentState, int totalcommand ){
     if (totalcommand >0){
