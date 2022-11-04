@@ -1,20 +1,8 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "parser.c"
-#include "../ADT/Simulator/simulator.c"
-#include "../ADT/piroqueue/piroqueue.c"
+#include "submain.c"
 
-#define MAX_COMMAND 30
-
-void getInput(char* string){
-    // Fungsi untuk meminta input oleh user
-    fgets(string, MAX_COMMAND, stdin);
-    upper(string);
-    // Procedure giveMark dilakukan karena diujung string ada '\n' dan perlu diberikan '.' sebagai MARK.
-    giveMark(string);
-}
 
 int main () {
     char command[MAX_COMMAND] = "\0";
@@ -51,6 +39,7 @@ int main () {
     TIME currentTime;
     printf("Masukkan waktu awal dalam format (<hari> <jam> <menit>)\n");
     BacaTIME(&currentTime);
+    TIME boundariesTime; Day(boundariesTime) = 0; Hour(boundariesTime) = 0; Minute(boundariesTime) = 0;
     printf("-> Konfigurasi Waktu - DONE\n");
 
     // Konfigurasi Makanan
@@ -72,14 +61,13 @@ int main () {
     Ordinat(Lokasi(sim)) = Absis(startLoc);
     printf("-> Konfigurasi Peta - DONE\n");
 
-    // Konfigurasi Resep 
-
     // Konfigurasi Inventory
-    PrioQueueTime inventory;
-    MakeEmptyQueue(&inventory, 100);
+    MakeEmptyQueue(&Inventory(sim), 100);
     PrioQueueTime deliveryList;
     MakeEmptyQueue(&deliveryList, 100);
     printf("-> Konfigurasi Inventory - DONE\n");
+    PrioQueueTime processList;
+    MakeEmptyQueue(&processList, 100);
 
     // Dummy (untuk mencegah error)
     fgets(command, MAX_COMMAND, stdin);
@@ -89,6 +77,7 @@ int main () {
     int count;
     boolean subprogram = false;
     int idxFood;
+    Makanan dumpMkn;
 
 
     // =========== PENJALANAN PROGRAM UTAMA ===========
@@ -101,6 +90,7 @@ int main () {
         DisplaySimulator(sim);
         printf("Waktu: ");
         TulisTIME(currentTime); 
+        printf("Notifikasi : \n"); // Ini nanti ditambahin seiring berjalan waktu
         displayMatrix(map);
 
         // validAction digunakan untuk menandakan apakah suatu aksi menghabiskan waktu
@@ -116,11 +106,17 @@ int main () {
         STARTWORD(command, &idx);
 
         if (isWordStringEqual(currentWord, "EXIT")){
-            printf("====================================================\n");
-            printf("===============        EXIT          ===============\n");
-            printf("====================================================\n");
-            printf("Yahh kok udahan... :(\n");
-            program = false;
+            ADVWORD(command, &idx);
+            if (endWord){
+                printf("====================================================\n");
+                printf("===============        EXIT          ===============\n");
+                printf("====================================================\n");
+                printf("Yahh kok udahan... :(\n");
+                program = false;
+            } else {
+                getInvalidRespond();
+                validAction = false;
+            }
         }
         else if (isWordStringEqual(currentWord, "MOVE")){
             printf("====================================================\n");
@@ -136,19 +132,15 @@ int main () {
 
             if (isWordStringEqual(currentWord, "NORTH")){
                 swapElmt(&map, &Lokasi(sim), NextY(src));
-
             }
             else if (isWordStringEqual(currentWord, "EAST")){
                 swapElmt(&map, &Lokasi(sim), NextX(src));
-
             } 
             else if (isWordStringEqual(currentWord, "SOUTH")){
                 swapElmt(&map, &Lokasi(sim), BackY(src));
-
             }
             else if (isWordStringEqual(currentWord, "WEST")){
                 swapElmt(&map, &Lokasi(sim), BackX(src));
-
             } else {
                 printf("Input selain 'NORTH', 'SOUTH', 'WEST', dan 'EAST' tidak diterima.\n");
             }
@@ -175,23 +167,7 @@ int main () {
                 subprogram = true;
                 while (subprogram){
                 
-                    printf("List Bahan Makanan yang Bisa Dibuat: \n");
-                    count = 0;
-                    for (i=0; i < foodListLength; i++){
-                        if (isWordStringEqual(actMkn(ELMTLIST(foodList,i)), "BUY")){
-                            count++;
-                            printf("%d. ", count);
-                            printWord(nameMkn(ELMTLIST(foodList, i)));
-                            printf("\n");
-                        }
-                    }
-
-                    // Handle jika konfigurasinya diganti
-                    if (count == 0){
-                        printf("Tidak ada bahan makanan yang bisa dibuat.\n");
-                    };
-
-                    printf("Ketik 0 untuk kembali ke Main Menu.\n");
+                    count = countAndPrintAvailableFood(foodList, foodListLength, "BUY");
                 
                     // Meminta input dari pengguna
                     printf("Command: ");
@@ -212,7 +188,14 @@ int main () {
                         // Inputnya telah sesuai dengan penomoran 
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
                         idxFood = searchIndexOlahMakanan(foodList, "BUY", WordToInt(currentWord));
-                        printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
+                        EnqueueDelivery(&deliveryList, ELMTLIST(foodList, idxFood));
+
+                        // Mengeluarkan pesan bahwa sudah dipesan.
+                        printWord(nameMkn(ELMTLIST(foodList, idxFood)));
+                        printf(" berhasil dipesan. Makanan akan diantar dalam ");
+                        TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
+                        printf("\n");
+                        subprogram = false;
                     }
                 }
             }
@@ -233,23 +216,7 @@ int main () {
                 subprogram = true;
                 while (subprogram){
                 
-                    printf("List Bahan Makanan yang Bisa Dibuat: \n");
-                    count = 0;
-                    for (i=0; i < foodListLength; i++){
-                        if (isWordStringEqual(actMkn(ELMTLIST(foodList,i)), "MIX")){
-                            count++;
-                            printf("%d. ", count);
-                            printWord(nameMkn(ELMTLIST(foodList, i)));
-                            printf("\n");
-                        }
-                    }
-
-                    // Handle jika konfigurasinya diganti
-                    if (count == 0){
-                        printf("Tidak ada bahan makanan yang bisa dibuat.\n");
-                    };
-
-                    printf("Ketik 0 untuk kembali ke Main Menu.\n");
+                    count = countAndPrintAvailableFood(foodList, foodListLength, "MIX");
                 
                     // Meminta input dari pengguna
                     printf("Command: ");
@@ -271,6 +238,21 @@ int main () {
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
                         idxFood = searchIndexOlahMakanan(foodList, "MIX", WordToInt(currentWord));
                         printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
+
+                        // BIKIN ALGORITMA HANDLE BILA BAHAN DI INVENTORY GA CUKUP BUAT BIKIN FOOD TERTENTU
+
+                        // // INI NANTI DI UN-COMMENT KALAU HANDLENYA UDAH SELESAI
+                        // // INI ALGORITMA BUAT MASUKIN MAKANAN KE PROCESSLIST
+                        // // Mencari idx makanan pada list makanan sesuai penomoran input user
+                        // idxFood = searchIndexOlahMakanan(foodList, "MIX", WordToInt(currentWord));
+                        // EnqueueDelivery(&processList, ELMTLIST(foodList, idxFood));
+
+                        // // Mengeluarkan pesan bahwa sudah diproses.
+                        // printWord(nameMkn(ELMTLIST(foodList, idxFood)));
+                        // printf(" berhasil diproses. Makanan akan diproses dalam ");
+                        // TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
+                        // printf("\n");
+                        // subprogram = false;
                     }
                 }
             }
@@ -290,23 +272,7 @@ int main () {
                 subprogram = true;
                 while (subprogram){
                 
-                    printf("List Bahan Makanan yang Bisa Dibuat: \n");
-                    count = 0;
-                    for (i=0; i < foodListLength; i++){
-                        if (isWordStringEqual(actMkn(ELMTLIST(foodList,i)), "CHOP")){
-                            count++;
-                            printf("%d. ", count);
-                            printWord(nameMkn(ELMTLIST(foodList, i)));
-                            printf("\n");
-                        }
-                    }
-
-                    // Handle jika konfigurasinya diganti
-                    if (count == 0){
-                        printf("Tidak ada bahan makanan yang bisa dibuat.\n");
-                    };
-
-                    printf("Ketik 0 untuk kembali ke Main Menu.\n");
+                    count = countAndPrintAvailableFood(foodList, foodListLength, "CHOP");
                 
                     // Meminta input dari pengguna
                     printf("Command: ");
@@ -328,6 +294,21 @@ int main () {
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
                         idxFood = searchIndexOlahMakanan(foodList, "CHOP", WordToInt(currentWord));
                         printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
+
+                        // BIKIN ALGORITMA HANDLE BILA BAHAN DI INVENTORY GA CUKUP BUAT BIKIN FOOD TERTENTU
+
+                        // // INI NANTI DI UN-COMMENT KALAU HANDLENYA UDAH SELESAI
+                        // // INI ALGORITMA BUAT MASUKIN MAKANAN KE PROCESSLIST
+                        // // Mencari idx makanan pada list makanan sesuai penomoran input user
+                        // idxFood = searchIndexOlahMakanan(foodList, "CHOP", WordToInt(currentWord));
+                        // EnqueueDelivery(&processList, ELMTLIST(foodList, idxFood));
+
+                        // // Mengeluarkan pesan bahwa sudah diproses.
+                        // printWord(nameMkn(ELMTLIST(foodList, idxFood)));
+                        // printf(" berhasil diproses. Makanan akan diproses dalam ");
+                        // TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
+                        // printf("\n");
+                        // subprogram = false;
                     }
                 }
             }
@@ -348,23 +329,7 @@ int main () {
                 subprogram = true;
                 while (subprogram){
                 
-                    printf("List Bahan Makanan yang Bisa Dibuat: \n");
-                    count = 0;
-                    for (i=0; i < foodListLength; i++){
-                        if (isWordStringEqual(actMkn(ELMTLIST(foodList,i)), "FRY")){
-                            count++;
-                            printf("%d. ", count);
-                            printWord(nameMkn(ELMTLIST(foodList, i)));
-                            printf("\n");
-                        }
-                    }
-
-                    // Handle jika konfigurasinya diganti
-                    if (count == 0){
-                        printf("Tidak ada bahan makanan yang bisa dibuat.\n");
-                    };
-
-                    printf("Ketik 0 untuk kembali ke Main Menu.\n");
+                    count = countAndPrintAvailableFood(foodList, foodListLength, "FRY");
                 
                     // Meminta input dari pengguna
                     printf("Command: ");
@@ -386,6 +351,21 @@ int main () {
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
                         idxFood = searchIndexOlahMakanan(foodList, "FRY", WordToInt(currentWord));
                         printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
+
+                        // BIKIN ALGORITMA HANDLE BILA BAHAN DI INVENTORY GA CUKUP BUAT BIKIN FOOD TERTENTU
+
+                        // // INI NANTI DI UN-COMMENT KALAU HANDLENYA UDAH SELESAI
+                        // // INI ALGORITMA BUAT MASUKIN MAKANAN KE PROCESSLIST
+                        // // Mencari idx makanan pada list makanan sesuai penomoran input user
+                        // idxFood = searchIndexOlahMakanan(foodList, "FRY", WordToInt(currentWord));
+                        // EnqueueDelivery(&processList, ELMTLIST(foodList, idxFood));
+
+                        // // Mengeluarkan pesan bahwa sudah diproses.
+                        // printWord(nameMkn(ELMTLIST(foodList, idxFood)));
+                        // printf(" berhasil diproses. Makanan akan diproses dalam ");
+                        // TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
+                        // printf("\n");
+                        // subprogram = false;
                     }
                 }
             }
@@ -405,23 +385,7 @@ int main () {
                 subprogram = true;
                 while (subprogram){
                 
-                    printf("List Bahan Makanan yang Bisa Dibuat: \n");
-                    count = 0;
-                    for (i=0; i < foodListLength; i++){
-                        if (isWordStringEqual(actMkn(ELMTLIST(foodList,i)), "BOIL")){
-                            count++;
-                            printf("%d. ", count);
-                            printWord(nameMkn(ELMTLIST(foodList, i)));
-                            printf("\n");
-                        }
-                    }
-
-                    // Handle jika konfigurasinya diganti
-                    if (count == 0){
-                        printf("Tidak ada bahan makanan yang bisa dibuat.\n");
-                    };
-
-                    printf("Ketik 0 untuk kembali ke Main Menu.\n");
+                    count = countAndPrintAvailableFood(foodList, foodListLength, "BOIL");
                 
                     // Meminta input dari pengguna
                     printf("Command: ");
@@ -443,6 +407,21 @@ int main () {
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
                         idxFood = searchIndexOlahMakanan(foodList, "BOIL", WordToInt(currentWord));
                         printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
+
+                        // BIKIN ALGORITMA HANDLE BILA BAHAN DI INVENTORY GA CUKUP BUAT BIKIN FOOD TERTENTU
+
+                        // // INI NANTI DI UN-COMMENT KALAU HANDLENYA UDAH SELESAI
+                        // // INI ALGORITMA BUAT MASUKIN MAKANAN KE PROCESSLIST
+                        // // Mencari idx makanan pada list makanan sesuai penomoran input user
+                        // idxFood = searchIndexOlahMakanan(foodList, "BOIL", WordToInt(currentWord));
+                        // EnqueueDelivery(&processList, ELMTLIST(foodList, idxFood));
+
+                        // // Mengeluarkan pesan bahwa sudah diproses.
+                        // printWord(nameMkn(ELMTLIST(foodList, idxFood)));
+                        // printf(" berhasil diproses. Makanan akan diproses dalam ");
+                        // TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
+                        // printf("\n");
+                        // subprogram = false;
                     }
                 }
             }
@@ -455,18 +434,7 @@ int main () {
             printf("====================================================\n");
             validAction = false; // Action ini tidak menghabiskan waktu
 			//Note : Aku bikin fungsi baru printCatalog di makanan.c
-			printf("List Makanan");
-			printf("\n");
-			printf("(nama - durasi kedaluwarsa - aksi yang diperlukan - delivery time)");
-			printf("\n");
-			for (i = 0; i < foodListLength; i++){
-            	printf("%d. ",i+1);
-                printCatalog(ELMTLIST(foodList, i));
-                printf("\n");
-            }
-
-            // Boleh panggil aja procedure printMakanan, udah dibikin di ADT Makanan
-
+            printListCatalog(foodList, foodListLength);
         }
 
         else if (isWordStringEqual(currentWord, "COOKBOOK")){
@@ -487,9 +455,9 @@ int main () {
             validAction = false; // Action ini tidak menghabiskan waktu
 
             if (IsEmptyQueue(Inventory(sim))){
-                printf(" Tidak ada makanan pada inventory.\n");
+                printf("Tidak ada makanan pada inventory.\n");
             } else {
-                PrintPrioQueueTime(Inventory(sim));
+                DisplayInventory(sim);
             }
         }
 
@@ -500,9 +468,26 @@ int main () {
             validAction = false; // Action ini tidak menghabiskan waktu
 
             if (IsEmptyQueue(deliveryList)){
-                printf(" Tidak ada makanan pada list delivery.\n");
+                printf("Tidak ada makanan pada list delivery.\n");
             } else {
-                PrintPrioQueueTime(deliveryList);
+                printf("List Makanan di Delivery List:\n");
+                printf("No - Nama - Waktu Sisa Delivery\n");
+                PrintPrioQueueTimeDelivery(deliveryList);
+            }
+        }
+
+        else if (isWordStringEqual(currentWord, "PROCESS")){
+            printf("====================================================\n");
+            printf("===============       PROCESS       ===============\n");
+            printf("====================================================\n");
+            validAction = false; // Action ini tidak menghabiskan waktu
+
+            if (IsEmptyQueue(processList)){
+                printf("Tidak ada makanan pada list process.\n");
+            } else {
+                printf("List Makanan di Process List:\n");
+                printf("No - Nama - Waktu Sisa Process\n");
+                PrintPrioQueueTimeProcess(processList);
             }
         }
 
@@ -518,8 +503,6 @@ int main () {
             boolean allInteger = true, xint = false, yint = false;
             int waitHour, waitMinute, totalWaitMinute;
 
-            // JANGAN LUPA BIKIN HANDLE KALAU INPUTNYA HANYA 1 INTEGER, BUKAN 2 INTEGER
-
             // Cek terlebih dahulu apakah input valid (x dan y adalah integer)
             ADVWORD(command, &idx);
             if (isWordAllIntegers(currentWord)){
@@ -528,38 +511,50 @@ int main () {
             } else {
                 allInteger = false;
             }
-
-            ADVWORD(command, &idx);
-            if (isWordAllIntegers(currentWord)){
-                waitMinute = WordToInt(currentWord);
-                yint = true;
-            } else {
-                allInteger = false;
-            }
             
-            if (allInteger){
-                printf("Menunggu ");
-                if (waitHour != 0) {
-                    printf("%d jam ", waitHour);
-                }
-                if (waitMinute != 0) {
-                    printf("%d menit", waitMinute);
-                }
-                totalWaitMinute = (waitHour * 60) + waitMinute;
-                currentTime = NextNMinute(currentTime, totalWaitMinute);
-                decrementHMExp(&(Inventory(sim)), waitHour, waitMinute);
-                decrementHMDel(&deliveryList, waitHour, waitMinute);
-                // Bikin notifikasi
-                RemoveDated(&sim);
-                DeliveryReady(&sim, &deliveryList);
-            } else if (!yint) {
-                printf("Masukan tidak valid. Y bukan sebuah integer.\n");
-            } else if (!xint) {
-                printf("Masukan tidak valid. X bukan sebuah integer.\n");
-            } else {
-                printf("Masukan tidak valid. X dan Y hanya diperbolehkan memiliki tipe integer.\n");
+            ADVWORD(command, &idx);
+            if (endWord){
+                printf("Command wait membutuhkan 2 integer, X dan Y\n");
             }
+            else {
+                if (isWordAllIntegers(currentWord)){
+                    waitMinute = WordToInt(currentWord);
+                    yint = true;
+                } else {
+                    allInteger = false;
+                }
+                
+                if (allInteger){
+                    if (waitHour == 0 && waitMinute == 0){
+                        printf("Untuk apa dilakukan? Untuk apa? :(\n");
+                    } else {
+                        // Menunggu 0 0 boleh saja, tapi tidak melakukan perubahan apa apa
+                        printf("Menunggu ");
+                        if (waitHour != 0) {
+                            printf("%d jam ", waitHour);
+                        }
+                        if (waitMinute != 0){
+                            printf("%d menit", waitMinute);
+                        }
+                        printf("\n");
 
+                        totalWaitMinute = (waitHour * 60) + waitMinute;
+                        currentTime = NextNMinute(currentTime, totalWaitMinute);
+
+                        decrementNExp(&(Inventory(sim)), totalWaitMinute);
+                        decrementNDel(&deliveryList, totalWaitMinute);
+                        
+                        printf("Waktu pada Delivery List dan Inventory telah disesuaikan.\n");
+                    }
+                    
+                } else if (!yint) {
+                    printf("Masukan tidak valid. Y bukan sebuah integer.\n");
+                } else if (!xint) {
+                    printf("Masukan tidak valid. X bukan sebuah integer.\n");
+                } else {
+                    printf("Masukan tidak valid. X dan Y hanya diperbolehkan memiliki tipe integer.\n");
+                }
+            }
         }
 
         else if (isWordStringEqual(currentWord, "UNDO")){
@@ -577,28 +572,7 @@ int main () {
         }
 
         else if (isWordStringEqual(currentWord, "HELP")){
-            printf("====================================================\n");
-            printf("===============        HELP          ===============\n");
-            printf("====================================================\n");
-            printf("Berikut adalah command yang dapat dimasukkan:\n");
-            printf("MOVE NORTH      - Menggerakan simulator ke petak sebelah atas\n");
-            printf("MOVE EAST       - Menggerakan simulator ke petak sebelah kanan\n");
-            printf("MOVE SOUTH      - Menggerakan simulator ke petak sebelah bawah\n");
-            printf("MOVE WEST       - Menggerakan simulator ke petak sebelah kiri\n");
-            printf("BUY             - Proses pembelian Makanan\n");
-            printf("MIX             - Proses pencampuran Makanan\n");
-            printf("FRY             - Proses penggorengan Makanan\n");
-            printf("CHOP            - Proses pemotongan Makanan\n");
-            printf("BOIL            - Proses perebusan Makanan\n");
-            printf("CATALOG         - Melihat data list makanan yang valid\n");
-            printf("COOKBOOK        - Melihat data list resep yang valid\n");
-            printf("INVENTORY       - Membuka inventory yang dimiliki oleh simulator\n");
-            printf("DELIVERY        - Membuka tampilan list makanan yang sedang dikirim\n");
-            printf("WAIT (x) (y)    - Mempercepat time selama x jam dan y menit\n");
-            printf("UNDO            - Mengembalikan kondisi sebelum terlaksananya action terakhir\n");
-            printf("REDO            - Melakukan kembali action yang telah di-undo\n");
-            printf("FRIDGE SHOW     - Menampilkan isi kulkas\n");
-            printf("FRIDGE TAKE     - Mengambil isi kulkas\n");
+            getHelp();
             validAction = false; // Action ini tidak menghabiskan waktu
         }
         else if (isWordStringEqual(currentWord, "FRIDGE")){
@@ -630,23 +604,75 @@ int main () {
                     validAction = false; // Invalid Input
                 }
             }
-
-
         }
 
         else {
-            printf("====================================================\n");
-            printf("===============     INVALID INPUT    ===============\n");
-            printf("====================================================\n");
-            printf("Input tidak valid. Silahkan inputkan command yang valid.\n");
+            getInvalidRespond();
             validAction = false;
         }
-
 
         // ================= AFTER ACTION ALGORITHM =================
         if (validAction){
             // Waktu hanya ditambahkan bila action yang dilakukan valid
             currentTime = NextMinute(currentTime);
+            
+            // Mengurangi waktu di delivery list dan inventory
+            decrementNDel(&deliveryList, 1);
+            decrementNExp(&Inventory(sim), 1);
+        }
+
+        // Tetap bisa dilakukan meski ValidAction = false (contohnya menggunakan WAIT)
+        // Mengeluarkan dari Delivery List, memasukan ke inventory (bila sampai)
+        if (!IsEmptyQueue(deliveryList)){
+            while ((!TGT(dlvMkn(InfoHead(deliveryList)), boundariesTime)) && (NBElmt(deliveryList) > 1)){
+                Dequeue(&deliveryList, &dumpMkn);
+                // Mengurangi waktu kadaluarsa sesuai dengan sisa pada delivery
+                int remainder = TIMEtoint(dlvMkn(dumpMkn));
+                TIME newExpiry = inttoTIME(TIMEtoint(expMkn(dumpMkn)) + remainder);
+                expMkn(dumpMkn) = newExpiry;
+                EnqueueInventory(&Inventory(sim), dumpMkn);
+            }
+            if (!TGT(dlvMkn(InfoHead(deliveryList)), boundariesTime)){
+                Dequeue(&deliveryList, &dumpMkn);
+                // Mengurangi waktu kadaluarsa sesuai dengan sisa pada delivery
+                int remainder = TIMEtoint(dlvMkn(dumpMkn));
+                TIME newExpiry = inttoTIME(TIMEtoint(expMkn(dumpMkn)) + remainder);
+                expMkn(dumpMkn) = newExpiry;
+                EnqueueInventory(&Inventory(sim), dumpMkn);
+            }
+        }
+
+        // Mengeluarkan dari Process List, memasukan ke inventory (bila selesai process)
+        if (!IsEmptyQueue(processList)){
+            while ((!TGT(dlvMkn(InfoHead(processList)), boundariesTime)) && (NBElmt(processList) > 1)){
+                Dequeue(&processList, &dumpMkn);
+                // Mengurangi waktu kadaluarsa sesuai dengan sisa pada process time
+                int remainder = TIMEtoint(dlvMkn(dumpMkn));
+                TIME newExpiry = inttoTIME(TIMEtoint(expMkn(dumpMkn)) + remainder);
+                expMkn(dumpMkn) = newExpiry;
+                EnqueueInventory(&Inventory(sim), dumpMkn);
+            }
+            if (!TGT(dlvMkn(InfoHead(processList)), boundariesTime)){
+                Dequeue(&processList, &dumpMkn);
+                // Mengurangi waktu kadaluarsa sesuai dengan sisa pada process time
+                int remainder = TIMEtoint(dlvMkn(dumpMkn));
+                TIME newExpiry = inttoTIME(TIMEtoint(expMkn(dumpMkn)) + remainder);
+                expMkn(dumpMkn) = newExpiry;
+                EnqueueInventory(&Inventory(sim), dumpMkn);
+            }
+        }
+
+        // Mengeluarkan dari inventory ( bila kadaluarsa)
+        if (!IsEmptyQueue(Inventory(sim))){
+            // Menghapus sampai bersisa 1
+            while ((!TGT(expMkn(InfoHead(Inventory(sim))), boundariesTime)) && (NBElmt(Inventory(sim)) > 1)){
+                Dequeue(&Inventory(sim), &dumpMkn);
+            }
+            // Menghapus makanan terakhir bila bersisa 1
+            if (!TGT(expMkn(InfoHead(Inventory(sim))), boundariesTime)){
+                Dequeue(&Inventory(sim), &dumpMkn);
+            }
         }
     }
+    return 0;
 }

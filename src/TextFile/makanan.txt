@@ -2,7 +2,7 @@
 1
 Nasi Uduk Telur Pecel Ayam 
 0 5 0
-0 0 0
+0 3 0
 3 2
 Mix
 11
@@ -14,7 +14,7 @@ Buy
 12
 Ayam Goreng Extra Sambal
 0 4 0
-0 0 0
+0 1 0
 2 2
 Mix
 13
@@ -26,25 +26,25 @@ Buy
 14
 Telur Rebus
 0 1 30
-0 0 0
+0 0 30
 1 1
 Boil
 15
 Telur Goreng
 0 1 0
-0 0 0
+0 0 20
 1 1
 Fry
 21
 Ayam Goreng
 0 3 0
-0 0 0
+0 0 45
 2 2
 Fry
 22
 Sambal Goreng
 0 2 30
-0 0 0
+0 0 30
 1 1
 Fry
 23
@@ -56,7 +56,7 @@ Buy
 41
 Ayam Tepung
 0 1 30
-0 0 0
+0 0 10
 2 1
 Mix
 42
@@ -68,13 +68,13 @@ Buy
 43
 Sambal
 0 1 30
-0 0 0
+0 0 30
 1 1
 Mix
 61
 Ayam Potong
 0 1 0
-0 0 0
+0 1 0
 2 1
 Chop
 62
@@ -104,6 +104,6 @@ Buy
 81
 Ayam Mentah
 0 1 0
-0 0 30
+0 0 20
 1 2
 Buy
