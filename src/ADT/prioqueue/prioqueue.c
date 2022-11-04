@@ -1,4 +1,4 @@
-#include "piroqueue.h"
+#include "prioqueue.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -48,7 +48,11 @@ void DeAlokasi(PrioQueueTime * Q){
 /* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
 
 /* *** Primitif Add/Delete *** */
-void Enqueue (PrioQueueTime * Q, Makanan M){
+void EnqueueInventory (PrioQueueTime * Q, Makanan M){
+/* Proses: Menambahkan X pada Q dengan aturan priority queue, terurut membesar berdasarkan expiry time */
+/* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
+/* F.S. X disisipkan pada posisi yang tepat sesuai dengan prioritas,
+    TAIL "maju" dengan mekanisme circular buffer; */
     if (IsEmptyQueue(*Q)){
         Head(*Q) = 0;
         Tail(*Q) = 0;
@@ -73,12 +77,43 @@ void Enqueue (PrioQueueTime * Q, Makanan M){
 
     }
 }
-/* Proses: Menambahkan X pada Q dengan aturan priority queue, terurut membesar berdasarkan time */
+
+void EnqueueDelivery (PrioQueueTime * Q, Makanan M){
+/* Proses: Menambahkan X pada Q dengan aturan priority queue, terurut membesar berdasarkan delivery time */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X disisipkan pada posisi yang tepat sesuai dengan prioritas,
-        TAIL "maju" dengan mekanisme circular buffer; */
+    TAIL "maju" dengan mekanisme circular buffer; */
+    if (IsEmptyQueue(*Q)){
+        Head(*Q) = 0;
+        Tail(*Q) = 0;
+        InfoTail(*Q) = M;
+    }
+    else {
+        Tail(*Q) = (Tail(*Q) + 1) % MaxEl(*Q);
+        InfoTail(*Q) = M;
+        
+        int i = Tail(*Q);
+        Makanan Temp;
+
+        while (i != Head(*Q)){
+            int idx = (i - 1 + MaxEl(*Q)) % MaxEl(*Q);
+            if (TLT(dlvMkn(Elmt(*Q, i)), dlvMkn(Elmt(*Q, idx)))){
+                Temp = Elmt(*Q, i);
+                Elmt(*Q, i) = Elmt(*Q, idx);
+                Elmt(*Q, idx) = Temp;
+            }
+            i = idx;
+        }
+
+    }
+}
+
 void Dequeue (PrioQueueTime * Q, Makanan * X){
-    *X = InfoTail(*Q);
+/* Proses: Menghapus X pada Q dengan aturan FIFO */
+/* I.S. Q tidak mungkin kosong */
+/* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;
+        Q mungkin kosong */
+    *X = InfoHead(*Q);
     if (NBElmt(*Q) == 1){
         Head(*Q) = Nil;
         Tail(*Q) = Nil;
@@ -91,17 +126,16 @@ void Dequeue (PrioQueueTime * Q, Makanan * X){
 
     }
 }
-/* Proses: Menghapus X pada Q dengan aturan FIFO */
-/* I.S. Q tidak mungkin kosong */
-/* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;
-        Q mungkin kosong */
+
 
 /* Operasi Tambahan */
-void PrintPrioQueueTime (PrioQueueTime Q){
+
+void PrintPrioQueueTimeInventory (PrioQueueTime Q){
+/* Mencetak isi queue Q ke layar untuk menunjukkan isi inventory*/
     if (!IsEmptyQueue(Q))
     {
         int nomor = 1;
-        if (Tail(Q) > Head(Q)){
+        if (Tail(Q) >= Head(Q)){
             for (int i = Head(Q); i <= Tail(Q); i++){
                 printf("%d. ", nomor);
                 nomor+=1;
@@ -133,16 +167,47 @@ void PrintPrioQueueTime (PrioQueueTime Q){
     }
     printf("\n");
 }
-/* Mencetak isi queue Q ke layar */
-/* I.S. Q terdefinisi, mungkin kosong */
-/* F.S. Q tercetak ke layar dengan format:
-<time-1> <elemen-1>
-...
-<time-n> <elemen-n>
-#
-*/
+
+void PrintPrioQueueTimeDelivery (PrioQueueTime Q){
+/* Mencetak isi queue Q ke layar untuk menunjukkan isi delivery*/
+    if (!IsEmptyQueue(Q))
+    {
+        int nomor = 1;
+        if (Tail(Q) >= Head(Q)){
+            for (int i = Head(Q); i <= Tail(Q); i++){
+                printf("%d. ", nomor);
+                nomor+=1;
+                printWord(nameMkn(Elmt(Q, i)));
+                printf(" - ");
+                TulisTIMEKadaluarsa(dlvMkn(Elmt(Q, i)));
+                printf("\n");
+                // printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
+            }
+        }
+        else {
+            for(int i = Head(Q); i < MaxEl(Q); i++){
+                printf("%d. ", nomor);
+                nomor+=1;
+                printWord(nameMkn(Elmt(Q, i)));
+                printf(" - ");
+                TulisTIMEKadaluarsa(dlvMkn(Elmt(Q, i)));
+                printf("\n");
+            }
+            for (int i = 0; i <= Tail(Q); i++){
+                printf("%d. ", nomor);
+                nomor+=1;
+                printWord(nameMkn(Elmt(Q, i)));
+                printf(" - ");
+                TulisTIMEKadaluarsa(dlvMkn(Elmt(Q, i)));
+                printf("\n");
+            }
+        }
+    }
+    printf("\n");
+}
 
 int PencariMakanan(PrioQueueTime *Q, Makanan M){
+/* Menemukan index dari makanan pada prioqueue*/
     int i = 0;
     boolean found = false;
     while(!found && i<NBElmt(*Q)){
@@ -150,12 +215,15 @@ int PencariMakanan(PrioQueueTime *Q, Makanan M){
         if(idMkn(m2)==idMkn(M)){
             found = true;
         }
-        i + (i+1)%MaxEl(*Q);
+        if (!found){
+            i + (i+1)%MaxEl(*Q);
+        }
     }
     return i;
 }
 
 void DequeueAt(PrioQueueTime *Q, Makanan M, Makanan *X){
+/* Mengeluarkan makanan tertentu pada prioqueue*/
     int index = PencariMakanan(&*Q,M);
     if(index==Head(*Q)){
         Dequeue(Q,X);
@@ -169,12 +237,8 @@ void DequeueAt(PrioQueueTime *Q, Makanan M, Makanan *X){
     }
 }
 
-void printExp(PrioQueueTime Q, int idx) {
-    TIME exp = roundToEvenHours(expMkn(Elmt(Q, idx)));
-    printf("%d jam", Hour(exp));
-}
-
 void decrementNExp(PrioQueueTime *Q, int N) {
+/* Mengurangi setiap waktu expiry pada queue sebesar N menit*/
     if (!IsEmptyQueue(*Q)) {
         if (Tail(*Q) > Head(*Q)){
             for (int i = Head(*Q); i <= Tail(*Q); i++){
@@ -193,6 +257,7 @@ void decrementNExp(PrioQueueTime *Q, int N) {
 }
 
 void decrementHMExp(PrioQueueTime *Q, int hours, int minutes) {
+/* Mengurangi setiap waktu expiry pada queue sebesar 'hours' jam dan 'minutes' menit*/
     if (!IsEmptyQueue(*Q)) {
         int totalMinuteDecrement = (hours * 60) + minutes;
         decrementNExp(Q, totalMinuteDecrement);
@@ -200,6 +265,7 @@ void decrementHMExp(PrioQueueTime *Q, int hours, int minutes) {
 }
 
 void decrementNDel(PrioQueueTime *Q, int N) {
+/* Mengurangi setiap waktu delivery pada queue sebesar N menit*/
     if (!IsEmptyQueue(*Q)) {
         if (Tail(*Q) > Head(*Q)){
             for (int i = Head(*Q); i <= Tail(*Q); i++){
@@ -218,6 +284,7 @@ void decrementNDel(PrioQueueTime *Q, int N) {
 }
 
 void decrementHMDel(PrioQueueTime *Q, int hours, int minutes) {
+/* Mengurangi setiap waktu delivery pada queue sebesar 'hours' jam dan 'minutes' menit*/
     if (!IsEmptyQueue(*Q)) {
         int totalMinuteDecrement = (hours * 60) + minutes;
         decrementNDel(Q, totalMinuteDecrement);

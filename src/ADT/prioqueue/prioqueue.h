@@ -58,11 +58,18 @@ void DeAlokasi(PrioQueueTime * Q);
 /* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
 
 /* *** Primitif Add/Delete *** */
-void Enqueue (PrioQueueTime * Q, Makanan M);
-/* Proses: Menambahkan X pada Q dengan aturan priority queue, terurut membesar berdasarkan time */
+void EnqueueInventory (PrioQueueTime * Q, Makanan M);
+/* Proses: Menambahkan X pada Q dengan aturan priority queue, terurut membesar berdasarkan expiry time */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X disisipkan pada posisi yang tepat sesuai dengan prioritas,
         TAIL "maju" dengan mekanisme circular buffer; */
+
+void EnqueueDelivery (PrioQueueTime * Q, Makanan M);
+/* Proses: Menambahkan X pada Q dengan aturan priority queue, terurut membesar berdasarkan delivery time */
+/* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
+/* F.S. X disisipkan pada posisi yang tepat sesuai dengan prioritas,
+    TAIL "maju" dengan mekanisme circular buffer; */
+
 void Dequeue (PrioQueueTime * Q, Makanan * M);
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
@@ -70,27 +77,29 @@ void Dequeue (PrioQueueTime * Q, Makanan * M);
         Q mungkin kosong */
 
 /* Operasi Tambahan */
-void PrintPrioQueueTime (PrioQueueTime Q);
-/* Mencetak isi queue Q ke layar */
-/* I.S. Q terdefinisi, mungkin kosong */
-/* F.S. Q tercetak ke layar dengan format:
-<time-1> <elemen-1>
-...
-<time-n> <elemen-n>
-#
-*/
+void PrintPrioQueueTimeInventory (PrioQueueTime Q);
+/* Mencetak isi queue Q ke layar untuk menunjukkan isi inventory*/
+
+void PrintPrioQueueTimeDelivery (PrioQueueTime Q);
+/* Mencetak isi queue Q ke layar untuk menunjukkan isi delivery*/
+
 int PencariMakanan(PrioQueueTime *Q, Makanan M);
+/* Menemukan index dari makanan pada prioqueue*/
 
 void DequeueAt(PrioQueueTime *Q, Makanan M, Makanan *X);
+/* Mengeluarkan makanan tertentu pada prioqueue*/
 
-void printExp(PrioQueueTime Q, int idx);
 
 void decrementNExp(PrioQueueTime *Q, int N);
+/* Mengurangi setiap waktu expiry pada queue sebesar N menit*/
 
 void decrementHMExp(PrioQueueTime *Q, int hours, int minutes);
+/* Mengurangi setiap waktu expiry pada queue sebesar 'hours' jam dan 'minutes' menit*/
 
 void decrementNDel(PrioQueueTime *Q, int N);
+/* Mengurangi setiap waktu delivery pada queue sebesar N menit*/
 
 void decrementHMDel(PrioQueueTime *Q, int hours, int minutes);
+/* Mengurangi setiap waktu delivery pada queue sebesar 'hours' jam dan 'minutes' menit*/
 
 #endif

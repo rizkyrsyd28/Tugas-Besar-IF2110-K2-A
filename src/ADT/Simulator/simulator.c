@@ -53,8 +53,8 @@ void DisplayInventory (Simulator S)
 //Menampilkan list inventory
 {
     printf("List Makanan di Inventory:\n");
-    printf("(nama - waktu sisa kedaluwarsa)\n");
-    PrintPrioQueueTime(Inventory(S));
+    printf("(No - Nama - Waktu Sisa Kadaluwarsa)\n");
+    PrintPrioQueueTimeInventory(Inventory(S));
 }
 
 void OlahMakananInventory(Simulator *S, int command,int jumlah, Makanan X1, Makanan X2,Makanan X3, Makanan X4){
@@ -125,7 +125,7 @@ void RemoveMakanan(Simulator *S,Makanan M){
 
 void AddMakanan(Simulator *S, Makanan X){
     PrioQueueTime Q = Inventory(*S);
-    Enqueue(&Q,X);
+    EnqueueInventory(&Q,X);
 }
 
 void KedaluwarsaInventory(Simulator *S)

@@ -68,9 +68,19 @@ TIME PrevNMinute (TIME T, int N);
 /* Mengirim N menit sebelum T dalam bentuk TIME */
 /* *** Kelompok Operator Aritmetika *** */
 boolean TEQ (TIME T1, TIME T2);
+/* Mengirimkan true jika T1=T2, false jika tidak */
 boolean TNEQ (TIME T1, TIME T2);
+/* Mengirimkan true jika T1 tidak sama dengan T2 */
 boolean TLT (TIME T1, TIME T2);
+/* Mengirimkan true jika T1<T2, false jika tidak */
 boolean TGT (TIME T1, TIME T2);
+/* Mengirimkan true jika T1>T2, false jika tidak */
 TIME roundToEvenHours(TIME T);
+/* Membulatkan TIME ke jam genap terdekat */
+
+int TIMEtoint (TIME T);
+/* Mengubah dari TIME ke bentuk int menit*/
+TIME inttoTIME (int n);
+/* Mengubah dari int menit ke bentuk TIME*/
 
 #endif
