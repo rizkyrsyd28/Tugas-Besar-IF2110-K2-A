@@ -152,28 +152,24 @@ TIME PrevNMinute(TIME T, int N) {
 /* Mengirim N detik sebelum T dalam bentuk TIME */
 /* *** Kelompok Operator Aritmetika *** */
 boolean TEQ (TIME T1, TIME T2) {
-/* Mengirimkan true jika T1=T2, false jika tidak */
 	return ((Day(T1) == Day(T2)) && (Minute(T1) == Minute(T2)) && (Hour(T1) == Hour(T2)));
 }
-
+/* Mengirimkan true jika T1=T2, false jika tidak */
 
 boolean TNEQ (TIME T1, TIME T2) {
-/* Mengirimkan true jika T1 tidak sama dengan T2 */
 	return !TEQ(T1,T2);
 }
-
+/* Mengirimkan true jika T1 tidak sama dengan T2 */
 
 boolean TLT (TIME T1, TIME T2) {
-/* Mengirimkan true jika T1<T2, false jika tidak */
 	return ((Day(T1) < Day(T2)) || (Day(T1) == Day(T2) && Hour(T1) < Hour(T2)) || (Day(T1) == Day(T2) && Hour(T1) == Hour(T2) && Minute(T1) < Minute(T2)));
 }
-
+/* Mengirimkan true jika T1<T2, false jika tidak */
 
 boolean TGT (TIME T1, TIME T2) {
-/* Mengirimkan true jika T1>T2, false jika tidak */
 	return (TNEQ(T1,T2) && !TLT(T1,T2));
 }
-
+/* Mengirimkan true jika T1>T2, false jika tidak */
 /* *** Operator aritmatika TIME *** */
 
 TIME roundToEvenHours(TIME T) {
@@ -187,20 +183,4 @@ TIME roundToEvenHours(TIME T) {
 		Hour(a)++;
 	}
 	Minute(a) = 0;
-}
-
-int TIMEtoint (TIME T){
-/* Mengubah dari TIME ke bentuk int menit*/
-	int result = 0;
-	result += Day(T)*24*60 + Hour(T)*60 + Minute(T);
-	return result;
-}
-
-TIME inttoTIME (int n){
-/* Mengubah dari int menit ke bentuk TIME*/
-	TIME result;
-	Day(result) = (n - (n % (24*60)))/24*60;
-	Hour(result) = (( n %(24*60)) - (n % (24*60) % 60))/60;
-	Minute(result) = (n % (24*60) % 60);
-	return result;
 }

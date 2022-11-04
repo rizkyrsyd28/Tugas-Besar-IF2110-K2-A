@@ -4,7 +4,7 @@
 #include "../boolean.h"
 #include "../Tree/nTree.c"
 #include "../ListStatik/liststatik.h"
-#include "../prioqueue/prioqueue.h"
+#include "../piroqueue/piroqueue.h"
 
 typedef struct {
     int NResep;

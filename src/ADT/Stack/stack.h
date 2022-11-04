@@ -17,25 +17,20 @@
 // typedef int infotype;
 typedef int address;   /* indeks tabel */
 
-typedef struct {
+/*typedef struct {
   int x;
   char c;
-} test1;
+} test1; */
 
-typedef struct {
+/*typedef struct {
   int x;
   char c;
-} test2;
+} test2;*/
 
 typedef struct {
-    test1 sub1;
-    test2 sub2;
+  Simulator sub1;
+  TIME sub2;
 }state;
-
-// typedef struct {
-//   Simulator sub1;
-//   TIME sub2;
-// } state;
 
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP : */
 /* Versi I : dengan menyimpan tabel dan alamat top secara eksplisit*/

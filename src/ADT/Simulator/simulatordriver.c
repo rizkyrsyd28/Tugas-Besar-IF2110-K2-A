@@ -1,7 +1,7 @@
 #include "../Stack/stack.c"
 #include "simulator.c"
 #include "../Point/point.c"
-#include "../prioqueue/prioqueue.c"
+#include "../piroqueue/piroqueue.c"
 #include "../MesinKata/wordmachine.c"
 #include"../Makanan/makanan.c"
 #include <stdio.h>

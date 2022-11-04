@@ -1,9 +1,10 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include "parser.c"
 #include "../ADT/Simulator/simulator.c"
-#include "../ADT/prioqueue/prioqueue.c"
+#include "../ADT/piroqueue/piroqueue.c"
 
 #define MAX_COMMAND 30
 
@@ -50,7 +51,6 @@ int main () {
     TIME currentTime;
     printf("Masukkan waktu awal dalam format (<hari> <jam> <menit>)\n");
     BacaTIME(&currentTime);
-    TIME boundariesTime; Day(boundariesTime) = 0; Hour(boundariesTime) = 0; Minute(boundariesTime) = 0;
     printf("-> Konfigurasi Waktu - DONE\n");
 
     // Konfigurasi Makanan
@@ -72,8 +72,11 @@ int main () {
     Ordinat(Lokasi(sim)) = Absis(startLoc);
     printf("-> Konfigurasi Peta - DONE\n");
 
+    // Konfigurasi Resep 
+
     // Konfigurasi Inventory
-    MakeEmptyQueue(&Inventory(sim), 100);
+    PrioQueueTime inventory;
+    MakeEmptyQueue(&inventory, 100);
     PrioQueueTime deliveryList;
     MakeEmptyQueue(&deliveryList, 100);
     printf("-> Konfigurasi Inventory - DONE\n");
@@ -86,7 +89,6 @@ int main () {
     int count;
     boolean subprogram = false;
     int idxFood;
-    Makanan dumpMkn;
 
 
     // =========== PENJALANAN PROGRAM UTAMA ===========
@@ -210,14 +212,7 @@ int main () {
                         // Inputnya telah sesuai dengan penomoran 
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
                         idxFood = searchIndexOlahMakanan(foodList, "BUY", WordToInt(currentWord));
-                        EnqueueDelivery(&deliveryList, ELMTLIST(foodList, idxFood));
-
-                        // Mengeluarkan pesan bahwa sudah dipesan.
-                        printWord(nameMkn(ELMTLIST(foodList, idxFood)));
-                        printf(" berhasil dipesan. Makanan akan diantar dalam ");
-                        TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
-                        printf("\n");
-                        subprogram = false;
+                        printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
                     }
                 }
             }
@@ -492,9 +487,9 @@ int main () {
             validAction = false; // Action ini tidak menghabiskan waktu
 
             if (IsEmptyQueue(Inventory(sim))){
-                printf("Tidak ada makanan pada inventory.\n");
+                printf(" Tidak ada makanan pada inventory.\n");
             } else {
-                DisplayInventory(sim);
+                PrintPrioQueueTime(Inventory(sim));
             }
         }
 
@@ -505,11 +500,9 @@ int main () {
             validAction = false; // Action ini tidak menghabiskan waktu
 
             if (IsEmptyQueue(deliveryList)){
-                printf("Tidak ada makanan pada list delivery.\n");
+                printf(" Tidak ada makanan pada list delivery.\n");
             } else {
-                printf("List Makanan di Delivery List:\n");
-                printf("No - Nama - Waktu Sisa Delivery\n");
-                PrintPrioQueueTimeDelivery(deliveryList);
+                PrintPrioQueueTime(deliveryList);
             }
         }
 
@@ -536,52 +529,37 @@ int main () {
                 allInteger = false;
             }
 
-            if (endWord){
-                printf("Command wait membutuhkan 2 integer, X dan Y\n");
+            ADVWORD(command, &idx);
+            if (isWordAllIntegers(currentWord)){
+                waitMinute = WordToInt(currentWord);
+                yint = true;
+            } else {
+                allInteger = false;
             }
-            else {
-                ADVWORD(command, &idx);
-                if (isWordAllIntegers(currentWord)){
-                    waitMinute = WordToInt(currentWord);
-                    yint = true;
-                } else {
-                    allInteger = false;
+            
+            if (allInteger){
+                printf("Menunggu ");
+                if (waitHour != 0) {
+                    printf("%d jam ", waitHour);
                 }
-                
-                if (allInteger){
-                    if (waitHour == 0 && waitMinute == 0){
-                        printf("Untuk apa dilakukan? Untuk apa? :(\n");
-                    } else {
-                        // Menunggu 0 0 boleh saja, tapi tidak melakukan perubahan apa apa
-                        printf("Menunggu ");
-                        if (waitHour != 0) {
-                            printf("%d jam ", waitHour);
-                        }
-                        if (waitMinute != 0){
-                            printf("%d menit", waitMinute);
-                        }
-                        printf("\n");
-
-                        totalWaitMinute = (waitHour * 60) + waitMinute;
-                        currentTime = NextNMinute(currentTime, totalWaitMinute);
-
-                        decrementNExp(&(Inventory(sim)), totalWaitMinute);
-                        decrementNDel(&deliveryList, totalWaitMinute);
-                        
-                        printf("Waktu pada Delivery List dan Inventory telah disesuaikan.\n");
-                    }
-                    // // Bikin notifikasi
-                    // RemoveDated(&sim);
-                    // DeliveryReady(&sim, &deliveryList);
-                    
-                } else if (!yint) {
-                    printf("Masukan tidak valid. Y bukan sebuah integer.\n");
-                } else if (!xint) {
-                    printf("Masukan tidak valid. X bukan sebuah integer.\n");
-                } else {
-                    printf("Masukan tidak valid. X dan Y hanya diperbolehkan memiliki tipe integer.\n");
+                if (waitMinute != 0) {
+                    printf("%d menit", waitMinute);
                 }
+                totalWaitMinute = (waitHour * 60) + waitMinute;
+                currentTime = NextNMinute(currentTime, totalWaitMinute);
+                decrementHMExp(&(Inventory(sim)), waitHour, waitMinute);
+                decrementHMDel(&deliveryList, waitHour, waitMinute);
+                // Bikin notifikasi
+                RemoveDated(&sim);
+                DeliveryReady(&sim, &deliveryList);
+            } else if (!yint) {
+                printf("Masukan tidak valid. Y bukan sebuah integer.\n");
+            } else if (!xint) {
+                printf("Masukan tidak valid. X bukan sebuah integer.\n");
+            } else {
+                printf("Masukan tidak valid. X dan Y hanya diperbolehkan memiliki tipe integer.\n");
             }
+
         }
 
         else if (isWordStringEqual(currentWord, "UNDO")){
@@ -652,6 +630,8 @@ int main () {
                     validAction = false; // Invalid Input
                 }
             }
+
+
         }
 
         else {
@@ -667,35 +647,6 @@ int main () {
         if (validAction){
             // Waktu hanya ditambahkan bila action yang dilakukan valid
             currentTime = NextMinute(currentTime);
-            
-            // Mengurangi waktu di delivery list dan inventory
-            decrementNDel(&deliveryList, 1);
-            decrementNExp(&Inventory(sim), 1);
-        }
-
-        // Tetap bisa dilakukan meski ValidAction = false (contohnya menggunakan WAIT)
-        // Mengeluarkan dari Delivery List, memasukan ke inventory (bila sampai)
-        while (!TGT(dlvMkn(InfoHead(deliveryList)), boundariesTime)){
-            Dequeue(&deliveryList, &dumpMkn);
-            if (!TEQ(dlvMkn(dumpMkn), boundariesTime)){
-                // Hanya dilakukan jika tidak 0
-                // Mengurangi waktu kadaluarsa sesuai dengan sisa pada delivery
-                int remainder = TIMEtoint(dlvMkn(dumpMkn));
-                TIME newExpiry = inttoTIME(TIMEtoint(expMkn(dumpMkn)) + remainder);
-                // printf("%d %d %d\n", remainder, TIMEtoint(expMkn(dumpMkn)), newExpiry);
-                expMkn(dumpMkn) = newExpiry;
-            }
-            EnqueueInventory(&Inventory(sim), dumpMkn);
-        }
-
-        // Mengeluarkan dari inventory ( bila kadaluarsa)
-        while (!TGT(expMkn(InfoHead(Inventory(sim))), boundariesTime)){
-            Dequeue(&Inventory(sim), &dumpMkn);
-        }
-
-        if (program){
-            printf("test");
         }
     }
-    return 0;
 }
