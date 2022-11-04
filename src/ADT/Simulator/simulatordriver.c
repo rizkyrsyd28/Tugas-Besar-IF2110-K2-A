@@ -1,15 +1,13 @@
-#include "simulator.c"
-#include "../boolean.h"
-#include "../piroqueue/piroqueue.c"
-#include "../Point/point.c"
-#include "../MesinKata/wordmachine.c"
 #include "../Stack/stack.c"
+#include "simulator.c"
+#include "../Point/point.c"
+#include "../piroqueue/piroqueue.c"
+#include "../MesinKata/wordmachine.c"
 #include"../Makanan/makanan.c"
 #include <stdio.h>
 
-int main ()
+int main()
 {
-
     Simulator S;
     ReadSimulator(&S);
     Makanan Ayam;
@@ -64,18 +62,19 @@ int main ()
     //Olah Makanan Inventory
     printf("-----------------------OLAH MAKANAN INVENTORY----------------------\n");
     //Enqueue(&Inventory(S),Ayam);
-    OlahMakananInventory(&Inventory(S),5,0,Ayam,Sapi,Minyak,Sayur);
+    OlahMakananInventory(&Inventory(S),5,0,Sayur,Sapi,Minyak,Sayur);
     printf("\n");
     printf("Inventory masuk \n");
+    DisplayInventory(S);
+    printf("\n");
+    Makanan X;
+    OlahMakananInventory(&Inventory(S),4,0,Sayur,Sapi,Minyak,Sayur); //DequeueAt Sayur, Enqueue Sayur
     DisplayInventory(S);
     printf("\n");
 
     //Kedaluwarsa Inventory
     printf("-----------------------Kedaluwarsa INVENTORY----------------------\n");
-    //KedaluwarsaInventory(&S);
-    //printf("\n");
-    //printf("Kedaluwarsa berkurang\n");
-    //DisplayInventory(S);
-    
-
+    KedaluwarsaInventory(&Inventory(S));
+    printf("\n");
+    DisplayInventory(S);
 }
