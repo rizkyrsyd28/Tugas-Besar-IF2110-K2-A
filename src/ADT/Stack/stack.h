@@ -7,6 +7,8 @@
 
 #include "../boolean.h"
 #include "../Makanan/makanan.h"
+#include "../Simulator/simulator.h"
+#include "../Time/time.h"
 
 #define Nil -1
 #define MaxStack 100
@@ -15,19 +17,19 @@
 // typedef int infotype;
 typedef int address;   /* indeks tabel */
 
-typedef struct {
+/*typedef struct {
   int x;
   char c;
-} test1;
+} test1; */
 
-typedef struct {
+/*typedef struct {
   int x;
   char c;
-} test2;
+} test2;*/
 
 typedef struct {
-    test1 sub1;
-    test2 sub2;
+  Simulator sub1;
+  TIME sub2;
 }state;
 
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP : */
@@ -71,6 +73,8 @@ void Pop(Stack * S, state* X);
 /* Menghapus X dari Stack S. */
 /* I.S. S  tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
+
+void displayStack(Stack S);
 
 void Undo(Stack *S_undo,Stack *S_redo, state *currentState, int totalcommand );
 
