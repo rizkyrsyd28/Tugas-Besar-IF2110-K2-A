@@ -154,3 +154,26 @@ void GeserLokasi (Simulator *S,int arah){
         Absis(Lokasi(*S))+=1;
     }
 }
+
+// change log AddMakanan param S -> D
+void DeliveryReady(Simulator *S, PrioQueueTime *D) {
+    int i;
+    for (i = 0; i < NBElmt(*D); i++){
+        Makanan M = Elmt(*D,i), temp;
+        if (Day(dlvMkn(M))<=0 && Hour(dlvMkn(M))<=0 && Minute(dlvMkn(M))<=0 ){
+            AddMakanan(D, M);
+            DequeueAt(D, M, &temp);
+        }
+    }
+}
+// change log RemoveMakanan param S -> &Q
+void RemoveDated(Simulator *S) {
+    int i;
+    PrioQueueTime Q = Inventory(*S);
+    for(i = 0;i<NBElmt(Q);i++){
+        Makanan M = Elmt(Q,i);
+        if (Day(expMkn(M))<=0 && Hour(expMkn(M))<=0 && Minute(expMkn(M))<=0 ){
+            RemoveMakanan(&Q,M);
+        }
+    }
+}

@@ -4,6 +4,7 @@
         "stdio.h": "c",
         "ntree.h": "c",
         "wordmachine.h": "c",
-        "resep.h": "c"
+        "resep.h": "c",
+        "simulator.h": "c"
     }
 }

@@ -7,7 +7,7 @@
 #include "../MesinKata/wordmachine.h"
 #include "../MesinKata/charmachine.h"
 #include "../Makanan/makanan.h"
-#include "../Stack/stack.h"
+// #include "../Stack/stack.h"
 #include "../Time/time.h"
 #include "../String/string.h"
 
@@ -60,5 +60,8 @@ void KedaluwarsaInventory(PrioQueueTime *Q);
 void GeserLokasi (Simulator *S,int arah);
 //Mengubah koordinat lokasi
 
+void DeliveryReady(Simulator *S, PrioQueueTime *D);
+
+void RemoveDated(Simulator *S);
 
 #endif
