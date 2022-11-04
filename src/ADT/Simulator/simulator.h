@@ -30,13 +30,13 @@ void ReadSimulator (Simulator *S);
 void DisplaySimulator(Simulator S);
 //Menampilkan Simulator
 
-void DisplayNama (Simulator S);
+void DisplayNama(Simulator S);
 //Menampilkan nama
 
-void DisplayLokasi (Simulator S);
+void DisplayLokasi(Simulator S);
 //Menampilkan koordinat lokasi
 
-void DisplayInventory (Simulator S);
+void DisplayInventory(Simulator S);
 //Menampilkan list inventory
 
 void OlahMakananInventory(PrioQueueTime *Q, int command,int jumlah, Makanan X1, Makanan X2,Makanan X3, Makanan X4);
@@ -55,7 +55,7 @@ void RemoveMakanan(PrioQueueTime *Q, Makanan M);
 
 void AddMakanan(PrioQueueTime *Q, Makanan X);
 
-void KedaluwarsaInventory(Simulator *S);
+void KedaluwarsaInventory(PrioQueueTime *Q);
 
 void GeserLokasi (Simulator *S,int arah);
 //Mengubah koordinat lokasi
