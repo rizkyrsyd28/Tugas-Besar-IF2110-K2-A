@@ -1,4 +1,4 @@
-#include "piroqueue.c"
+#include "prioqueue.c"
 #include "../Makanan/makanan.c"
 #include "../Liststatik/liststatik.c"
 

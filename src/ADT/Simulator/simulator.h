@@ -2,7 +2,7 @@
 #define Simulator_H
 
 #include "../boolean.h"
-#include "../piroqueue/piroqueue.h"
+#include "../prioqueue/prioqueue.h"
 #include "../Point/point.h"
 #include "../MesinKata/wordmachine.h"
 #include "../MesinKata/charmachine.h"
