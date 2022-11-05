@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "parser.c"
-#include "../ADT/Simulator/simulator.c"
+// #include "parser.c"
+// #include "../ADT/Simulator/simulator.c"
 // #include "../ADT/piroqueue/piroqueue.c"
 #include "submain.c"
 
@@ -294,7 +294,15 @@ int main () {
                         validAction = false; // Karena tidak melakukan apa-apa
                     } else {
                         idxFood = searchIndexOlahMakanan(foodList, "CHOP", WordToInt(currentWord));
-                        if (canMake(bukuResep, ELMTLIST(foodList, idxFood), inventory)){
+                        if (canMake(bukuResep, ELMTLIST(foodList, idxFood), Inventory(sim))){
+                            int idPar, idChld;
+                            for (int i = 0; i < NResep(bukuResep); i++){
+                                if (Parent(Resep(bukuResep, i)) == idMkn(ELMTLIST(foodList, idxFood))){
+                                    idPar = Parent(Resep(bukuResep, i));
+                                    idChld = Parent(Child(Resep(bukuResep, i), 0));
+                                }
+                            }
+                            ChopOlahInventory(&Inventory(sim), getMakanan(idChld, foodList), getMakanan(idPar, foodList));
                             printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
                         }
                         else {

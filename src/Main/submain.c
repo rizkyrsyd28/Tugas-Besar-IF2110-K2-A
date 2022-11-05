@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "parser.c"
 #include "../ADT/Simulator/simulator.c"
-#include "../ADT/piroqueue/piroqueue.c"
+// #include "../ADT/piroqueue/piroqueue.c"
 
 #define MAX_COMMAND 30
 
