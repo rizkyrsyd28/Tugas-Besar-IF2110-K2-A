@@ -23,8 +23,17 @@ void CreateEmpty(Stack *S){
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
 void Push(Stack * S, state X){
+    /*if (i==1){
+        decrementNExp(&Inventory(X.sub1),1);
+        decrementNDel(&X.sub3,1);
+    }*/
     Top(*S)++; 
     InfoTop(*S) = X;
+    /*if (i==1){
+        incrementNExp(&Inventory(X.sub1),1);
+        incrementNDel(&X.sub3,1);
+    }*/
+    
 }
 /* Menambahkan X sebagai elemen Stack S. */
 /* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
@@ -67,6 +76,7 @@ Stack merge(Stack S1, Stack S2){
 }*/
 
 void displayStack(Stack S){
+    //Untuk memperlihatkan Stack
     state X;
     int i = 0; 
     // ALGORITMA
@@ -77,10 +87,14 @@ void displayStack(Stack S){
 
 }
 
-void Undo(Stack *S_undo,Stack *S_redo, state *currentState, int totalcommand ){
+void Undo(Stack *S_undo,Stack *S_redo, state *currentState, int totalcommand, POINT src){
+    //Undo gerakan, mengembalikan simulator,waktu,dan peta sebelum
     if (totalcommand >0){
         Push(S_redo, *currentState);
-        Pop (S_undo, currentState);
+        if (src.X>=1 && src.Y>=1){
+            InfoTop(*S_redo).sub1.P=src;
+        }
+        Pop (S_undo,currentState);
     }
     else {
         printf("Tidak bisa undo\n");
@@ -88,9 +102,13 @@ void Undo(Stack *S_undo,Stack *S_redo, state *currentState, int totalcommand ){
     
 }
 
-void Redo(Stack *S_undo,Stack *S_redo, state *currentState, int totalundo ){
+void Redo(Stack *S_undo,Stack *S_redo, state *currentState, int totalundo, POINT src){
+    //Redo gerakan, mengembalikan simulator,waktu,dan peta sesudah
     if(totalundo>0){
         Push(S_undo, *currentState);
+        if (src.X>=1 && src.Y>=1){
+            InfoTop(*S_undo).sub1.P=src;
+        }
         Pop (S_redo, currentState);
     }
     else {

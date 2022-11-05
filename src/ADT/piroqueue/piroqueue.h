@@ -93,11 +93,17 @@ void DequeueAt(PrioQueueTime *Q, Makanan M, Makanan *X);
 void decrementNExp(PrioQueueTime *Q, int N);
 /* Mengurangi setiap waktu expiry pada queue sebesar N menit*/
 
+void incrementNExp(PrioQueueTime *Q, int N);
+/* Menambahi setiap waktu expiry pada queue sebesar N menit*/
+
 void decrementHMExp(PrioQueueTime *Q, int hours, int minutes);
 /* Mengurangi setiap waktu expiry pada queue sebesar 'hours' jam dan 'minutes' menit*/
 
 void decrementNDel(PrioQueueTime *Q, int N);
 /* Mengurangi setiap waktu delivery pada queue sebesar N menit*/
+
+void incrementNDel(PrioQueueTime *Q, int N);
+/* Menamabah setiap waktu delivery pada queue sebesar N menit*/
 
 void decrementHMDel(PrioQueueTime *Q, int hours, int minutes);
 /* Mengurangi setiap waktu delivery pada queue sebesar 'hours' jam dan 'minutes' menit*/

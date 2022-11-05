@@ -2,6 +2,7 @@
 #include "simulator.h"
 
 void CreateSimulator(Simulator *S, Word nama, POINT P, PrioQueueTime Q){
+    //Membuat simulator
     Nama(*S)= nama;
     Lokasi(*S)=P;
     Inventory(*S) = Q;
@@ -59,7 +60,7 @@ void DisplayInventory (Simulator S)
 }
 
 void OlahMakananInventory(PrioQueueTime *Q, int command,int jumlah, Makanan X1, Makanan X2,Makanan X3, Makanan X4){
-    //X4 itu buat yang diadd, X1,X2,X3 yang diremove. Kalo yang diremove ga sampe 3, isi asal aja yg ga kepake
+    //Mengupdate isi inventory. X4 itu buat yang diadd, X1,X2,X3 yang diremove. Kalo yang diremove ga sampe 3, isi asal aja yg ga kepake
     if (command==1){//MIX
         MixOlahInventory(Q,jumlah,X1,X2,X3,X4);
     }
@@ -79,6 +80,7 @@ void OlahMakananInventory(PrioQueueTime *Q, int command,int jumlah, Makanan X1, 
 }
 
 void MixOlahInventory(PrioQueueTime *Q, int jumlah, Makanan X1, Makanan X2, Makanan X3, Makanan X4){
+    //Mengupdate isi inventory jika melakukan Mix
     if (jumlah==2){
         RemoveMakanan(Q,X1);
         RemoveMakanan(Q,X2);
@@ -93,11 +95,13 @@ void MixOlahInventory(PrioQueueTime *Q, int jumlah, Makanan X1, Makanan X2, Maka
 }
 
 void ChopOlahInventory (PrioQueueTime *Q, Makanan X1, Makanan X2){
+    //Mengupdate isi inventory jika melakukan Chop
     RemoveMakanan(Q,X1);
     AddMakanan(Q,X2);
 }
 
 void FryOlahInventory(PrioQueueTime *Q,int jumlah, Makanan X1, Makanan X2, Makanan X3){
+    //Mengupdate isi inventory jika melakukan Fry
     if (jumlah==1){
         RemoveMakanan(Q,X1);
         AddMakanan(Q,X3);
@@ -110,25 +114,30 @@ void FryOlahInventory(PrioQueueTime *Q,int jumlah, Makanan X1, Makanan X2, Makan
 }
 
 void BoilOlahInventory(PrioQueueTime *Q, Makanan X1, Makanan X2){
+    //Mengupdate isi inventory jika melakukan Boil
     RemoveMakanan(Q,X1);
     AddMakanan(Q,X2);
 }
 
 void BuyOlahInventory(PrioQueueTime *Q,Makanan X1){
+    //Mengupdate isi inventory jika melakukan Buy
     AddMakanan(Q,X1);
 }
 
 void RemoveMakanan(PrioQueueTime *Q,Makanan M){
+    //DequeueAt makanan pada inventory
     Makanan X;
     DequeueAt(Q,M,&X);
 }
 
 void AddMakanan(PrioQueueTime *Q, Makanan X){
+    //enqueueinventory makanan pada inventory
     EnqueueInventory(Q,X);
 }
 
 void KedaluwarsaInventory(PrioQueueTime *Q)
 {
+    //mengurangi waktu kedaluwarsa makanan pada inventory dan membuangnya jika sudah kedaluwarsa
     int i = 0;
     for(i;i<NBElmt(*Q);i++){
         Makanan M = Elmt(*Q,i);
