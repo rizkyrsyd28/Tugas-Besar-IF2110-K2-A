@@ -5,6 +5,8 @@
         "ntree.h": "c",
         "wordmachine.h": "c",
         "resep.h": "c",
-        "simulator.h": "c"
+        "simulator.h": "c",
+        "liststatik.h": "c",
+        "stdlib.h": "c"
     }
 }

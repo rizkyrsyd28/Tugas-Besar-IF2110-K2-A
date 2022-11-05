@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "parser.c"
+#include "../ADT/Simulator/simulator.c"
+// #include "../ADT/piroqueue/piroqueue.c"
 
 
 int main(){
@@ -14,25 +16,33 @@ int main(){
     //     printTree(Trees[i], 2);
     //     printf("\nDepth : %d\n", depth(Trees[i]));
     // }
-    POINT p;
-	Matrix m = konfigMap();
+    Cookbook c = konfigResep();
+    ListStatik foods = konfigMakanan();
+    PrioQueueTime pq;
 
-	CreatePoint(&p, 1, 1);
+    MakeEmptyQueue(&pq, 18);
 
-	swapElmt(&m, &p, NextX(p));
-    TulisPOINT(p);
-    
-	displayMatrix(m);
-    // ----
-	swapElmt(&m, &p, NextY(p));
-    TulisPOINT(p);
+    for (int i = 0; i < listLength(foods); i++){
+        if (idMkn(ELMTLIST(foods, i)) != 11){
+            AddMakanan(&pq, ELMTLIST(foods, i));
+        }
+        else{
+            AddMakanan(&pq, ELMTLIST(foods, i-1));
+        }
+    }
 
-	displayMatrix(m);
-    // ----
-	swapElmt(&m, &p, BackY(p));
-    TulisPOINT(p);
+    PrintPrioQueueTime(pq);
+    // Liststatik foods = 
+    printResep(c, foods);
 
-	displayMatrix(m);
+    if (canMake(c, ELMTLIST(foods, 15), pq)){
+        printf("true bang\n");
+    }
+    else {
+        printf("debug lagi jing\n");
+    }
+
+    return 0;
 
     // return 0;
 }

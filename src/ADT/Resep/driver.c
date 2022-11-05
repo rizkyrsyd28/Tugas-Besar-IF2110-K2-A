@@ -1,8 +1,13 @@
 #include "resep.h"
-#include "../src/Main/parser.c"
+#include "../Main/parser.c"
 
 int main(){
     Cookbook c = konfigResep();
+    ListStatik foods = konfigMakanan();
+
+
     // Liststatik foods = 
-    // printResep(c, foods)
+    printResep(c, foods);
+
+    return 0;
 }

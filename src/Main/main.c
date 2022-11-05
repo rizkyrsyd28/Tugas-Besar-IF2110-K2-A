@@ -4,7 +4,7 @@
 #include <math.h>
 #include "parser.c"
 #include "../ADT/Simulator/simulator.c"
-#include "../ADT/piroqueue/piroqueue.c"
+// #include "../ADT/piroqueue/piroqueue.c"
 
 #define MAX_COMMAND 30
 
@@ -324,10 +324,15 @@ int main () {
                         subprogram = false;
                         validAction = false; // Karena tidak melakukan apa-apa
                     } else {
+                        idxFood = searchIndexOlahMakanan(foodList, "CHOP", WordToInt(currentWord));
+                        if (canMake(bukuResep, ELMTLIST(foodList, idxFood), inventory)){
+                            printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
+                        }
+                        else {
+                            printf("Kamu tidak punya bahannya");
+                        }
                         // Inputnya telah sesuai dengan penomoran 
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
-                        idxFood = searchIndexOlahMakanan(foodList, "CHOP", WordToInt(currentWord));
-                        printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
                     }
                 }
             }

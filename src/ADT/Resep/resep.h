@@ -4,7 +4,7 @@
 #include "../boolean.h"
 #include "../Tree/nTree.c"
 #include "../ListStatik/liststatik.h"
-#include "../piroqueue/piroqueue.h"
+#include "../piroqueue/piroqueue.c"
 
 typedef struct {
     int NResep;
@@ -16,7 +16,7 @@ typedef struct {
 #define Buku(c) (c).Resep  /* selektor list resep */
 #define Resep(c,i) (c).Resep[i] /* selektor element list resep */
 
-boolean canMake(ID Id, PrioQueueTime pq);
+boolean canMake(Cookbook cb, Makanan m, PrioQueueTime pq);
 /* Mengirim True jika semua bahan yang diperlukan untuk membuat suatu resep tersedia di inventory*/
 
 void printResep(Cookbook cb, ListStatik foods);
