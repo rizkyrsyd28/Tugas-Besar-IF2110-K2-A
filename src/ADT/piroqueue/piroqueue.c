@@ -77,6 +77,33 @@ void Enqueue (PrioQueueTime * Q, Makanan M){
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X disisipkan pada posisi yang tepat sesuai dengan prioritas,
         TAIL "maju" dengan mekanisme circular buffer; */
+
+void enqueueBuy (PrioQueueTime * Q, Makanan M){
+    if (IsEmptyQueue(*Q)){
+        Head(*Q) = 0;
+        Tail(*Q) = 0;
+        InfoTail(*Q) = M;
+    }
+    else {
+        Tail(*Q) = (Tail(*Q) + 1) % MaxEl(*Q);
+        InfoTail(*Q) = M;
+        
+        int i = Tail(*Q);
+        Makanan Temp;
+
+        while (i != Head(*Q)){
+            int idx = (i - 1 + MaxEl(*Q)) % MaxEl(*Q);
+            if (TLT(dlvMkn(Elmt(*Q, i)), dlvMkn(Elmt(*Q, idx)))){
+                Temp = Elmt(*Q, i);
+                Elmt(*Q, i) = Elmt(*Q, idx);
+                Elmt(*Q, idx) = Temp;
+            }
+            i = idx;
+        }
+
+    }
+}
+
 void Dequeue (PrioQueueTime * Q, Makanan * X){
     *X = InfoTail(*Q);
     if (NBElmt(*Q) == 1){
@@ -141,6 +168,45 @@ void PrintPrioQueueTime (PrioQueueTime Q){
 <time-n> <elemen-n>
 #
 */
+
+void PrintPrioQueueTimeBuy (PrioQueueTime Q){
+    if (!IsEmptyQueue(Q))
+    {
+        int nomor = 1;
+        if (Tail(Q) >= Head(Q)){
+            for (int i = Head(Q); i <= Tail(Q); i++){
+                printf("   ");
+                printf("%d. ", nomor);
+                nomor+=1;
+                printWord(nameMkn(Elmt(Q, i)));
+                printf(" - ");
+                TulisTIMEBuy(dlvMkn(Elmt(Q, i)));
+                printf("\n");
+                // printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
+            }
+        }
+        else {
+            for(int i = Head(Q); i < MaxEl(Q); i++){
+                printf("   ");
+                printf("%d. ", nomor);
+                nomor+=1;
+                printWord(nameMkn(Elmt(Q, i)));
+                printf(" - ");
+                TulisTIMEBuy(dlvMkn(Elmt(Q, i)));
+                printf("\n");
+            }
+            for (int i = 0; i <= Tail(Q); i++){
+                printf("%d. ", nomor);
+                nomor+=1;
+                printWord(nameMkn(Elmt(Q, i)));
+                printf(" - ");
+                TulisTIMEBuy(dlvMkn(Elmt(Q, i)));
+                printf("\n");
+            }
+        }
+    }
+    printf("\n");
+}
 
 int PencariMakanan(PrioQueueTime *Q, Makanan M){
     int i = 0;

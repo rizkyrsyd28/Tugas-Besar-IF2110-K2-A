@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:\\tugas besar\\ALSTRUKDAT\\Tugas-Besar-IF2110-K2-A\\src"
+                "D:\\GitHub\\Tugas-Besar-IF2110-K2-A"
             ],
             "defines": [
                 "_DEBUG",

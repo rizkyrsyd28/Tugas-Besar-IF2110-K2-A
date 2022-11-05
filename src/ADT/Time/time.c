@@ -75,6 +75,15 @@ void TulisTIMEDelivery (TIME T)
 	printf("(%d.%d)",Hour(T),Minute(T));
 }
 
+void TulisTIMEBuy (TIME T)
+{
+	if (Hour(T) > 0) {
+		printf("%d jam %d menit",Hour(T),Minute(T));
+	} else {
+		printf("%d menit",Minute(T));
+	}
+}
+
 void TulisTIME(TIME T)
 {
 	printf("< Day %d | %d:%d >\n",Day(T), Hour(T), Minute(T));

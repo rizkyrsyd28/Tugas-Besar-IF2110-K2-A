@@ -212,7 +212,16 @@ int main () {
                         // Inputnya telah sesuai dengan penomoran 
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
                         idxFood = searchIndexOlahMakanan(foodList, "BUY", WordToInt(currentWord));
-                        printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
+                        enqueueBuy(&deliveryList, ELMTLIST(foodList, idxFood));
+                        Word buyName = nameMkn(ELMTLIST(foodList, idxFood));
+                        TIME buyTime = dlvMkn(ELMTLIST(foodList, idxFood));
+                        printf("Berhasil memesan ");
+                        printWord(buyName);
+                        printf(". ");
+                        printWord(buyName);
+                        printf(" akan diantar dalam ");
+                        TulisTIMEBuy(buyTime);
+                        printf(".\n");
                     }
                 }
             }
@@ -502,7 +511,9 @@ int main () {
             if (IsEmptyQueue(deliveryList)){
                 printf(" Tidak ada makanan pada list delivery.\n");
             } else {
-                PrintPrioQueueTime(deliveryList);
+                printf("List Makanan di Perjalanan\n");
+                printf("(nama - waktu sisa delivery)\n");
+                PrintPrioQueueTimeBuy(deliveryList);
             }
         }
 
