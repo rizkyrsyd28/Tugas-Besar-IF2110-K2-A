@@ -25,6 +25,7 @@ void CreateEmpty(Stack *S){
 void Push(Stack * S, state X){
     Top(*S)++; 
     InfoTop(*S) = X;
+    
 }
 /* Menambahkan X sebagai elemen Stack S. */
 /* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
@@ -67,20 +68,38 @@ Stack merge(Stack S1, Stack S2){
 }*/
 
 void displayStack(Stack S){
+    //Untuk memperlihatkan Stack
     state X;
     int i = 0; 
     // ALGORITMA
     for (int i = Top(S); i >= 0; i--){
         Pop(&S, &X);
-        printf("%d\n", X);
+        printf("Simulator : \n");
+        DisplaySimulator(X.sub1);
+        printf("\n");
+        printf("Inventory : \n");
+        DisplayInventory(X.sub1);
+        printf("\n");
+        printf("Waktu : \n");
+        TulisTIME(X.sub2);
+        printf("\n");
+        /*printf("Delivery : \n");
+        PrintPrioQueueTime(X.sub3);
+        printf("\n");*/
     }
 
 }
 
-void Undo(Stack *S_undo,Stack *S_redo, state *currentState, int totalcommand ){
+void Undo(Stack *S_undo,Stack *S_redo, state *currentState, int totalcommand, POINT src){
+    //Undo gerakan, mengembalikan simulator,waktu,dan peta sebelum
+    
     if (totalcommand >0){
+        //CreateSimulatorUndo(&currentState->sub1,currentState->sub1.Nama,currentState->sub1.P,currentState->sub1.Q);
         Push(S_redo, *currentState);
-        Pop (S_undo, currentState);
+        if (src.X>=1 && src.Y>=1){
+            InfoTop(*S_redo).sub1.P=src;
+        }
+        Pop (S_undo,currentState);
     }
     else {
         printf("Tidak bisa undo\n");
@@ -88,9 +107,14 @@ void Undo(Stack *S_undo,Stack *S_redo, state *currentState, int totalcommand ){
     
 }
 
-void Redo(Stack *S_undo,Stack *S_redo, state *currentState, int totalundo ){
+void Redo(Stack *S_undo,Stack *S_redo, state *currentState, int totalundo, POINT src){
+    //Redo gerakan, mengembalikan simulator,waktu,dan peta sesudah
     if(totalundo>0){
+        //CreateSimulatorUndo(&currentState->sub1,currentState->sub1.Nama,currentState->sub1.P,currentState->sub1.Q);
         Push(S_undo, *currentState);
+        if (src.X>=1 && src.Y>=1){
+            InfoTop(*S_undo).sub1.P=src;
+        }
         Pop (S_redo, currentState);
     }
     else {

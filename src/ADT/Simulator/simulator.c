@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include "simulator.h"
 
-void CreateSimulator(Simulator *S, Word nama, POINT P, PrioQueueTime Q){
+void CreateSimulator(Simulator *S, Word nama, POINT P, PrioQueueTime Q,PrioQueueTime D,PrioQueueTime PL){
+    //Membuat simulator
     Nama(*S)= nama;
     Lokasi(*S)=P;
     Inventory(*S) = Q;
+    Delivery(*S) = D;
+    ProcessList(*S) = PL;
 }
 
 void ReadSimulator(Simulator *S){
@@ -12,7 +15,11 @@ void ReadSimulator(Simulator *S){
     Word nama;
     POINT P;
     PrioQueueTime Q;
+    PrioQueueTime D;
+    PrioQueueTime PL;
     MakeEmptyQueue(&Q,100);
+    MakeEmptyQueue(&D,100);
+    MakeEmptyQueue(&PL,100);
     int idx;
     // Menginputkan nama Simulator
     printf("Input nama Simulator: ");
@@ -28,7 +35,7 @@ void ReadSimulator(Simulator *S){
 
     Absis(P) = 1;
     Ordinat(P) = 1;
-    CreateSimulator(S,nama,P,Q);
+    CreateSimulator(S,nama,P,Q,D,PL);
 }
 
 void DisplaySimulator(Simulator S){
@@ -59,7 +66,7 @@ void DisplayInventory (Simulator S)
 }
 
 void OlahMakananInventory(PrioQueueTime *Q, int command,int jumlah, Makanan X1, Makanan X2,Makanan X3, Makanan X4){
-    //X4 itu buat yang diadd, X1,X2,X3 yang diremove. Kalo yang diremove ga sampe 3, isi asal aja yg ga kepake
+    //Mengupdate isi inventory. X4 itu buat yang diadd, X1,X2,X3 yang diremove. Kalo yang diremove ga sampe 3, isi asal aja yg ga kepake
     if (command==1){//MIX
         // MixOlahInventory(Q,jumlah,X1,X2,X3,X4);
     }
@@ -91,11 +98,13 @@ void MixOlahInventory(PrioQueueTime *Q, Cookbook cb, ID id, int idx, ListStatik 
 }
 
 void ChopOlahInventory (PrioQueueTime *Q, Makanan X1, Makanan X2){
+    //Mengupdate isi inventory jika melakukan Chop
     RemoveMakanan(Q,X1);
     AddMakanan(Q,X2);
 }
 
 void FryOlahInventory(PrioQueueTime *Q,int jumlah, Makanan X1, Makanan X2, Makanan X3){
+    //Mengupdate isi inventory jika melakukan Fry
     if (jumlah==1){
         RemoveMakanan(Q,X1);
         AddMakanan(Q,X3);
@@ -108,25 +117,30 @@ void FryOlahInventory(PrioQueueTime *Q,int jumlah, Makanan X1, Makanan X2, Makan
 }
 
 void BoilOlahInventory(PrioQueueTime *Q, Makanan X1, Makanan X2){
+    //Mengupdate isi inventory jika melakukan Boil
     RemoveMakanan(Q,X1);
     AddMakanan(Q,X2);
 }
 
 void BuyOlahInventory(PrioQueueTime *Q,Makanan X1){
+    //Mengupdate isi inventory jika melakukan Buy
     AddMakanan(Q,X1);
 }
 
 void RemoveMakanan(PrioQueueTime *Q,Makanan M){
+    //DequeueAt makanan pada inventory
     Makanan X;
     DequeueAt(Q,M,&X);
 }
 
 void AddMakanan(PrioQueueTime *Q, Makanan X){
+    //enqueueinventory makanan pada inventory
     EnqueueInventory(Q,X);
 }
 
 void KedaluwarsaInventory(PrioQueueTime *Q)
 {
+    //mengurangi waktu kedaluwarsa makanan pada inventory dan membuangnya jika sudah kedaluwarsa
     int i = 0;
     for(i;i<NBElmt(*Q);i++){
         Makanan M = Elmt(*Q,i);
@@ -174,4 +188,35 @@ void RemoveDated(Simulator *S) {
             RemoveMakanan(&Q,M);
         }
     }
+}
+
+void CreateSimulatorUndo (Simulator *S, Word nama, POINT P, PrioQueueTime invent,PrioQueueTime DeliveryList, PrioQueueTime ProcessList){
+    PrioQueueTime Q;
+    PrioQueueTime D;
+    PrioQueueTime PL;
+    //DisplayInventory(*S);
+    MakeEmptyQueue(&Q,100);
+    MakeEmptyQueue(&D,100);
+    MakeEmptyQueue(&PL,100);
+    Head(Q) = Head(invent);
+    Tail(Q) = Tail(invent);
+    Head(D) = Head(DeliveryList);
+    Tail(D) = Tail(DeliveryList);
+    Head(PL) = Head(ProcessList);
+    Tail(PL) = Tail(ProcessList);
+    for (int i =0;i<100;i++){
+        Elmt(Q,i) = Elmt(invent,i);
+    }
+    for (int i =0;i<100;i++){
+        Elmt(D,i) = Elmt(DeliveryList,i);
+    }
+    for (int i =0;i<100;i++){
+        Elmt(PL,i) = Elmt(ProcessList,i);
+    }
+    Nama(*S)= nama;
+    Lokasi(*S)=P;
+    Inventory(*S) = Q;
+    Delivery(*S) = D;
+    ProcessList(*S) = PL;
+    //DisplayInventory(*S);
 }

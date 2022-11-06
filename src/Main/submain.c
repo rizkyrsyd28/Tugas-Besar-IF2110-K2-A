@@ -2,6 +2,7 @@
 #include "parser.c"
 #include "../ADT/Simulator/simulator.c"
 // #include "../ADT/piroqueue/piroqueue.c"
+#include "../ADT/Stack/stack.c"
 
 #define MAX_COMMAND 30
 
@@ -84,4 +85,9 @@ void getInvalidRespond(){
     printf("===============     INVALID INPUT    ===============\n");
     printf("====================================================\n");
     printf("Input tidak valid. Silahkan inputkan command yang valid.\n");
+}
+
+void initState(state *st, Simulator S, TIME T){
+    st->sub1 = S;
+    st->sub2 = T;
 }

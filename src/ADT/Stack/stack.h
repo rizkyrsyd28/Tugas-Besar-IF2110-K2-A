@@ -9,6 +9,10 @@
 #include "../Makanan/makanan.h"
 #include "../Simulator/simulator.h"
 #include "../Time/time.h"
+#include "../piroqueue/piroqueue.h"
+#include "../Matrix/matrix.h"
+#include "../Point/point.h"
+
 
 #define Nil -1
 #define MaxStack 100
@@ -75,9 +79,12 @@ void Pop(Stack * S, state* X);
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
 
 void displayStack(Stack S);
+//Untuk memperlihatkan Stack
 
-void Undo(Stack *S_undo,Stack *S_redo, state *currentState, int totalcommand );
+void Undo(Stack *S_undo,Stack *S_redo, state *currentState, int totalcommand, POINT src);
+//Undo gerakan, mengembalikan simulator,waktu,dan peta sebelum
 
-void Redo(Stack *S_undo,Stack *S_redo, state *currentState, int totalundo );
+void Redo(Stack *S_undo,Stack *S_redo, state *currentState, int totalundo, POINT src);
+//Redo gerakan, mengembalikan simulator,waktu,dan peta sesudah
 
 #endif

@@ -307,6 +307,25 @@ void decrementNExp(PrioQueueTime *Q, int N) {
     }
 }
 
+void incrementNExp(PrioQueueTime *Q, int N) {
+/* Mengurangi setiap waktu expiry pada queue sebesar N menit*/
+    if (!IsEmptyQueue(*Q)) {
+        if (Tail(*Q) >= Head(*Q)){
+            for (int i = Head(*Q); i <= Tail(*Q); i++){
+                expMkn(Elmt(*Q, i)) = NextNMinute(expMkn(Elmt(*Q, i)), N);
+            }
+        }
+        else {
+            for(int i = Head(*Q); i < MaxEl(*Q); i++){
+                expMkn(Elmt(*Q, i)) = NextNMinute(expMkn(Elmt(*Q, i)), N);
+            }
+            for (int i = 0; i <= Tail(*Q); i++){
+                expMkn(Elmt(*Q, i)) = NextNMinute(expMkn(Elmt(*Q, i)), N);
+            }
+        }
+    }
+}
+
 void decrementHMExp(PrioQueueTime *Q, int hours, int minutes) {
 /* Mengurangi setiap waktu expiry pada queue sebesar 'hours' jam dan 'minutes' menit*/
     if (!IsEmptyQueue(*Q)) {
@@ -329,6 +348,25 @@ void decrementNDel(PrioQueueTime *Q, int N) {
             }
             for (int i = 0; i <= Tail(*Q); i++){
                 dlvMkn(Elmt(*Q, i)) = PrevNMinute(dlvMkn(Elmt(*Q, i)), N);
+            }
+        }
+    }
+}
+
+void incrementNDel(PrioQueueTime *Q, int N) {
+/* Mengurangi setiap waktu delivery pada queue sebesar N menit*/
+    if (!IsEmptyQueue(*Q)) {
+        if (Tail(*Q) >= Head(*Q)){
+            for (int i = Head(*Q); i <= Tail(*Q); i++){
+                dlvMkn(Elmt(*Q, i)) = NextNMinute(dlvMkn(Elmt(*Q, i)), N);
+            }
+        }
+        else {
+            for(int i = Head(*Q); i < MaxEl(*Q); i++){
+                dlvMkn(Elmt(*Q, i)) = NextNMinute(dlvMkn(Elmt(*Q, i)), N);
+            }
+            for (int i = 0; i <= Tail(*Q); i++){
+                dlvMkn(Elmt(*Q, i)) = NextNMinute(dlvMkn(Elmt(*Q, i)), N);
             }
         }
     }

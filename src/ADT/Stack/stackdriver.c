@@ -1,16 +1,33 @@
-#include "stack.c"
-#include "../Simulator/simulator.c"
-#include "../Point/point.c"
-#include "../piroqueue/piroqueue.c"
 #include "../MesinKata/wordmachine.c"
 #include"../Makanan/makanan.c"
+#include "../piroqueue/piroqueue.c"
+#include "../Matrix/matrix.c"
+#include "../Simulator/simulator.c"
+#include "stack.c"
 #include <stdio.h>
 
 
-
-void initState(state * st, Simulator S, TIME T){
+/*void initState(state * st, Simulator S, TIME T){
     st->sub1 = S;
     st->sub2 = T;
+}
+
+void initMakanan2(Makanan * m){
+    m->id = 10; 
+    m->delivery.DD = 10;
+    m->delivery.HH = 10;
+    m->delivery.MM = 10;
+    m->expired.DD = 10;
+    m->expired.HH = 20;
+    m->expired.MM = 30;
+    m->name.Length = 3;
+    m->name.TabWord[0] = 'x';
+    m->name.TabWord[1] = 'y';
+    m->name.TabWord[2] = 'z';
+    m->action.Length = 3;
+    m->action.TabWord[0] = 'x';
+    m->action.TabWord[1] = 'y';
+    m->action.TabWord[2] = 'z';
 }
 
 int main()
@@ -18,11 +35,20 @@ int main()
     Stack SUndo, SRedo;
     Simulator S;
     state currentState;
+    PrioQueueTime deliverylist;
+    PrioQueueTime processlist;
     char in; 
 
+    ReadSimulator(&S);
+    MakeEmptyQueue(&deliverylist,100);
+    MakeEmptyQueue(&processlist,100);
     CreateEmpty(&SRedo);
     CreateEmpty(&SUndo);
-    ReadSimulator(&S);
+
+    Makanan xyz;
+    initMakanan2(&xyz);
+    EnqueueDelivery(&deliverylist,xyz);
+    EnqueueDelivery(&processlist,xyz);
 
     TIME T;
     Makanan Ayam;
@@ -49,7 +75,7 @@ int main()
     BacaTIME(&T);
     printf("\n");
 
-    initState(&currentState,S,T);
+    //initState(&currentState,S,T,deliverylist,processlist);
     int totalcommand=0;
     int totalundo = 0;
 
@@ -60,39 +86,37 @@ int main()
         scanf(" %c", &in);
 
         if (in == 'b'){
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q);
             Push(&SUndo, currentState);
             totalcommand ++;
             OlahMakananInventory(&Inventory(currentState.sub1),5,0,Sayur,Sapi,Minyak,Sayur);
             /*scanf("%d %c", &currentState.sub1.x, &currentState.sub1.c);
             scanf("%d %c", &currentState.sub2.x, &currentState.sub2.c);*/
 
-        }
+        /*}
         else if (in == 'c'){
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q);
             Push(&SUndo, currentState);
             totalcommand ++;
             OlahMakananInventory(&Inventory(currentState.sub1),4,0,Sayur,Sapi,Minyak,Sayur);
         }
         else if (in=='g'){
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q);
             Push(&SUndo, currentState);
             totalcommand ++;
             GeserLokasi(&currentState.sub1,2);
         }
         else if(in=='t'){
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q);
             Push(&SUndo, currentState);
             totalcommand ++;
             currentState.sub2 = NextMinute(currentState.sub2);
         }
         else if (in == 'u'){
-            //Undo(&SUndo,&SRedo,&currentState,totalcommand);
-            if (totalcommand >0){
-                Push(&SRedo, currentState);
-                //currentState = InfoTop(SUndo);
-                Pop (&SUndo, &currentState);
-                printf("undo sukses\n");
-            }
-            else {
-                printf("Tidak bisa undo\n");
-            }
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q);
+            POINT srcdummy;
+            CreatePoint(&srcdummy,-50,-50);
+            Undo(&SUndo,&SRedo,&currentState,totalcommand,srcdummy);
             if (totalcommand>0){
                 totalcommand --;
                 totalundo++;
@@ -100,7 +124,10 @@ int main()
 
         }
         else if (in == 'r'){
-            Redo(&SUndo,&SRedo,&currentState,totalundo);
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q);
+            POINT srcdummy;
+            CreatePoint(&srcdummy,-50,-50);
+            Redo(&SUndo,&SRedo,&currentState,totalundo, srcdummy);
             if (totalundo>0){
                 totalcommand++;
                 totalundo--;
@@ -116,6 +143,8 @@ int main()
         printf("\n");
         TulisTIME(currentState.sub2);
         printf("\n");
+        PrintPrioQueueTimeDelivery(currentState.sub3);
+        printf("\n");
 
         printf("---------------------- STACK UNDO-----------------------------\n");
         displayStack(SUndo);
@@ -126,4 +155,4 @@ int main()
         printf("\n");
         //printf("%d %c == %d %c\n", currentState.sub1.x, currentState.sub1.c, currentState.sub2.x, currentState.sub2.c);
     }
-}
+}*/
