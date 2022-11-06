@@ -7,6 +7,7 @@
 #include "../MesinKata/wordmachine.h"
 #include "../MesinKata/charmachine.h"
 #include "../Makanan/makanan.h"
+#include "../Resep/resep.h"
 // #include "../Stack/stack.h"
 #include "../Time/time.h"
 #include "../String/string.h"
@@ -41,7 +42,8 @@ void DisplayInventory(Simulator S);
 
 void OlahMakananInventory(PrioQueueTime *Q, int command,int jumlah, Makanan X1, Makanan X2,Makanan X3, Makanan X4);
 
-void MixOlahInventory(PrioQueueTime *Q, int jumlah, Makanan X1, Makanan X2, Makanan X3, Makanan X4);
+// void MixOlahInventory(PrioQueueTime *Q, int jumlah, Makanan X1, Makanan X2, Makanan X3, Makanan X4);
+void MixOlahInventory(PrioQueueTime *Q, Cookbook cb, ID id, int idx, ListStatik fs);
 
 void ChopOlahInventory (PrioQueueTime *Q, Makanan X1, Makanan X2);
 

@@ -61,7 +61,7 @@ void DisplayInventory (Simulator S)
 void OlahMakananInventory(PrioQueueTime *Q, int command,int jumlah, Makanan X1, Makanan X2,Makanan X3, Makanan X4){
     //X4 itu buat yang diadd, X1,X2,X3 yang diremove. Kalo yang diremove ga sampe 3, isi asal aja yg ga kepake
     if (command==1){//MIX
-        MixOlahInventory(Q,jumlah,X1,X2,X3,X4);
+        // MixOlahInventory(Q,jumlah,X1,X2,X3,X4);
     }
     else if(command==2){//CHOP
         ChopOlahInventory(Q,X1,X4);
@@ -78,18 +78,16 @@ void OlahMakananInventory(PrioQueueTime *Q, int command,int jumlah, Makanan X1, 
     //masukin makanan
 }
 
-void MixOlahInventory(PrioQueueTime *Q, int jumlah, Makanan X1, Makanan X2, Makanan X3, Makanan X4){
-    if (jumlah==2){
-        RemoveMakanan(Q,X1);
-        RemoveMakanan(Q,X2);
-        AddMakanan(Q,X4);
+void MixOlahInventory(PrioQueueTime *Q, Cookbook cb, ID id, int idx, ListStatik fs){
+    Makanan m;
+    int ids;
+
+    m = getMakanan(id, fs);
+    for (int i = 0; i < NChild(Resep(cb, idx)); i++){
+        ids = Parent(Child(Resep(cb, idx), i));
+        RemoveMakanan(Q, getMakanan(ids, fs));
     }
-    else if(jumlah==3){
-        RemoveMakanan(Q,X1);
-        RemoveMakanan(Q,X2);
-        RemoveMakanan(Q,X3);
-        AddMakanan(Q,X4);
-    }
+    AddMakanan(Q, m);
 }
 
 void ChopOlahInventory (PrioQueueTime *Q, Makanan X1, Makanan X2){

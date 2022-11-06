@@ -237,11 +237,22 @@ int main () {
                         subprogram = false;
                         validAction = false; // Karena tidak melakukan apa-apa
                     } else {
-                        // Inputnya telah sesuai dengan penomoran 
-                        // Mencari idx makanan pada list makanan sesuai penomoran input user
+                        // bookmark
                         idxFood = searchIndexOlahMakanan(foodList, "MIX", WordToInt(currentWord));
-                        printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
-
+                        if (canMake(bukuResep, ELMTLIST(foodList, idxFood), Inventory(sim))){
+                            int idPar, idxTree;
+                            for (int i = 0; i < NResep(bukuResep); i++){
+                                if (Parent(Resep(bukuResep, i)) == idMkn(ELMTLIST(foodList, idxFood))){
+                                    idPar = Parent(Resep(bukuResep, i));
+                                    idxTree = i;
+                                }
+                            }
+                            MixOlahInventory(&Inventory(sim), bukuResep, idPar, idxTree, foodList);
+                            printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
+                        }
+                        else {
+                            printf("Kamu tidak punya bahannya\n");
+                        }
                         // BIKIN ALGORITMA HANDLE BILA BAHAN DI INVENTORY GA CUKUP BUAT BIKIN FOOD TERTENTU
 
                         // // INI NANTI DI UN-COMMENT KALAU HANDLENYA UDAH SELESAI
@@ -306,7 +317,7 @@ int main () {
                             printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
                         }
                         else {
-                            printf("Kamu tidak punya bahannya");
+                            printf("Kamu tidak punya bahannya\n");
                         }
                         // Inputnya telah sesuai dengan penomoran 
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
@@ -348,11 +359,22 @@ int main () {
                         subprogram = false;
                         validAction = false; // Karena tidak melakukan apa-apa
                     } else {
-                        // Inputnya telah sesuai dengan penomoran 
-                        // Mencari idx makanan pada list makanan sesuai penomoran input user
                         idxFood = searchIndexOlahMakanan(foodList, "FRY", WordToInt(currentWord));
-                        printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
-
+                        if (canMake(bukuResep, ELMTLIST(foodList, idxFood), Inventory(sim))){
+                            NTree T;
+                            for (int i = 0; i < NResep(bukuResep); i++){
+                                if (Parent(Resep(bukuResep, i)) == idMkn(ELMTLIST(foodList, idxFood))){
+                                    T = newTree(0);
+                                    makeBranch(&T, NChild(Resep(bukuResep, i)));
+                                    T = Resep(bukuResep, i);
+                                }
+                            }
+                            printTree(T, 2);
+                            printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
+                        }
+                        else {
+                            printf("Kamu tidak punya bahannya\n");
+                        }
                         // BIKIN ALGORITMA HANDLE BILA BAHAN DI INVENTORY GA CUKUP BUAT BIKIN FOOD TERTENTU
 
                         // // INI NANTI DI UN-COMMENT KALAU HANDLENYA UDAH SELESAI
