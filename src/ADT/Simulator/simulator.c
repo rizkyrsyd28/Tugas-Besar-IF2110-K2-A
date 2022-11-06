@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include "simulator.h"
 
-void CreateSimulator(Simulator *S, Word nama, POINT P, PrioQueueTime Q){
+void CreateSimulator(Simulator *S, Word nama, POINT P, PrioQueueTime Q,PrioQueueTime D,PrioQueueTime PL){
     //Membuat simulator
     Nama(*S)= nama;
     Lokasi(*S)=P;
     Inventory(*S) = Q;
+    Delivery(*S) = D;
+    ProcessList(*S) = PL;
 }
 
 void ReadSimulator(Simulator *S){
@@ -13,7 +15,11 @@ void ReadSimulator(Simulator *S){
     Word nama;
     POINT P;
     PrioQueueTime Q;
+    PrioQueueTime D;
+    PrioQueueTime PL;
     MakeEmptyQueue(&Q,100);
+    MakeEmptyQueue(&D,100);
+    MakeEmptyQueue(&PL,100);
     int idx;
     // Menginputkan nama Simulator
     printf("Input nama Simulator: ");
@@ -29,7 +35,7 @@ void ReadSimulator(Simulator *S){
 
     Absis(P) = 1;
     Ordinat(P) = 1;
-    CreateSimulator(S,nama,P,Q);
+    CreateSimulator(S,nama,P,Q,D,PL);
 }
 
 void DisplaySimulator(Simulator S){
@@ -185,4 +191,35 @@ void RemoveDated(Simulator *S) {
             RemoveMakanan(&Q,M);
         }
     }
+}
+
+void CreateSimulatorUndo (Simulator *S, Word nama, POINT P, PrioQueueTime invent,PrioQueueTime DeliveryList, PrioQueueTime ProcessList){
+    PrioQueueTime Q;
+    PrioQueueTime D;
+    PrioQueueTime PL;
+    //DisplayInventory(*S);
+    MakeEmptyQueue(&Q,100);
+    MakeEmptyQueue(&D,100);
+    MakeEmptyQueue(&PL,100);
+    Head(Q) = Head(invent);
+    Tail(Q) = Tail(invent);
+    Head(D) = Head(DeliveryList);
+    Tail(D) = Tail(DeliveryList);
+    Head(PL) = Head(ProcessList);
+    Tail(PL) = Tail(ProcessList);
+    for (int i =0;i<100;i++){
+        Elmt(Q,i) = Elmt(invent,i);
+    }
+    for (int i =0;i<100;i++){
+        Elmt(D,i) = Elmt(DeliveryList,i);
+    }
+    for (int i =0;i<100;i++){
+        Elmt(PL,i) = Elmt(ProcessList,i);
+    }
+    Nama(*S)= nama;
+    Lokasi(*S)=P;
+    Inventory(*S) = Q;
+    Delivery(*S) = D;
+    ProcessList(*S) = PL;
+    //DisplayInventory(*S);
 }

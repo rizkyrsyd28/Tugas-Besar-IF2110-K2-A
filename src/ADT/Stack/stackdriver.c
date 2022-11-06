@@ -7,11 +7,9 @@
 #include <stdio.h>
 
 
-void initState(state * st, Simulator S, TIME T,PrioQueueTime Q, PrioQueueTime Q2){
+/*void initState(state * st, Simulator S, TIME T){
     st->sub1 = S;
     st->sub2 = T;
-    st->sub3 = Q;
-    st->sub4 = Q2;
 }
 
 void initMakanan2(Makanan * m){
@@ -77,7 +75,7 @@ int main()
     BacaTIME(&T);
     printf("\n");
 
-    initState(&currentState,S,T,deliverylist,processlist);
+    //initState(&currentState,S,T,deliverylist,processlist);
     int totalcommand=0;
     int totalundo = 0;
 
@@ -88,29 +86,34 @@ int main()
         scanf(" %c", &in);
 
         if (in == 'b'){
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q);
             Push(&SUndo, currentState);
             totalcommand ++;
             OlahMakananInventory(&Inventory(currentState.sub1),5,0,Sayur,Sapi,Minyak,Sayur);
             /*scanf("%d %c", &currentState.sub1.x, &currentState.sub1.c);
             scanf("%d %c", &currentState.sub2.x, &currentState.sub2.c);*/
 
-        }
+        /*}
         else if (in == 'c'){
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q);
             Push(&SUndo, currentState);
             totalcommand ++;
             OlahMakananInventory(&Inventory(currentState.sub1),4,0,Sayur,Sapi,Minyak,Sayur);
         }
         else if (in=='g'){
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q);
             Push(&SUndo, currentState);
             totalcommand ++;
             GeserLokasi(&currentState.sub1,2);
         }
         else if(in=='t'){
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q);
             Push(&SUndo, currentState);
             totalcommand ++;
             currentState.sub2 = NextMinute(currentState.sub2);
         }
         else if (in == 'u'){
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q);
             POINT srcdummy;
             CreatePoint(&srcdummy,-50,-50);
             Undo(&SUndo,&SRedo,&currentState,totalcommand,srcdummy);
@@ -121,6 +124,7 @@ int main()
 
         }
         else if (in == 'r'){
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q);
             POINT srcdummy;
             CreatePoint(&srcdummy,-50,-50);
             Redo(&SUndo,&SRedo,&currentState,totalundo, srcdummy);
@@ -151,4 +155,4 @@ int main()
         printf("\n");
         //printf("%d %c == %d %c\n", currentState.sub1.x, currentState.sub1.c, currentState.sub2.x, currentState.sub2.c);
     }
-}
+}*/

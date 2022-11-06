@@ -13,15 +13,19 @@
 typedef struct {
     Word Nama;
     POINT P;
-    PrioQueueTime Q;
+    PrioQueueTime Q;//inventory
+    PrioQueueTime D;//deliverylist
+    PrioQueueTime PL;//processlist
 }Simulator;
 
 #define Nama(S) (S).Nama
 #define Lokasi(S) (S).P
 #define Inventory(S) (S).Q
+#define Delivery(S) (S).D
+#define ProcessList(S) (S).PL
 
 
-void CreateSimulator(Simulator *S, Word nama, POINT P, PrioQueueTime Q);
+void CreateSimulator(Simulator *S, Word nama, POINT P, PrioQueueTime Q, PrioQueueTime D, PrioQueueTime PL);
 //Membuat simulator
 
 void ReadSimulator (Simulator *S);
@@ -72,5 +76,7 @@ void GeserLokasi (Simulator *S,int arah);
 void DeliveryReady(Simulator *S, PrioQueueTime *D);
 
 void RemoveDated(Simulator *S);
+
+void CreateSimulatorUndo (Simulator *S, Word nama, POINT P, PrioQueueTime invent,PrioQueueTime DeliveryList, PrioQueueTime ProcessList);
 
 #endif

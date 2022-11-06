@@ -87,9 +87,7 @@ void getInvalidRespond(){
     printf("Input tidak valid. Silahkan inputkan command yang valid.\n");
 }
 
-void initState(state *st, Simulator S, TIME T, PrioQueueTime Q, PrioQueueTime Q2){
+void initState(state *st, Simulator S, TIME T){
     st->sub1 = S;
     st->sub2 = T;
-    st->sub3 = Q;
-    st->sub4 = Q2;
 }

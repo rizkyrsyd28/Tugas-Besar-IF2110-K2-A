@@ -254,7 +254,7 @@ int PencariMakanan(PrioQueueTime *Q, Makanan M){
 /* Menemukan index dari makanan pada prioqueue*/
     int i = 0;
     boolean found = false;
-    while(!found && i<NBElmt(*Q)){
+    while(!found && i<=NBElmt(*Q)){
         Makanan m2 = Elmt(*Q,i);
         if(idMkn(m2)==idMkn(M)){
             found = true;

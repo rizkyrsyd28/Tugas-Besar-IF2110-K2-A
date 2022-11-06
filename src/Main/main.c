@@ -63,11 +63,11 @@ int main () {
 
     // Konfigurasi Inventory
     //MakeEmptyQueue(&Inventory(sim), 100);
-    PrioQueueTime deliveryList;
+    /*PrioQueueTime deliveryList;
     MakeEmptyQueue(&deliveryList, 100);
     printf("-> Konfigurasi Inventory - DONE\n");
     PrioQueueTime processList;
-    MakeEmptyQueue(&processList, 100);
+    MakeEmptyQueue(&processList, 100);*/
 
     // Konfigurasi Stack
     Stack SUndo, SRedo;
@@ -77,7 +77,7 @@ int main () {
 
     //Konfigurasi state
     state currentState;
-    initState(&currentState,sim,currentTime,deliveryList, processList);
+    initState(&currentState,sim,currentTime);
     printf("-> Konfigurasi State - DONE\n");
 
     // Dummy (untuk mencegah error)
@@ -145,25 +145,37 @@ int main () {
 
             if (isWordStringEqual(currentWord, "NORTH")){
                 //Push ke Stack
+                //DisplayInventory(currentState.sub1);
+                CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                 Push(&SUndo, currentState);
+                CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                 totalcommand ++;
                 swapElmt(&map, &Lokasi(currentState.sub1), NextY(src));
             }
             else if (isWordStringEqual(currentWord, "EAST")){
                 //Push ke Stack
+                //DisplayInventory(currentState.sub1);
+                CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                 Push(&SUndo, currentState);
+                CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                 totalcommand ++;
                 swapElmt(&map, &Lokasi(currentState.sub1), NextX(src));
             } 
             else if (isWordStringEqual(currentWord, "SOUTH")){
                 //Push ke Stack
+                //DisplayInventory(currentState.sub1);
+                CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                 Push(&SUndo, currentState);
+                CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                 totalcommand ++;
                 swapElmt(&map, &Lokasi(currentState.sub1), BackY(src));
             }
             else if (isWordStringEqual(currentWord, "WEST")){
                 //Push ke Stack
+                //DisplayInventory(currentState.sub1);
+                CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                 Push(&SUndo, currentState);
+                CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                 totalcommand ++;
                 swapElmt(&map, &Lokasi(currentState.sub1), BackX(src));
             } else {
@@ -214,12 +226,15 @@ int main () {
                         validAction = false; // Karena tidak melakukan apa-apa
                     } else {
                         //Push ke Stack
+                        //DisplayInventory(currentState.sub1);
+                        CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                         Push(&SUndo, currentState);
+                        CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                         totalcommand ++;
                         // Inputnya telah sesuai dengan penomoran 
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
                         idxFood = searchIndexOlahMakanan(foodList, "BUY", WordToInt(currentWord));
-                        EnqueueDelivery(&currentState.sub3, ELMTLIST(foodList, idxFood));
+                        EnqueueDelivery(&currentState.sub1.D, ELMTLIST(foodList, idxFood));
 
                         // Mengeluarkan pesan bahwa sudah dipesan.
                         printWord(nameMkn(ELMTLIST(foodList, idxFood)));
@@ -266,8 +281,10 @@ int main () {
                         validAction = false; // Karena tidak melakukan apa-apa
                     } else {
                         //Push ke Stack
+                        CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                         Push(&SUndo, currentState);
                         totalcommand ++;
+                        CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                         // Inputnya telah sesuai dengan penomoran 
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
                         idxFood = searchIndexOlahMakanan(foodList, "MIX", WordToInt(currentWord));
@@ -325,8 +342,10 @@ int main () {
                         validAction = false; // Karena tidak melakukan apa-apa
                     } else {
                         //Push ke Stack
+                        CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                         Push(&SUndo, currentState);
                         totalcommand ++;
+                        CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                         // Inputnya telah sesuai dengan penomoran 
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
                         idxFood = searchIndexOlahMakanan(foodList, "CHOP", WordToInt(currentWord));
@@ -385,8 +404,10 @@ int main () {
                         validAction = false; // Karena tidak melakukan apa-apa
                     } else {
                         //Push ke Stack
+                        CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                         Push(&SUndo, currentState);
                         totalcommand ++;
+                        CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                         // Inputnya telah sesuai dengan penomoran 
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
                         idxFood = searchIndexOlahMakanan(foodList, "FRY", WordToInt(currentWord));
@@ -444,8 +465,10 @@ int main () {
                         validAction = false; // Karena tidak melakukan apa-apa
                     } else {
                         //Push ke Stack
+                        CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                         Push(&SUndo, currentState);
                         totalcommand ++;
+                        CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                         // Inputnya telah sesuai dengan penomoran 
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
                         idxFood = searchIndexOlahMakanan(foodList, "BOIL", WordToInt(currentWord));
@@ -510,12 +533,12 @@ int main () {
             printf("====================================================\n");
             validAction = false; // Action ini tidak menghabiskan waktu
 
-            if (IsEmptyQueue(currentState.sub3)){
+            if (IsEmptyQueue(currentState.sub1.D)){
                 printf("Tidak ada makanan pada list delivery.\n");
             } else {
                 printf("List Makanan di Delivery List:\n");
                 printf("No - Nama - Waktu Sisa Delivery\n");
-                PrintPrioQueueTimeDelivery(currentState.sub3);
+                PrintPrioQueueTimeDelivery(currentState.sub1.D);
             }
         }
 
@@ -525,12 +548,12 @@ int main () {
             printf("====================================================\n");
             validAction = false; // Action ini tidak menghabiskan waktu
 
-            if (IsEmptyQueue(currentState.sub4)){
+            if (IsEmptyQueue(currentState.sub1.PL)){
                 printf("Tidak ada makanan pada list process.\n");
             } else {
                 printf("List Makanan di Process List:\n");
                 printf("No - Nama - Waktu Sisa Process\n");
-                PrintPrioQueueTimeProcess(currentState.sub4);
+                PrintPrioQueueTimeProcess(currentState.sub1.PL);
             }
         }
 
@@ -573,7 +596,10 @@ int main () {
                     } else {
                         // Menunggu 0 0 boleh saja, tapi tidak melakukan perubahan apa apa
                         //Push ke Stack
+                        //DisplayInventory(currentState.sub1);
+                        CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                         Push(&SUndo, currentState);
+                        CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                         totalcommand ++;
                         printf("Menunggu ");
                         if (waitHour != 0) {
@@ -588,7 +614,7 @@ int main () {
                         currentState.sub2 = NextNMinute(currentState.sub2, totalWaitMinute);
 
                         decrementNExp(&(Inventory(currentState.sub1)), totalWaitMinute);
-                        decrementNDel(&currentState.sub3, totalWaitMinute);
+                        decrementNDel(&currentState.sub1.D, totalWaitMinute);
                         
                         printf("Waktu pada Delivery List dan Inventory telah disesuaikan.\n");
                     }
@@ -608,45 +634,50 @@ int main () {
             printf("===============         UNDO         ===============\n");
             printf("====================================================\n");
             validAction = false;
-            POINT srcdummy;
-            CreatePoint(&srcdummy,-50,-50);
-            POINT lokasisekarang = Lokasi(currentState.sub1);
-            Undo(&SUndo,&SRedo,&currentState,totalcommand,srcdummy);
-            if (totalcommand>0){
-                totalcommand --;
-                totalundo++;
-            }
-            POINT lokasiundo = Lokasi(currentState.sub1);
-            Redo(&SUndo,&SRedo,&currentState,totalundo,srcdummy);
-            if (totalundo>0){
-                totalcommand++;
-                totalundo--;
-            }
+            if(totalcommand>0){
+                POINT srcdummy;
+                CreatePoint(&srcdummy,-50,-50);
+                POINT lokasisekarang = Lokasi(currentState.sub1);
+                //CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
+                Undo(&SUndo,&SRedo,&currentState,totalcommand,srcdummy);
+                if (totalcommand>0){
+                    totalcommand --;
+                    totalundo++;
+                }
+                POINT lokasiundo = Lokasi(currentState.sub1);
+                //CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
+                Redo(&SUndo,&SRedo,&currentState,totalundo,srcdummy);
+                if (totalundo>0){
+                    totalcommand++;
+                    totalundo--;
+                }
 
-            POINT src = Lokasi(currentState.sub1);
-            if (lokasisekarang.X>lokasiundo .X){
-                swapElmt(&map, &Lokasi(currentState.sub1), BackX(src));
+                POINT src = Lokasi(currentState.sub1);
+                if (lokasisekarang.X>lokasiundo .X){
+                    swapElmt(&map, &Lokasi(currentState.sub1), BackX(src));
+                }
+                else if (lokasisekarang.X<lokasiundo .X){
+                    swapElmt(&map, &Lokasi(currentState.sub1), NextX(src));
+                }
+                else if (lokasisekarang.Y>lokasiundo .Y){
+                    swapElmt(&map, &Lokasi(currentState.sub1), NextY(src));
+                }
+                else if (lokasisekarang.Y<lokasiundo .Y){
+                    swapElmt(&map, &Lokasi(currentState.sub1), BackY(src));
+                }
+                i = 0;
+                //PrioQueueTime dummy1 = Inventory(currentState.sub1);
+                CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
+                Undo(&SUndo,&SRedo,&currentState,totalcommand,src);
+                if (totalcommand>0){
+                    totalcommand --;
+                    totalundo++;
+                }
+                //PrioQueueTime dummy2 = Inventory(currentState.sub1);
+                //if (TEQ(dummy1.T->expired,dummy2.T->expired)){
+                //    incrementNExp(&Inventory(currentState.sub1),1);
+            // }
             }
-            else if (lokasisekarang.X<lokasiundo .X){
-                swapElmt(&map, &Lokasi(currentState.sub1), NextX(src));
-            }
-            else if (lokasisekarang.Y>lokasiundo .Y){
-                swapElmt(&map, &Lokasi(currentState.sub1), NextY(src));
-            }
-            else if (lokasisekarang.Y<lokasiundo .Y){
-                swapElmt(&map, &Lokasi(currentState.sub1), BackY(src));
-            }
-            i = 0;
-            //PrioQueueTime dummy1 = Inventory(currentState.sub1);
-            Undo(&SUndo,&SRedo,&currentState,totalcommand,src);
-            if (totalcommand>0){
-                totalcommand --;
-                totalundo++;
-            }
-            //PrioQueueTime dummy2 = Inventory(currentState.sub1);
-            //if (TEQ(dummy1.T->expired,dummy2.T->expired)){
-            //    incrementNExp(&Inventory(currentState.sub1),1);
-           // }
         }
 
         else if (isWordStringEqual(currentWord, "REDO")){
@@ -655,40 +686,41 @@ int main () {
             printf("====================================================\n");
 
             validAction = false;
-            POINT srcdummy;
-            CreatePoint(&srcdummy,-50,-50);
-            POINT lokasisekarang = Lokasi(currentState.sub1);
-            Redo(&SUndo,&SRedo,&currentState,totalundo,srcdummy);
             if (totalundo>0){
-                totalcommand++;
-                totalundo--;
+                POINT srcdummy;
+                CreatePoint(&srcdummy,-50,-50);
+                POINT lokasisekarang = Lokasi(currentState.sub1);
+                Redo(&SUndo,&SRedo,&currentState,totalundo,srcdummy);
+                if (totalundo>0){
+                    totalcommand++;
+                    totalundo--;
+                }
+                POINT lokasiredo = Lokasi(currentState.sub1);
+                Undo(&SUndo,&SRedo,&currentState,totalcommand,srcdummy);
+                if (totalcommand>0){
+                    totalcommand --;
+                    totalundo++;
+                }
+                POINT src = Lokasi(currentState.sub1);
+                if (lokasisekarang.X>lokasiredo.X){
+                    swapElmt(&map, &Lokasi(currentState.sub1), BackX(src));
+                }
+                else if (lokasisekarang.X<lokasiredo .X){
+                    swapElmt(&map, &Lokasi(currentState.sub1), NextX(src));
+                }
+                else if (lokasisekarang.Y>lokasiredo .Y){
+                    swapElmt(&map, &Lokasi(currentState.sub1), NextY(src));
+                }
+                else if (lokasisekarang.Y<lokasiredo .Y){
+                    swapElmt(&map, &Lokasi(currentState.sub1), BackY(src));
+                }
+                CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
+                Redo(&SUndo,&SRedo,&currentState,totalundo,src);
+                if (totalundo>0){
+                    totalcommand++;
+                    totalundo--;
+                }
             }
-            POINT lokasiredo = Lokasi(currentState.sub1);
-            Undo(&SUndo,&SRedo,&currentState,totalcommand,srcdummy);
-            if (totalcommand>0){
-                totalcommand --;
-                totalundo++;
-            }
-
-            POINT src = Lokasi(currentState.sub1);
-            if (lokasisekarang.X>lokasiredo.X){
-                swapElmt(&map, &Lokasi(currentState.sub1), BackX(src));
-            }
-            else if (lokasisekarang.X<lokasiredo .X){
-                swapElmt(&map, &Lokasi(currentState.sub1), NextX(src));
-            }
-            else if (lokasisekarang.Y>lokasiredo .Y){
-                swapElmt(&map, &Lokasi(currentState.sub1), NextY(src));
-            }
-            else if (lokasisekarang.Y<lokasiredo .Y){
-                swapElmt(&map, &Lokasi(currentState.sub1), BackY(src));
-            }
-            Redo(&SUndo,&SRedo,&currentState,totalundo,src);
-            if (totalundo>0){
-                totalcommand++;
-                totalundo--;
-            }
-
         }
 
         else if (isWordStringEqual(currentWord, "HELP")){
@@ -738,28 +770,36 @@ int main () {
         }
 
         // ================= AFTER ACTION ALGORITHM =================
+        printf("---------------------- STACK UNDO-----------------------------\n");
+        displayStack(SUndo);
+        printf("\n");
+
+        printf("---------------------- STACK REDO-----------------------------\n");
+        displayStack(SRedo);
+        printf("\n");
+
         if (validAction){
             // Waktu hanya ditambahkan bila action yang dilakukan valid
             currentState.sub2 = NextMinute(currentState.sub2);
             
             // Mengurangi waktu di delivery list dan inventory
-            decrementNDel(&currentState.sub3, 1);
+            decrementNDel(&currentState.sub1.D, 1);
             decrementNExp(&Inventory(currentState.sub1), 1);
         }
 
         // Tetap bisa dilakukan meski ValidAction = false (contohnya menggunakan WAIT)
         // Mengeluarkan dari Delivery List, memasukan ke inventory (bila sampai)
-        if (!IsEmptyQueue(currentState.sub3)){
-            while ((!TGT(dlvMkn(InfoHead(currentState.sub3)), boundariesTime)) && (NBElmt(currentState.sub3) > 1)){
-                Dequeue(&currentState.sub3, &dumpMkn);
+        if (!IsEmptyQueue(currentState.sub1.D)){
+            while ((!TGT(dlvMkn(InfoHead(currentState.sub1.D)), boundariesTime)) && (NBElmt(currentState.sub1.D) > 1)){
+                Dequeue(&currentState.sub1.D, &dumpMkn);
                 // Mengurangi waktu kadaluarsa sesuai dengan sisa pada delivery
                 int remainder = TIMEtoint(dlvMkn(dumpMkn));
                 TIME newExpiry = inttoTIME(TIMEtoint(expMkn(dumpMkn)) + remainder);
                 expMkn(dumpMkn) = newExpiry;
                 EnqueueInventory(&Inventory(currentState.sub1), dumpMkn);
             }
-            if (!TGT(dlvMkn(InfoHead(currentState.sub3)), boundariesTime)){
-                Dequeue(&currentState.sub3, &dumpMkn);
+            if (!TGT(dlvMkn(InfoHead(currentState.sub1.D)), boundariesTime)){
+                Dequeue(&currentState.sub1.D, &dumpMkn);
                 // Mengurangi waktu kadaluarsa sesuai dengan sisa pada delivery
                 int remainder = TIMEtoint(dlvMkn(dumpMkn));
                 TIME newExpiry = inttoTIME(TIMEtoint(expMkn(dumpMkn)) + remainder);
@@ -769,17 +809,17 @@ int main () {
         }
 
         // Mengeluarkan dari Process List, memasukan ke inventory (bila selesai process)
-        if (!IsEmptyQueue(currentState.sub4)){
-            while ((!TGT(dlvMkn(InfoHead(currentState.sub4)), boundariesTime)) && (NBElmt(currentState.sub4) > 1)){
-                Dequeue(&currentState.sub4, &dumpMkn);
+        if (!IsEmptyQueue(currentState.sub1.PL)){
+            while ((!TGT(dlvMkn(InfoHead(currentState.sub1.PL)), boundariesTime)) && (NBElmt(currentState.sub1.PL) > 1)){
+                Dequeue(&currentState.sub1.PL, &dumpMkn);
                 // Mengurangi waktu kadaluarsa sesuai dengan sisa pada process time
                 int remainder = TIMEtoint(dlvMkn(dumpMkn));
                 TIME newExpiry = inttoTIME(TIMEtoint(expMkn(dumpMkn)) + remainder);
                 expMkn(dumpMkn) = newExpiry;
                 EnqueueInventory(&Inventory(currentState.sub1), dumpMkn);
             }
-            if (!TGT(dlvMkn(InfoHead(currentState.sub4)), boundariesTime)){
-                Dequeue(&currentState.sub4, &dumpMkn);
+            if (!TGT(dlvMkn(InfoHead(currentState.sub1.PL)), boundariesTime)){
+                Dequeue(&currentState.sub1.PL, &dumpMkn);
                 // Mengurangi waktu kadaluarsa sesuai dengan sisa pada process time
                 int remainder = TIMEtoint(dlvMkn(dumpMkn));
                 TIME newExpiry = inttoTIME(TIMEtoint(expMkn(dumpMkn)) + remainder);
