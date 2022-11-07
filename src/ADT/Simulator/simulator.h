@@ -78,5 +78,6 @@ void DeliveryReady(Simulator *S, PrioQueueTime *D);
 void RemoveDated(Simulator *S);
 
 void CreateSimulatorUndo (Simulator *S, Word nama, POINT P, PrioQueueTime invent,PrioQueueTime DeliveryList, PrioQueueTime ProcessList);
+ //Createsimulatordummy supaya isi dari stack undo tidak terpengaruh oleh pengurangan waktu yang ada
 
 #endif

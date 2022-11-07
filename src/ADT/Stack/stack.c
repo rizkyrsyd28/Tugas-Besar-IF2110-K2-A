@@ -42,30 +42,6 @@ void Pop(Stack * S, state *X){
 
 
 // TAMBAHAN
-/*void inverseStack(Stack * S){
-    Stack tempS;
-    state X;
-    CreateEmpty(&tempS);
-
-    for (int i = Top(*S); i >= 0; i--){
-        Pop(S, &X);
-        Push(&tempS, X);
-    }
-
-    *S = tempS;
-}
-
-Stack merge(Stack S1, Stack S2){
-    Stack output = S1;
-    state x;
-    inverseStack(&S2);
-
-    while(Top(S2) != Nil){
-        Pop(&S2, &x);
-        Push(&output, x);
-    }
-    return output;
-}*/
 
 void displayStack(Stack S){
     //Untuk memperlihatkan Stack
@@ -83,11 +59,13 @@ void displayStack(Stack S){
         printf("Waktu : \n");
         TulisTIME(X.sub2);
         printf("\n");
-        /*printf("Delivery : \n");
-        PrintPrioQueueTime(X.sub3);
-        printf("\n");*/
+        printf("Delivery : \n");
+        PrintPrioQueueTimeDelivery(X.sub1.D);
+        printf("\n");
+        printf("Process : \n");
+        PrintPrioQueueTimeProcess(X.sub1.PL);
+        printf("\n");
     }
-
 }
 
 void Undo(Stack *S_undo,Stack *S_redo, state *currentState, int totalcommand, POINT src){
@@ -101,9 +79,6 @@ void Undo(Stack *S_undo,Stack *S_redo, state *currentState, int totalcommand, PO
         }
         Pop (S_undo,currentState);
     }
-    else {
-        printf("Tidak bisa undo\n");
-    }
     
 }
 
@@ -116,8 +91,5 @@ void Redo(Stack *S_undo,Stack *S_redo, state *currentState, int totalundo, POINT
             InfoTop(*S_undo).sub1.P=src;
         }
         Pop (S_redo, currentState);
-    }
-    else {
-        printf("Tidak bisa redo\n");
     }
 }

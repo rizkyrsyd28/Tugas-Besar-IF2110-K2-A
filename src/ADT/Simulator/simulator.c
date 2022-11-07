@@ -194,10 +194,10 @@ void RemoveDated(Simulator *S) {
 }
 
 void CreateSimulatorUndo (Simulator *S, Word nama, POINT P, PrioQueueTime invent,PrioQueueTime DeliveryList, PrioQueueTime ProcessList){
+    //Createsimulatordummy supaya isi dari stack undo tidak terpengaruh oleh pengurangan waktu yang ada
     PrioQueueTime Q;
     PrioQueueTime D;
     PrioQueueTime PL;
-    //DisplayInventory(*S);
     MakeEmptyQueue(&Q,100);
     MakeEmptyQueue(&D,100);
     MakeEmptyQueue(&PL,100);
@@ -221,5 +221,4 @@ void CreateSimulatorUndo (Simulator *S, Word nama, POINT P, PrioQueueTime invent
     Inventory(*S) = Q;
     Delivery(*S) = D;
     ProcessList(*S) = PL;
-    //DisplayInventory(*S);
 }

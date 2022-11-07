@@ -21,16 +21,6 @@
 // typedef int infotype;
 typedef int address;   /* indeks tabel */
 
-/*typedef struct {
-  int x;
-  char c;
-} test1; */
-
-/*typedef struct {
-  int x;
-  char c;
-} test2;*/
-
 typedef struct {
   Simulator sub1;
   TIME sub2;
