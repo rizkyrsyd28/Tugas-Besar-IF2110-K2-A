@@ -91,6 +91,11 @@ int main () {
     boolean subprogram = false;
     int idxFood;
     Makanan dumpMkn;
+    int notifCount = 0;
+    int deliveredCount= 0 ;
+    int expiredCount = 0;
+    ListStatik notifList;
+    CreateListStatik(&notifList);
 
 
     // =========== PENJALANAN PROGRAM UTAMA ===========
@@ -103,7 +108,28 @@ int main () {
         DisplaySimulator(currentState.sub1);
         printf("Waktu: ");
         TulisTIME(currentState.sub2); 
-        printf("Notifikasi : \n"); // Ini nanti ditambahin seiring berjalan waktu
+        printf("Notifikasi : "); // Ini nanti ditambahin seiring berjalan waktu
+        if (notifCount == 0) {
+            printf("-\n");
+        } else {
+            printf("\n");
+            int notifNumber = 1;
+            while (notifCount > 0) {
+                deleteFirst(&notifList, &dumpMkn);
+                printf("   %d. ", notifNumber);
+                printWord(nameMkn(dumpMkn));
+                if (deliveredCount > 0) {
+                    printf(" sudah diterima oleh BNMO!\n");
+                    deliveredCount--;
+                } else {
+                    printf(" kedaluwarsa.. :(\n");
+                    expiredCount--;
+                }
+                notifCount--;
+                notifNumber++;
+            }
+        }
+
         displayMatrix(map);
         
         // validAction digunakan untuk menandakan apakah suatu aksi menghabiskan waktu
@@ -797,6 +823,9 @@ int main () {
                 TIME newExpiry = inttoTIME(TIMEtoint(expMkn(dumpMkn)) + remainder);
                 expMkn(dumpMkn) = newExpiry;
                 EnqueueInventory(&Inventory(currentState.sub1), dumpMkn);
+                notifCount++;
+                deliveredCount++;
+                insertLast(&notifList, dumpMkn);
             }
             if (!TGT(dlvMkn(InfoHead(currentState.sub1.D)), boundariesTime)){
                 Dequeue(&currentState.sub1.D, &dumpMkn);
@@ -805,6 +834,9 @@ int main () {
                 TIME newExpiry = inttoTIME(TIMEtoint(expMkn(dumpMkn)) + remainder);
                 expMkn(dumpMkn) = newExpiry;
                 EnqueueInventory(&Inventory(currentState.sub1), dumpMkn);
+                notifCount++;
+                deliveredCount++;
+                insertLast(&notifList, dumpMkn);
             }
         }
 
@@ -833,10 +865,16 @@ int main () {
             // Menghapus sampai bersisa 1
             while ((!TGT(expMkn(InfoHead(Inventory(currentState.sub1))), boundariesTime)) && (NBElmt(Inventory(currentState.sub1)) > 1)){
                 Dequeue(&Inventory(currentState.sub1), &dumpMkn);
+                notifCount++;
+                expiredCount++;
+                insertLast(&notifList, dumpMkn);
             }
             // Menghapus makanan terakhir bila bersisa 1
             if (!TGT(expMkn(InfoHead(Inventory(currentState.sub1))), boundariesTime)){
                 Dequeue(&Inventory(currentState.sub1), &dumpMkn);
+                notifCount++;
+                expiredCount++;
+                insertLast(&notifList, dumpMkn);
             }
         }
     }
