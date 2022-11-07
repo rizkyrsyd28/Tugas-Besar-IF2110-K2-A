@@ -78,12 +78,6 @@ void EnqueueInventory (PrioQueueTime * Q, Makanan M){
     }
 }
 
-void EnqueueDelivery (PrioQueueTime * Q, Makanan M){
-/* Proses: Menambahkan X pada Q dengan aturan priority queue, terurut membesar berdasarkan delivery time */
-/* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
-/* F.S. X disisipkan pada posisi yang tepat sesuai dengan prioritas,
-        TAIL "maju" dengan mekanisme circular buffer; */
-
 void enqueueBuy (PrioQueueTime * Q, Makanan M){
     if (IsEmptyQueue(*Q)){
         Head(*Q) = 0;
@@ -109,6 +103,10 @@ void enqueueBuy (PrioQueueTime * Q, Makanan M){
 
     }
 }
+/* Proses: Menambahkan X pada Q dengan aturan priority queue, terurut membesar berdasarkan delivery time */
+/* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
+/* F.S. X disisipkan pada posisi yang tepat sesuai dengan prioritas,
+        TAIL "maju" dengan mekanisme circular buffer; */
 
 void Dequeue (PrioQueueTime * Q, Makanan * X){
 /* Proses: Menghapus X pada Q dengan aturan FIFO */

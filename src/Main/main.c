@@ -78,7 +78,11 @@ int main () {
     boolean subprogram = false;
     int idxFood;
     Makanan dumpMkn;
-
+    int notifCount = 0;
+    int deliveredCount= 0 ;
+    int expiredCount = 0;
+    ListStatik notifList;
+    CreateListStatik(&notifList);
 
     // =========== PENJALANAN PROGRAM UTAMA ===========
     while(program){
@@ -89,8 +93,28 @@ int main () {
         // Display simulator dan map
         DisplaySimulator(sim);
         printf("Waktu: ");
-        TulisTIME(currentTime); 
-        printf("Notifikasi : \n"); // Ini nanti ditambahin seiring berjalan waktu
+        TulisTIME(currentTime);
+        printf("Notifikasi : "); // Ini nanti ditambahin seiring berjalan waktu
+        if (notifCount == 0) {
+            printf("-\n");
+        } else {
+            printf("\n");
+            int notifNumber = 1;
+            while (notifCount > 0) {
+                deleteFirst(&notifList, &dumpMkn);
+                printf("   %d. ", notifNumber);
+                printWord(nameMkn(dumpMkn));
+                if (deliveredCount > 0) {
+                    printf(" sudah diterima oleh BNMO!\n");
+                    deliveredCount--;
+                } else {
+                    printf(" kedaluwarsa.. :(\n");
+                    expiredCount--;
+                }
+                notifCount--;
+                notifNumber++;
+            }
+        }
         displayMatrix(map);
 
         // validAction digunakan untuk menandakan apakah suatu aksi menghabiskan waktu
@@ -198,6 +222,7 @@ int main () {
                         printf(" akan diantar dalam ");
                         TulisTIMEBuy(buyTime);
                         printf(".\n");
+                        subprogram = false;
                     }
                 }
             }
@@ -472,9 +497,9 @@ int main () {
             if (IsEmptyQueue(deliveryList)){
                 printf("Tidak ada makanan pada list delivery.\n");
             } else {
-                printf("List Makanan di Delivery List:\n");
-                printf("No - Nama - Waktu Sisa Delivery\n");
-                PrintPrioQueueTimeDelivery(deliveryList);
+                printf("List Makanan di Perjalanan\n");
+                printf("nama - waktu sisa delivery\n");
+                PrintPrioQueueTimeBuy(deliveryList);
             }
         }
 
@@ -487,7 +512,7 @@ int main () {
             if (IsEmptyQueue(processList)){
                 printf("Tidak ada makanan pada list process.\n");
             } else {
-                PrintPrioQueueTime(deliveryList);
+                PrintPrioQueueTimeProcess(deliveryList);
             }
         }
 
@@ -620,7 +645,7 @@ int main () {
             decrementNDel(&deliveryList, 1);
             decrementNExp(&Inventory(sim), 1);
         }
-
+        
         // Tetap bisa dilakukan meski ValidAction = false (contohnya menggunakan WAIT)
         // Mengeluarkan dari Delivery List, memasukan ke inventory (bila sampai)
         if (!IsEmptyQueue(deliveryList)){
@@ -631,6 +656,9 @@ int main () {
                 TIME newExpiry = inttoTIME(TIMEtoint(expMkn(dumpMkn)) + remainder);
                 expMkn(dumpMkn) = newExpiry;
                 EnqueueInventory(&Inventory(sim), dumpMkn);
+                notifCount++;
+                deliveredCount++;
+                insertLast(&notifList, dumpMkn);
             }
             if (!TGT(dlvMkn(InfoHead(deliveryList)), boundariesTime)){
                 Dequeue(&deliveryList, &dumpMkn);
@@ -639,6 +667,9 @@ int main () {
                 TIME newExpiry = inttoTIME(TIMEtoint(expMkn(dumpMkn)) + remainder);
                 expMkn(dumpMkn) = newExpiry;
                 EnqueueInventory(&Inventory(sim), dumpMkn);
+                notifCount++;
+                deliveredCount++;
+                insertLast(&notifList, dumpMkn);
             }
         }
 
@@ -667,10 +698,16 @@ int main () {
             // Menghapus sampai bersisa 1
             while ((!TGT(expMkn(InfoHead(Inventory(sim))), boundariesTime)) && (NBElmt(Inventory(sim)) > 1)){
                 Dequeue(&Inventory(sim), &dumpMkn);
+                notifCount++;
+                expiredCount++;
+                insertLast(&notifList, dumpMkn);
             }
             // Menghapus makanan terakhir bila bersisa 1
             if (!TGT(expMkn(InfoHead(Inventory(sim))), boundariesTime)){
                 Dequeue(&Inventory(sim), &dumpMkn);
+                notifCount++;
+                expiredCount++;
+                insertLast(&notifList, dumpMkn);
             }
         }
     }
