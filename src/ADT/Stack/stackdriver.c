@@ -12,6 +12,24 @@
     st->sub2 = T;
 }
 
+void initMakanan1(Makanan * m){
+    m->id = 12; 
+    m->delivery.DD = 1;
+    m->delivery.HH = 1;
+    m->delivery.MM = 1;
+    m->expired.DD = 1;
+    m->expired.HH = 2;
+    m->expired.MM = 3;
+    m->name.Length = 3;
+    m->name.TabWord[0] = 'a';
+    m->name.TabWord[1] = 'b';
+    m->name.TabWord[2] = 'c';
+    m->action.Length = 3;
+    m->action.TabWord[0] = 'a';
+    m->action.TabWord[1] = 'b';
+    m->action.TabWord[2] = 'c';
+}
+
 void initMakanan2(Makanan * m){
     m->id = 10; 
     m->delivery.DD = 10;
@@ -30,48 +48,47 @@ void initMakanan2(Makanan * m){
     m->action.TabWord[2] = 'z';
 }
 
+void initMakanan3(Makanan * m){
+    m->id = 8; 
+    m->delivery.DD = 10;
+    m->delivery.HH = 10;
+    m->delivery.MM = 10;
+    m->expired.DD = 10;
+    m->expired.HH = 20;
+    m->expired.MM = 30;
+    m->name.Length = 3;
+    m->name.TabWord[0] = 'd';
+    m->name.TabWord[1] = 'e';
+    m->name.TabWord[2] = 'f';
+    m->action.Length = 3;
+    m->action.TabWord[0] = 'd';
+    m->action.TabWord[1] = 'e';
+    m->action.TabWord[2] = 'f';
+}
+
 int main()
 {
+    boolean validAction;
     Stack SUndo, SRedo;
     Simulator S;
     state currentState;
-    PrioQueueTime deliverylist;
-    PrioQueueTime processlist;
     char in; 
 
     ReadSimulator(&S);
-    MakeEmptyQueue(&deliverylist,100);
-    MakeEmptyQueue(&processlist,100);
     CreateEmpty(&SRedo);
     CreateEmpty(&SUndo);
 
-    Makanan xyz;
+    Makanan xyz,abc,def;
+    initMakanan1(&abc);
     initMakanan2(&xyz);
-    EnqueueDelivery(&deliverylist,xyz);
-    EnqueueDelivery(&processlist,xyz);
+    initMakanan3(&def);
+    Makanan X;
+    //EnqueueDelivery(&currentState.sub1.D,xyz);
+    //EnqueueDelivery(&processlist,xyz);
 
     TIME T;
-    Makanan Ayam;
-    Makanan Sapi;
-    Makanan Minyak;
-    Makanan Sayur;
-    CreateEmptyMakanan(&Ayam);
-    CreateEmptyMakanan(&Sapi);
-    CreateEmptyMakanan(&Minyak);
-    CreateEmptyMakanan(&Sayur);
-    Word namasayur;
-    int idx;
-    char temp2[100]="\0";
-    printf("Masukan kata Sayur : ");
-    fgets(temp2, 100, stdin);
-    // Mengubah nilai '\n' menjadi '\0' dan menambahkan MARK
-    temp2[lengthString(temp2)-1] = '\0';
-    appendChar(temp2,'.');
-
-    STARTWORD(temp2,&idx);
-    namasayur = currentWord;
-    nameMkn(Sayur) = namasayur;
     
+    printf("time : ");
     BacaTIME(&T);
     printf("\n");
 
@@ -81,39 +98,52 @@ int main()
 
     boolean found = true;
 
+
     while (found){ 
         printf("input = ");
         scanf(" %c", &in);
 
         if (in == 'b'){
-            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q);
+            printf("sampe a\n");
+            //CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
+            printf("sampe b\n");
             Push(&SUndo, currentState);
             totalcommand ++;
-            OlahMakananInventory(&Inventory(currentState.sub1),5,0,Sayur,Sapi,Minyak,Sayur);
-            /*scanf("%d %c", &currentState.sub1.x, &currentState.sub1.c);
-            scanf("%d %c", &currentState.sub2.x, &currentState.sub2.c);*/
+            //CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
+            printf("sampe c\n");
+            //Enqueue(&currentState.sub1.Q, abc);//misal ini cabai
+            //EnqueueInventory(&currentState.sub1.Q, xyz); // misal ini bawang
+            validAction = true;
+            OlahMakananInventory(&Inventory(currentState.sub1),5,0,abc,xyz,def,def);
+             printf("sampe d\n");
 
-        /*}
+        }
         else if (in == 'c'){
-            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q);
+            printf("sampe a\n");
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
             Push(&SUndo, currentState);
             totalcommand ++;
-            OlahMakananInventory(&Inventory(currentState.sub1),4,0,Sayur,Sapi,Minyak,Sayur);
+            printf("sampe b\n");
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
+            //DequeueAt(&currentState.sub1.Q,xyz,&X);
+            //EnqueueInventory(&currentState.sub1.Q,def);
+            printf("sampe c\n");
+            OlahMakananInventory(&Inventory(currentState.sub1),1,2,abc,xyz,def,def);
+            printf("sampe d\n");
+            validAction = true;
+
+            //OlahMakananInventory(&Inventory(currentState.sub1),4,0,Sayur,Sapi,Minyak,Sayur);
         }
         else if (in=='g'){
-            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q);
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
             Push(&SUndo, currentState);
             totalcommand ++;
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
             GeserLokasi(&currentState.sub1,2);
-        }
-        else if(in=='t'){
-            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q);
-            Push(&SUndo, currentState);
-            totalcommand ++;
-            currentState.sub2 = NextMinute(currentState.sub2);
+            validAction = true;
         }
         else if (in == 'u'){
-            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q);
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
             POINT srcdummy;
             CreatePoint(&srcdummy,-50,-50);
             Undo(&SUndo,&SRedo,&currentState,totalcommand,srcdummy);
@@ -121,10 +151,11 @@ int main()
                 totalcommand --;
                 totalundo++;
             }
+            validAction = false;
 
         }
         else if (in == 'r'){
-            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q);
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
             POINT srcdummy;
             CreatePoint(&srcdummy,-50,-50);
             Redo(&SUndo,&SRedo,&currentState,totalundo, srcdummy);
@@ -132,9 +163,19 @@ int main()
                 totalcommand++;
                 totalundo--;
             }
+            validAction = false;
         }
         else {
             found = false;
+        }
+        
+        if (validAction){
+            // Waktu hanya ditambahkan bila action yang dilakukan valid
+            currentState.sub2 = NextMinute(currentState.sub2);
+            
+            // Mengurangi waktu di delivery list dan inventory
+            decrementNDel(&currentState.sub1.D, 1);
+            decrementNExp(&Inventory(currentState.sub1), 1);
         }
 
         DisplaySimulator(currentState.sub1);
@@ -143,7 +184,7 @@ int main()
         printf("\n");
         TulisTIME(currentState.sub2);
         printf("\n");
-        PrintPrioQueueTimeDelivery(currentState.sub3);
+        PrintPrioQueueTimeDelivery(currentState.sub1.Q);
         printf("\n");
 
         printf("---------------------- STACK UNDO-----------------------------\n");
