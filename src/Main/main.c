@@ -291,7 +291,7 @@ int main () {
                         // Inputnya telah sesuai dengan penomoran 
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
                         idxFood = searchIndexOlahMakanan(foodList, "MIX", WordToInt(currentWord));
-                        if (canMake(bukuResep, ELMTLIST(foodList, idxFood), Inventory(sim))){
+                        if (canMake(bukuResep, ELMTLIST(foodList, idxFood), Inventory(currentState.sub1))){
                             int idPar, idxTree;
                             for (int i = 0; i < NResep(bukuResep); i++){
                                 if (Parent(Resep(bukuResep, i)) == idMkn(ELMTLIST(foodList, idxFood))){
@@ -299,12 +299,14 @@ int main () {
                                     idxTree = i;
                                 }
                             }
-                            MixOlahInventory(&Inventory(sim), bukuResep, idPar, idxTree, foodList);
+                            MixOlahInventory(&Inventory(currentState.sub1), bukuResep, idPar, idxTree, foodList);
                             printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
+                            validAction = true;
                         }
                         else {
                             printf("Kamu tidak punya bahannya\n");
                         }
+                        subprogram = false;
                         // BIKIN ALGORITMA HANDLE BILA BAHAN DI INVENTORY GA CUKUP BUAT BIKIN FOOD TERTENTU
 
                         // // INI NANTI DI UN-COMMENT KALAU HANDLENYA UDAH SELESAI
@@ -357,7 +359,7 @@ int main () {
                         validAction = false; // Karena tidak melakukan apa-apa
                     } else {
                         idxFood = searchIndexOlahMakanan(foodList, "CHOP", WordToInt(currentWord));
-                        if (canMake(bukuResep, ELMTLIST(foodList, idxFood), Inventory(sim))){
+                        if (canMake(bukuResep, ELMTLIST(foodList, idxFood), Inventory(currentState.sub1))){
                             int idPar, idChld;
                             for (int i = 0; i < NResep(bukuResep); i++){
                                 if (Parent(Resep(bukuResep, i)) == idMkn(ELMTLIST(foodList, idxFood))){
@@ -365,12 +367,15 @@ int main () {
                                     idChld = Parent(Child(Resep(bukuResep, i), 0));
                                 }
                             }
-                            ChopOlahInventory(&Inventory(sim), getMakanan(idChld, foodList), getMakanan(idPar, foodList));
+                            ChopOlahInventory(&Inventory(currentState.sub1), getMakanan(idChld, foodList), getMakanan(idPar, foodList));
                             printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
+                            validAction = true; 
                         }
                         else {
                             printf("Kamu tidak punya bahannya\n");
+                            validAction = false; 
                         }
+                        subprogram = false;
                         // Inputnya telah sesuai dengan penomoran 
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
                     }
@@ -419,16 +424,19 @@ int main () {
                         // Inputnya telah sesuai dengan penomoran 
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
                         idxFood = searchIndexOlahMakanan(foodList, "FRY", WordToInt(currentWord));
-                        if (canMake(bukuResep, ELMTLIST(foodList, idxFood), Inventory(sim))){
-                            NTree T;
+                        printf("\nInvent : ");
+                        PrintPrioQueueTimeInventory(Inventory(currentState.sub1));
+                        printf("\n\n");
+                        printMakanan(ELMTLIST(foodList, idxFood));
+                        if (canMake(bukuResep, ELMTLIST(foodList, idxFood), Inventory(currentState.sub1))){
+                            int idPar, idxTree;
                             for (int i = 0; i < NResep(bukuResep); i++){
                                 if (Parent(Resep(bukuResep, i)) == idMkn(ELMTLIST(foodList, idxFood))){
-                                    T = newTree(0);
-                                    makeBranch(&T, NChild(Resep(bukuResep, i)));
-                                    T = Resep(bukuResep, i);
+                                    idPar = Parent(Resep(bukuResep, i));
+                                    idxTree = i;
                                 }
                             }
-                            printTree(T, 2);
+                            MixOlahInventory(&Inventory(currentState.sub1), bukuResep, idPar, idxTree, foodList);
                             printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
                         }
                         else {
@@ -493,7 +501,20 @@ int main () {
                         // Inputnya telah sesuai dengan penomoran 
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
                         idxFood = searchIndexOlahMakanan(foodList, "BOIL", WordToInt(currentWord));
-                        printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
+                        if (canMake(bukuResep, ELMTLIST(foodList, idxFood), Inventory(sim))){
+                            int idPar, idxTree;
+                            for (int i = 0; i < NResep(bukuResep); i++){
+                                if (Parent(Resep(bukuResep, i)) == idMkn(ELMTLIST(foodList, idxFood))){
+                                    idPar = Parent(Resep(bukuResep, i));
+                                    idxTree = i;
+                                }
+                            }
+                            MixOlahInventory(&Inventory(sim), bukuResep, idPar, idxTree, foodList);
+                            printMakanan(ELMTLIST(foodList, idxFood)); printf("\n");
+                        }
+                        else {
+                            printf("Kamu tidak punya bahannya\n");
+                        }
 
                         // BIKIN ALGORITMA HANDLE BILA BAHAN DI INVENTORY GA CUKUP BUAT BIKIN FOOD TERTENTU
 
@@ -791,13 +812,13 @@ int main () {
         }
 
         // ================= AFTER ACTION ALGORITHM =================
-        printf("---------------------- STACK UNDO-----------------------------\n");
-        displayStack(SUndo);
-        printf("\n");
+        // printf("---------------------- STACK UNDO-----------------------------\n");
+        // displayStack(SUndo);
+        // printf("\n");
 
-        printf("---------------------- STACK REDO-----------------------------\n");
-        displayStack(SRedo);
-        printf("\n");
+        // printf("---------------------- STACK REDO-----------------------------\n");
+        // displayStack(SRedo);
+        // printf("\n");
 
         if (validAction){
             // Waktu hanya ditambahkan bila action yang dilakukan valid
