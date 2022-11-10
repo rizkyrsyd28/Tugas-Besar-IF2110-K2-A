@@ -8,6 +8,8 @@
 #ifndef MAKANAN_H
 #define MAKANAN_H
 
+
+
 typedef struct {
     int xSize;
     int ySize;
@@ -21,6 +23,8 @@ typedef struct {
     Size area;
     TIME delivery;
 } Makanan;
+
+Makanan FoodMark = {-1, {"Empty", 0}, {-1, -1, -1}, {"Empty", 0}, {0, 0}, {-1, -1, -1}};
 
 // SELEKTOR
 #define idMkn(M) (M).id
