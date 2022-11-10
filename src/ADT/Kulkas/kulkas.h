@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "../Matrix/matrix.h"
 #include "../Makanan/makanan.h"
+#include "../Point/point.h"
 #include "../boolean.h"
 
 #ifndef KULKAS_H
@@ -35,11 +36,13 @@ void CreateKulkas(Kulkas *k);
 boolean isIsiKulkasEmpty (IsiKulkas isi);
 /* Melakukan cek apakah isiKulas kosong */
 
+boolean isKulkasEmpty (Kulkas k);
+/* Melakukan cek apakah kulkas kosong*/
+
 void DisplayIsiKulkas (IsiKulkas isi);
 /* Menampilkan isi Kulkas */
 /* Format yang digunakan adalah <ID Makanan,Identifer>*/
 
-/* ========= Operasi ========= */
 void DisplayKulkas (Kulkas k);
 /* Menampilkan kulkas */
 /* Digunakan untuk command 'KULKAS SHOW' */
@@ -47,5 +50,27 @@ void DisplayKulkas (Kulkas k);
     [ X | X | X | X | .......... ]
     [ X | X | X | X | .......... ]
     dengan X = <ID Makanan,Identifier> */
+
+boolean isMakananInKulkas (Kulkas K, Makanan mkn);
+/* Melakukan cek apakah makanan serupa sudah ada pada kulkas*/
+
+int getLastIdentifier(Kulkas K);
+/* Mengembalikan nilai Identifier paling besar*/
+
+int getValidIdentifier(Kulkas K, int lastIdnt);
+/* Mengembalikan nilai Identifier yang valid untuk digunakan
+untuk memasukkan makanan */
+
+boolean isPutAvailable(Kulkas k, POINT p, Makanan mkn);
+/* Mengembalikan apakah memasukkan makanan pada kulkas 
+pada koordinat tertentu dapat dilakukan*/
+/* Mengembalikan iya bila bisa, tidak juga tidak bisa*/
+
+void putMakanan(Kulkas *k, POINT p, Makanan mkn);
+/* Memasukkan makanan pada Kulkas*/
+
+void getMakanan(Kulkas *k, POINT p, Makanan mkn);
+/* Mengambil makanan dari Kulkas*/
+
 
 #endif
