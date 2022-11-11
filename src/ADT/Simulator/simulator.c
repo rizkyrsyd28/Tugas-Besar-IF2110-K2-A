@@ -65,25 +65,25 @@ void DisplayInventory (Simulator S)
     PrintPrioQueueTimeInventory(Inventory(S));
 }
 
-void OlahMakananInventory(PrioQueueTime *Q, int command,int jumlah, Makanan X1, Makanan X2,Makanan X3, Makanan X4){
-    //Mengupdate isi inventory. X4 itu buat yang diadd, X1,X2,X3 yang diremove. Kalo yang diremove ga sampe 3, isi asal aja yg ga kepake
-    if (command==1){//MIX
-        // MixOlahInventory(Q,jumlah,X1,X2,X3,X4);
-    }
-    else if(command==2){//CHOP
-        ChopOlahInventory(Q,X1,X4);
-    }
-    else if (command==3){//FRY
-        FryOlahInventory(Q,jumlah,X1,X2,X4);
-    }
-    else if(command==4){//BOIL
-        BoilOlahInventory(Q,X1,X4);
-    }
-    else if (command ==5){
-        BuyOlahInventory(Q,X4);
-    }
-    //masukin makanan
-}
+// void OlahMakananInventory(PrioQueueTime *Q, int command,int jumlah, Makanan X1, Makanan X2,Makanan X3, Makanan X4){
+//     //Mengupdate isi inventory. X4 itu buat yang diadd, X1,X2,X3 yang diremove. Kalo yang diremove ga sampe 3, isi asal aja yg ga kepake
+//     if (command==1){//MIX
+//         // MixOlahInventory(Q,jumlah,X1,X2,X3,X4);
+//     }
+//     else if(command==2){//CHOP
+//         ChopOlahInventory(Q,X1,X4);
+//     }
+//     else if (command==3){//FRY
+//         FryOlahInventory(Q,jumlah,X1,X2,X4);
+//     }
+//     else if(command==4){//BOIL
+//         BoilOlahInventory(Q,X1,X4);
+//     }
+//     else if (command ==5){
+//         BuyOlahInventory(Q,X4);
+//     }
+//     //masukin makanan
+// }
 
 void MixOlahInventory(PrioQueueTime *Q, Cookbook cb, ID id, int idx, ListStatik fs){
     Makanan m;
@@ -103,23 +103,14 @@ void ChopOlahInventory (PrioQueueTime *Q, Makanan X1, Makanan X2){
     AddMakanan(Q,X2);
 }
 
-void FryOlahInventory(PrioQueueTime *Q,int jumlah, Makanan X1, Makanan X2, Makanan X3){
+void FryOlahInventory(PrioQueueTime *Q, Cookbook cb, ID id, int idx, ListStatik fs){
     //Mengupdate isi inventory jika melakukan Fry
-    if (jumlah==1){
-        RemoveMakanan(Q,X1);
-        AddMakanan(Q,X3);
-    }
-    else if (jumlah==2){
-        RemoveMakanan(Q,X1);
-        RemoveMakanan(Q,X2);
-        AddMakanan(Q,X3);
-    }
+    MixOlahInventory(Q, cb, id, idx, fs);
 }
 
-void BoilOlahInventory(PrioQueueTime *Q, Makanan X1, Makanan X2){
+void BoilOlahInventory(PrioQueueTime *Q, Cookbook cb, ID id, int idx, ListStatik fs){
     //Mengupdate isi inventory jika melakukan Boil
-    RemoveMakanan(Q,X1);
-    AddMakanan(Q,X2);
+    MixOlahInventory(Q, cb, id, idx, fs);
 }
 
 void BuyOlahInventory(PrioQueueTime *Q,Makanan X1){

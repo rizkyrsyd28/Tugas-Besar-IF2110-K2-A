@@ -455,11 +455,8 @@ int main () {
                         // Inputnya telah sesuai dengan penomoran 
                         // Mencari idx makanan pada list makanan sesuai penomoran input user
                         idxFood = searchIndexOlahMakanan(foodList, "FRY", WordToInt(currentWord));
-                        printf("\nInvent : ");
-                        PrintPrioQueueTimeInventory(Inventory(currentState.sub1));
-                        printf("\n\n");
-                        printMakanan(ELMTLIST(foodList, idxFood));
-                        if (canMake(bukuResep, ELMTLIST(foodList, idxFood), Inventory(currentState.sub1))){
+
+                        if (canFry(Inventory(currentState.sub1)), canMake(bukuResep, ELMTLIST(foodList, idxFood), Inventory(currentState.sub1))){
                             int idPar, idxTree;
                             for (int i = 0; i < NResep(bukuResep); i++){
                                 if (Parent(Resep(bukuResep, i)) == idMkn(ELMTLIST(foodList, idxFood))){

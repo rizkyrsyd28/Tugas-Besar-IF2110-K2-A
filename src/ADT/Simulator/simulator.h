@@ -45,7 +45,7 @@ void DisplayLokasi(Simulator S);
 void DisplayInventory(Simulator S);
 //Menampilkan list inventory
 
-void OlahMakananInventory(PrioQueueTime *Q, int command,int jumlah, Makanan X1, Makanan X2,Makanan X3, Makanan X4);
+// void OlahMakananInventory(PrioQueueTime *Q, int command,int jumlah, Makanan X1, Makanan X2,Makanan X3, Makanan X4);
 //Mengupdate isi inventory. X4 itu buat yang diadd, X1,X2,X3 yang diremove. Kalo yang diremove ga sampe 3, isi asal aja yg ga kepake
 
 // void MixOlahInventory(PrioQueueTime *Q, int jumlah, Makanan X1, Makanan X2, Makanan X3, Makanan X4);
@@ -54,10 +54,10 @@ void MixOlahInventory(PrioQueueTime *Q, Cookbook cb, ID id, int idx, ListStatik 
 void ChopOlahInventory (PrioQueueTime *Q, Makanan X1, Makanan X2);
 //Mengupdate isi inventory jika melakukan Chop
 
-void FryOlahInventory(PrioQueueTime *Q,int jumlah, Makanan X1, Makanan X2, Makanan X3);
+void FryOlahInventory(PrioQueueTime *Q, Cookbook cb, ID id, int idx, ListStatik fs);
 //Mengupdate isi inventory jika melakukan Fry
 
-void BoilOlahInventory(PrioQueueTime *Q, Makanan X1, Makanan X2);
+void BoilOlahInventory(PrioQueueTime *Q, Cookbook cb, ID id, int idx, ListStatik fs);
 //Mengupdate isi inventory jika melakukan Boil
 
 void BuyOlahInventory(PrioQueueTime *Q,Makanan X1);

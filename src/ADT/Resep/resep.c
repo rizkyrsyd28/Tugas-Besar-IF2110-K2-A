@@ -1,35 +1,57 @@
 #include "resep.h"
 
 boolean canFry(PrioQueueTime pq){
-    for(int i = 0; i <= NBElmt(pq); i++){
-        printMakanan(Elmt(pq,i));printf("\n");
-        if (isWordStringEqual(nameMkn(Elmt(pq,i)),"Minyak Goreng")){
-            return true;
+    if (Tail(pq) < Head(pq)){
+        for(int i = Head(pq); i < MaxEl(pq); i++){
+            if (isWordStringEqual(nameMkn(Elmt(pq,i)),"Minyak Goreng")){
+                return true;
+            }
+        }
+        for(int i = 0; i <= Tail(pq); i++){
+            if (isWordStringEqual(nameMkn(Elmt(pq,i)),"Minyak Goreng")){
+                return true;
+            }
         }
     }
-    printf("\nMINYAKKKKKKK...\n");
+    else {
+        for(int i = Head(pq); i <= Tail(pq); i++){
+            if (isWordStringEqual(nameMkn(Elmt(pq,i)),"Minyak Goreng")){
+                return true;
+            }
+        }
+    }
     return false;
 }
 
 boolean canMake(Cookbook cb, Makanan m, PrioQueueTime pq){
-    PrintPrioQueueTimeInventory(pq);
     int idx;
     for (int i = 0; i < NResep(cb); i++){
         if (Parent(Resep(cb, i)) == idMkn(m)){
             idx = i;
         }
     }
-    printf("\n(%d)\n", Parent(Resep(cb, idx)));
     boolean status = true;
     for (int j = 0; j < NChild(Resep(cb, idx)); j++){
         boolean cek = false;
-        for (int k = Head(pq); k <= Tail(pq); k++){
-            printf("(%d === %d)", Parent(Child(Resep(cb,idx), j)), idMkn(Elmt(pq, k)));
-            if (Parent(Child(Resep(cb,idx),j)) == idMkn(Elmt(pq,k))){
-                cek = true;
+        if (Tail(pq) < Head(pq)){
+            for (int k = Head(pq); k < MaxEl(pq); k++){                
+                if (Parent(Child(Resep(cb,idx),j)) == idMkn(Elmt(pq,k))){
+                    cek = true;
+                }
+            }
+            for (int l = 0; l <= Tail(pq); l++){                
+                if (Parent(Child(Resep(cb,idx),j)) == idMkn(Elmt(pq,l))){
+                    cek = true;
+                }
             }
         }
-
+        else {
+            for (int k = Head(pq); k <= Tail(pq); k++){
+                if (Parent(Child(Resep(cb,idx),j)) == idMkn(Elmt(pq,k))){
+                    cek = true;
+                }
+            }
+        }
         status = cek;
     }
     
