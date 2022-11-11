@@ -3,6 +3,7 @@
 #include "../ADT/Simulator/simulator.c"
 // #include "../ADT/piroqueue/piroqueue.c"
 #include "../ADT/Stack/stack.c"
+#include "../ADT/Kulkas/kulkas.c"
 
 #define MAX_COMMAND 30
 

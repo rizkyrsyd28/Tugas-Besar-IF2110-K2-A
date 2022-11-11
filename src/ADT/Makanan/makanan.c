@@ -5,23 +5,12 @@
 #include <stdlib.h>
 #include "../Time/time.c"
 
-// Makanan EmptyFood = {-1, {"Empty", 0}, {-1, -1, -1}, {"Empty", 0}, {-1, -1, -1}};
 
 // KONSTRUKTOR
 void CreateEmptyMakanan (Makanan *mkn){
 // Membuat tipe bentukan makanan, yaitu makanan kosong
 // Dapat berfungsi sebagai MARK atau Makanan yang invalid
-    idMkn(*mkn) = -999;
-    len(nameMkn(*mkn)) = 0;
-    expMkn(*mkn).DD = 0;
-    expMkn(*mkn).HH = 0;
-    expMkn(*mkn).MM = 0;
-    len(actMkn(*mkn)) = 0;
-    sizeMkn(*mkn).xSize = 0;
-    sizeMkn(*mkn).ySize = 0;
-    dlvMkn(*mkn).DD = 0;
-    dlvMkn(*mkn).HH = 0;
-    dlvMkn(*mkn).MM = 0;
+    *mkn = FoodMark;
 }
 
 // TULIS

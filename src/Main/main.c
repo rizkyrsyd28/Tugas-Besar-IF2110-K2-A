@@ -75,6 +75,11 @@ int main () {
     initState(&currentState,sim,currentTime);
     printf("-> Konfigurasi State - DONE\n");
 
+    //Konfigurasi Kulkas
+    Kulkas k;
+    CreateKulkas(&k);
+    printf("-> Konfigurasi Kulkas - DONE\n");
+
     // Dummy (untuk mencegah error)
     fgets(command, MAX_COMMAND, stdin);
 
@@ -741,9 +746,10 @@ int main () {
                     totalcommand --;
                     totalundo++;
                 }
+                printf("Undo telah dilakukan\n");
             }
             else {
-                printf("Tidak bisa undo\n");
+                printf("Undo tidak bisa dilakukan\n");
             }
         }
 
@@ -789,9 +795,10 @@ int main () {
                     totalundo--;
                     jumlahredo++;
                 }
+                printf("Redo telah dilakukan\n");
             }
             else {
-                printf("Tidak bisa redo\n");
+                printf("Redo tidak bisa dilakukan\n");
                 for (idxredo;idxredo<jumlahredo;idxredo++){
                     dummyredo = InfoTop(SRedo);
                     Top(SRedo)--;
@@ -820,7 +827,7 @@ int main () {
             else {
                 if (isWordStringEqual(currentWord, "SHOW")){
                     validAction = false; // Melihat isi kulkas tidak membuang waktu
-                    printf("SHOW\n");
+                    DisplayKulkas(k);
                 }
                 else if (isWordStringEqual(currentWord, "TAKE")){
                     //Push ke Stack
@@ -836,7 +843,12 @@ int main () {
                     Push(&SUndo, currentState);
                     totalcommand ++;
                     CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
-                    printf("PUT\n");
+                    if (IsEmptyQueue(Inventory(currentState.sub1))){
+                        printf("Tidak ada makanan pada inventory. Tidak ada yang bisa dimasukkan pada kulkas.\n");
+                    } else {
+                        DisplayInventory(currentState.sub1);
+                        printf("Makanan apa yang ingin dimasukkan pada kulkas?\n");
+                    }
                 } else {
                     printf("Input selain 'SHOW', 'TAKE', dan 'PUT' tidak diterima.\n");
                     validAction = false; // Invalid Input
