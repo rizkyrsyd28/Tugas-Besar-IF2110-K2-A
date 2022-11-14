@@ -64,6 +64,8 @@ void DisplayKulkas (Kulkas k)
 {
     int i;
     int j;
+    printf("Makanan ditulis dalam format < ID Makanan, Identifier >\n");
+    printf("Bari yang valid pada kulkas adalah 0..%d dan kolom yang valid pada kulkas adalah 0..%d\n", (MaxRow-1), (MaxCol-1));
     for (i = 0 ; i < MaxRow ; i++){
         printf("[ ");
         for (j = 0; j < MaxCol; j++){
@@ -116,7 +118,7 @@ untuk memasukkan makanan */
     int idnt = 0; // nilai default untuk identifier
     int i;
     int j;
-    for (idnt = 0; idnt <= lastIdnt; idnt++){
+    for (idnt =  0;  idnt <= lastIdnt; idnt++){
         boolean found = false;
         // Melakukan cek untuk setiap isi kulkas, apakah identifier tertentu sudah dipakai
         for (i = 0 ; i < MaxRow; i++){
@@ -126,17 +128,14 @@ untuk memasukkan makanan */
                 }
             }
         }
-        if (found = true){
-            // ditemukan idnt tersebut pada kulkas, maka pengecekan akan dilanjutkan
-            idnt++;
-        } else {
+        if (!found) {
             // jika tidak ditemukan idnt tersebut, maka itu akan menjadi idnt yang valid
             return idnt;
         }
     }
-    return idnt+1; 
+    return idnt; 
     /* jika identifier 0 hingga lastIdnt ada pada k (tidak ada yang bolong),
-    maka mengembalikan identifier + 1 (identifier baru) */
+    maka mengembalikan identifier + 1 (identifier baru) (for loop akan berhenti di k + 1)*/
 
 }
 
@@ -147,13 +146,76 @@ pada koordinat tertentu dapat dilakukan*/
 {
     int rowStart = Absis(p);
     int colStart = Ordinat(p);
-    boolean available = true;
     int i;
     int j;
+    int sizeX = xSizeMkn(mkn);
+    int sizeY = ySizeMkn(mkn);
+    // check bila POINT berada di luar petak
+    if (rowStart < 0 || rowStart > MaxRow || colStart < 0 || colStart > MaxCol) {
+        return false;
+    } else if ( rowStart + sizeY > MaxRow || colStart + sizeX > MaxCol){
+        // Check bila setelah ujung penambahannnya di luar petak
+        return false;
+    } else {
+        // maka mulai dari awal hingga ujung petak makanan bersifat valid
+        for (i = rowStart; i < rowStart + sizeY; i++){
+            for ( j = colStart; j < colStart + sizeX; j++){
+                // Jika selama pengecekan ada yang tidak kosong
+                if (IsiIdnt(k, i, j) != -1){
+                    return false;
+                }
+            }
+        }
+        // mengembalikan true bila semuanya range petak tersebut kosong
+        return true;
+    }
 }
 
-void putMakanan(Kulkas *k, POINT p, Makanan mkn);
+void putMakananKulkas(Kulkas *k, POINT p, Makanan mkn)
 /* Memasukkan makanan pada Kulkas*/
+{
+    if (isPutAvailable(*k, p, mkn)){
+        int lastIdnt = getLastIdentifier(*k); 
+        int validIdnt = getValidIdentifier(*k, lastIdnt); 
+        int rowStart = Absis(p);
+        int colStart = Ordinat(p);
+        int i;
+        int j;
+        int sizeX = xSizeMkn(mkn);
+        int sizeY = ySizeMkn(mkn);
+        for (i = rowStart; i < rowStart+sizeY ; i++ ){
+            for (j = colStart; j < colStart+sizeX; j++){
+                IsiMknn(*k, i, j) = mkn;
+                IsiIdnt(*k, i, j) = validIdnt;
+            }
+        }
+    } else {
+        printf("Makanan tidak bisa dimasukkan pada petak tersebut.\n");
+    }
+}
 
-void getMakanan(Kulkas *k, POINT p, Makanan mkn);
+void getMakananKulkas(Kulkas *k, POINT p, Makanan *mkn)
 /* Mengambil makanan dari Kulkas*/
+{
+    // check apakah pada petak point, terisi oleh makanan
+    int rowStart = Absis(p);
+    int colStart = Ordinat(p);
+    if (IsiIdnt(*k, rowStart, colStart) != -1){
+        // Jika petak tersebut benar diisi oleh maknaan
+        *mkn = IsiMknn(*k, rowStart, colStart);
+        int tempIdnt = IsiIdnt(*k, rowStart, colStart);
+        int i;
+        int j;
+        for (i = 0; i < MaxRow; i++){
+            for (j =0; j < MaxCol; j++){
+                if (IsiIdnt(*k, i, j) == tempIdnt){
+                    // menghapus semua makanan dengan idnt yang ingin dihapus
+                    IsiMknn(*k, i, j) = FoodMark;
+                    IsiIdnt(*k, i, j) = -1;
+                }
+            }
+        }
+    } else {
+        printf("Tidak ada makanan pada petak tersebut.\n");
+    }
+}

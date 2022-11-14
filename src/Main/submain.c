@@ -40,7 +40,8 @@ void getHelp(){
     printf("UNDO            - Mengembalikan kondisi sebelum terlaksananya action terakhir\n");
     printf("REDO            - Melakukan kembali action yang telah di-undo\n");
     printf("FRIDGE SHOW     - Menampilkan isi kulkas\n");
-    printf("FRIDGE TAKE     - Mengambil isi kulkas\n");
+    printf("FRIDGE TAKE     - Mengambil makanan dari kulkas\n");
+    printf("FRIDGE PUT      - Menaruh makanan pada kulkas\n");
 }
 
 int countAndPrintAvailableFood(ListStatik foodList, int foodListLength, char* action){
@@ -91,4 +92,34 @@ void getInvalidRespond(){
 void initState(state *st, Simulator S, TIME T){
     st->sub1 = S;
     st->sub2 = T;
+}
+
+POINT getKulkasCoordinate(){
+/* Mengembalikan point tempat makanan akan ditaruh atau diambil */
+    char command[MAX_COMMAND] = "\0";
+    int idx;
+    int xResult;
+    int yResult;
+    POINT pResult;
+    getInput(command);
+    STARTWORD(command,&idx);
+
+    if (isWordAllIntegers(currentWord)){
+        xResult = WordToInt(currentWord);
+        
+        ADVWORD(command, &idx);
+        if (isWordAllIntegers(currentWord)){
+            yResult = WordToInt(currentWord);
+
+            Absis(pResult) = xResult;
+            Ordinat(pResult) = yResult;
+            return pResult;
+
+        } else {
+            yResult = -1;
+        }
+    } else {
+        xResult = -1;
+    }
+
 }

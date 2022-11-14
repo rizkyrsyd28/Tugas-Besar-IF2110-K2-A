@@ -108,6 +108,7 @@ void incrementNDel(PrioQueueTime *Q, int N);
 void decrementHMDel(PrioQueueTime *Q, int hours, int minutes);
 /* Mengurangi setiap waktu delivery pada queue sebesar 'hours' jam dan 'minutes' menit*/
 
-void decrementMin(PrioQueueTime *Q);
+void DequeueAtIndex(PrioQueueTime *Q, int idx, Makanan *m);
+/* Menghapus makanan pada index tertentu di prioqueuetime */
 
 #endif
