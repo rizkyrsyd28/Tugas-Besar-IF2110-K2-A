@@ -1,9 +1,11 @@
-#include "../Stack/stack.c"
-#include "simulator.c"
-#include "../piroqueue/piroqueue.c"
-#include "../MesinKata/wordmachine.c"
-#include"../Makanan/makanan.c"
 #include <stdio.h>
+#include "../../Main/parser.c"
+//#include "../Resep/resep.c"
+//#include "../Makanan/makanan.c"
+//#include "../piroqueue/piroqueue.c"
+//#include "../MesinKata/wordmachine.c"
+//#include "../Point/point.c"
+#include "simulator.c"
 
 int main()
 {
@@ -45,9 +47,9 @@ int main()
     printf("Display Lokasi : \n");
     DisplayLokasi(S);
     printf("\n");
-    //printf("Display Inventory : \n");
-    //DisplayInventory(S);
-    //printf("\n");
+    printf("Display Inventory : \n");
+    DisplayInventory(S);
+    printf("\n");
 
 
     //Gerak lokasi
@@ -60,20 +62,14 @@ int main()
 
     //Olah Makanan Inventory
     printf("-----------------------OLAH MAKANAN INVENTORY----------------------\n");
-    //Enqueue(&Inventory(S),Ayam);
-    OlahMakananInventory(&Inventory(S),5,0,Sayur,Sapi,Minyak,Sayur);
+    EnqueueInventory(&Inventory(S),Sayur);
+    EnqueueInventory(&Inventory(S),Sayur);
     printf("\n");
     printf("Inventory masuk \n");
     DisplayInventory(S);
     printf("\n");
     Makanan X;
-    OlahMakananInventory(&Inventory(S),4,0,Sayur,Sapi,Minyak,Sayur); //DequeueAt Sayur, Enqueue Sayur
+    DequeueAt(&Inventory(S), Sayur, &X);
     DisplayInventory(S);
     printf("\n");
-
-    //Kedaluwarsa Inventory
-    printf("-----------------------Kedaluwarsa INVENTORY----------------------\n");
-    KedaluwarsaInventory(&Inventory(S));
-    printf("\n");
-    DisplayInventory(S);
 }

@@ -324,6 +324,13 @@ int main () {
                             }
                             // MixOlahInventory(&Inventory(currentState.sub1), bukuResep, idPar, idxTree, foodList);
                             validAction = true;
+                            //Push ke Stack
+                            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
+                            Push(&SUndo, currentState);
+                            totalcommand ++;
+                            totalundo=0;
+                            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
+
                             EnqueueDelivery(&currentState.sub1.PL, ELMTLIST(foodList, idxFood));
 
                             // Mengeluarkan pesan bahwa sudah diproses.
@@ -332,13 +339,6 @@ int main () {
                             TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
                             printf("\n");
                             subprogram = false;
-
-                            //Push ke Stack
-                            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
-                            Push(&SUndo, currentState);
-                            totalcommand ++;
-                            totalundo=0;
-                            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                         }
                         else {
                             printf("Kamu tidak punya bahannya\n");
@@ -394,6 +394,13 @@ int main () {
                             }
                             // ChopOlahInventory(&Inventory(currentState.sub1), getMakanan(idChld, foodList), getMakanan(idPar, foodList));
                             validAction = true; 
+                            //Push ke Stack
+                            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
+                            Push(&SUndo, currentState);
+                            totalcommand ++;
+                            totalundo=0;
+                            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
+
                             EnqueueDelivery(&currentState.sub1.PL, ELMTLIST(foodList, idxFood));
 
                             // Mengeluarkan pesan bahwa sudah diproses.
@@ -402,14 +409,6 @@ int main () {
                             TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
                             printf("\n");
                             subprogram = false;
-
-
-                            //Push ke Stack
-                            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
-                            Push(&SUndo, currentState);
-                            totalcommand ++;
-                            totalundo=0;
-                            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                         }
                         else {
                             printf("Kamu tidak punya bahannya\n");
@@ -467,6 +466,13 @@ int main () {
                             }
                             //MixOlahInventory(&Inventory(currentState.sub1), bukuResep, idPar, idxTree, foodList);
                             validAction = true;
+                            //Push ke Stack
+                            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
+                            Push(&SUndo, currentState);
+                            totalcommand ++;
+                            totalundo=0;
+                            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
+
                             EnqueueDelivery(&currentState.sub1.PL, ELMTLIST(foodList, idxFood));
 
                             // Mengeluarkan pesan bahwa sudah diproses.
@@ -475,13 +481,7 @@ int main () {
                             TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
                             printf("\n");
                             subprogram = false;
- 
-                            //Push ke Stack
-                            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
-                            Push(&SUndo, currentState);
-                            totalcommand ++;
-                            totalundo=0;
-                            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
+
                         
                         }
                         else {
@@ -539,6 +539,13 @@ int main () {
                             }
                             // MixOlahInventory(&Inventory(sim), bukuResep, idPar, idxTree, foodList);
                             validAction = true;
+                            //Push ke Stack
+                            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
+                            Push(&SUndo, currentState);
+                            totalcommand ++;
+                            totalundo=0;
+                            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
+                            
                             EnqueueDelivery(&currentState.sub1.PL, ELMTLIST(foodList, idxFood));
 
                             // Mengeluarkan pesan bahwa sudah diproses.
@@ -547,13 +554,6 @@ int main () {
                             TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
                             printf("\n");
                             subprogram = false;
-
-                            //Push ke Stack
-                            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
-                            Push(&SUndo, currentState);
-                            totalcommand ++;
-                            totalundo=0;
-                            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                         }
                         else {
                             printf("Kamu tidak punya bahannya\n");
