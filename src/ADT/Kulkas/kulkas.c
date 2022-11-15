@@ -189,6 +189,8 @@ void putMakananKulkas(Kulkas *k, POINT p, Makanan mkn)
                 IsiIdnt(*k, i, j) = validIdnt;
             }
         }
+        // Menuliskan pada user kalau makanan telah dimasukkan
+        printf("Makanan "); printWord(nameMkn(mkn)); printf(" telah dimasukkan ke dalam kulkas \n");
     } else {
         printf("Makanan tidak bisa dimasukkan pada petak tersebut.\n");
     }
@@ -214,7 +216,8 @@ void getMakananKulkas(Kulkas *k, POINT p, Makanan *mkn)
                     IsiIdnt(*k, i, j) = -1;
                 }
             }
-        }
+        }                            
+        printf("Makanan "); printWord(nameMkn(*mkn)); printf(" telah diambil dari kulkas \n");
     } else {
         printf("Tidak ada makanan pada petak tersebut.\n");
     }

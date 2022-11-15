@@ -1,26 +1,6 @@
 #include "liststatik.h"
 #include <stdio.h>
 
-boolean timeEqual(TIME a, TIME b) {
-    return ((Day(a) == Day(b)) && (Minute(a) == Minute(b)) && (Hour(a) == Hour(b)));
-}
-
-boolean isMark(ElTypeList a) {
-    return (a.id == -1) && timeEqual(a.expired, FoodMark.expired) && timeEqual(a.delivery, FoodMark.delivery) && (a.action.Length == FoodMark.action.Length) && (a.name.Length == FoodMark.name.Length);
-}
-
-boolean different(ElTypeList a, ElTypeList b) {
-    return (a.id == b.id) && timeEqual(a.expired, b.expired) && timeEqual(a.delivery, b.delivery) && (a.action.Length == b.action.Length) && (a.name.Length == b.name.Length);    
-}
-
-Makanan getMakanan(ID id, ListStatik foods) {
-    for (int i = 0; i < listLength(foods); i++) {
-        if (idMkn(ELMTLIST(foods, i)) == id) {
-            return ELMTLIST(foods, i);
-        }
-    }
-    return FoodMark;
-}
 
 
 /* ********** KONSTRUKTOR ********** */
@@ -256,123 +236,20 @@ int searchIndexOlahMakanan(ListStatik l, char* command, int count){
     // Mengembalikan i saat count == 0
     return i;
 }
-// /* ********** SORTING ********** */
-// void sortFoodId(ListStatik *l, boolean asc)
-// /* I.S. l boleh kosong */
-// /* F.S. Jika asc = true, l terurut membesar */
-// /*      Jika asc = false, l terurut mengecil */
-// /* Proses : Mengurutkan l dengan salah satu algoritma sorting,
-//    algoritma bebas */
-// {   /* Kamus Lokal */
-//     if (TYPE(*l) == 1) {
-//         int i = getFirstIdx(*l), j;
-//         Makanan temp;
-//         /* Algoritma */
-//         if (!isEmpty(*l)) {
-//             if (asc) {
-//                 for (i; i<=getLastIdx(*l) - 1; i++) {
-//                     j = i + 1;
-//                     for (j; j <= getLastIdx(*l); j++) {
-//                         if (IDX(*l, i) > IDX(*l, j)) {
-//                             temp = ELMTLIST(*l, i);
-//                             ELMTLIST(*l, i) = ELMTLIST(*l, j);
-//                             ELMTLIST(*l, j) = temp;
-//                         }
-//                     }
-//                 }
-//             } else if (!asc){
-//                 i = getFirstIdx(*l);
-//                 for (i; i<=getLastIdx(*l) - 1; i++) {
-//                     j = i + 1;
-//                     for (j; j <= getLastIdx(*l); j++) {
-//                         if (IDX(*l, i) < IDX(*l, j)) {
-//                             temp = ELMTLIST(*l, i);
-//                             ELMTLIST(*l, i) = ELMTLIST(*l, j);
-//                             ELMTLIST(*l, j) = temp;
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
 
-// void sortFoodExp(ListStatik *l, boolean asc)
-// /* I.S. l boleh kosong */
-// /* F.S. Jika asc = true, l terurut membesar */
-// /*      Jika asc = false, l terurut mengecil */
-// /* Proses : Mengurutkan l dengan salah satu algoritma sorting,
-//    algoritma bebas */
-// {   /* Kamus Lokal */
-//     if (TYPE(*l) == 1) {
-//         int i = getFirstIdx(*l), j;
-//         Makanan temp;
-//         /* Algoritma */
-//         if (!isEmpty(*l)) {
-//             if (asc) {
-//                 for (i; i <= getLastIdx(*l) - 1; i++) {
-//                     j = i + 1;
-//                     for (j; j <= getLastIdx(*l); j++) {
-//                         if (TGT(EXP(*l, i), EXP(*l, j))) {
-//                             temp = ELMTLIST(*l, i);
-//                             ELMTLIST(*l, i) = ELMTLIST(*l, j);
-//                             ELMTLIST(*l, j) = temp;
-//                         }
-//                     }
-//                 }
-//             } else if (!asc){
-//                 i = getFirstIdx(*l);
-//                 for (i; i <= getLastIdx(*l) - 1; i++) {
-//                     j = i + 1;
-//                     for (j; j <= getLastIdx(*l); j++) {
-//                         if (TLT(EXP(*l, i), EXP(*l, j))) {
-//                             temp = ELMTLIST(*l, i);
-//                             ELMTLIST(*l, i) = ELMTLIST(*l, j);
-//                             ELMTLIST(*l, j) = temp;
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
+boolean isMark(ElTypeList a) {
+    return (a.id == -1) && TEQ(a.expired, FoodMark.expired) && TEQ(a.delivery, FoodMark.delivery) && (a.action.Length == FoodMark.action.Length) && (a.name.Length == FoodMark.name.Length);
+}
 
-// void sortFoodDlv(ListStatik *l, boolean asc)
-// /* I.S. l boleh kosong */
-// /* F.S. Jika asc = true, l terurut membesar */
-// /*      Jika asc = false, l terurut mengecil */
-// /* Proses : Mengurutkan l dengan salah satu algoritma sorting,
-//    algoritma bebas */
-// {   /* Kamus Lokal */
-//     if (TYPE(*l) == 1) {
-//         int i = getFirstIdx(*l), j;
-//         Makanan temp;
-//         /* Algoritma */
-//         if (!isEmpty(*l)) {
-//             if (asc) {
-//                 for (i; i<=getLastIdx(*l) - 1; i++) {
-//                     j = i + 1;
-//                     for (j; j <= getLastIdx(*l); j++) {
-//                         if (TGT(DLV(*l, i), DLV(*l, j))) {
-//                             temp = ELMTLIST(*l, i);
-//                             ELMTLIST(*l, i) = ELMTLIST(*l, j);
-//                             ELMTLIST(*l, j) = temp;
-//                         }
-//                     }
-//                 }
-//             } else if (!asc){
-//                 i = getFirstIdx(*l);
-//                 for (i; i<=getLastIdx(*l) - 1; i++) {
-//                     j = i + 1;
-//                     for (j; j <= getLastIdx(*l); j++) {
-//                         if (TLT(DLV(*l, i), DLV(*l, j))) {
-//                             temp = ELMTLIST(*l, i);
-//                             ELMTLIST(*l, i) = ELMTLIST(*l, j);
-//                             ELMTLIST(*l, j) = temp;
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
+boolean different(ElTypeList a, ElTypeList b) {
+    return (a.id == b.id) && TEQ(a.expired, b.expired) && TEQ(a.delivery, b.delivery) && (a.action.Length == b.action.Length) && (a.name.Length == b.name.Length);    
+}
+
+Makanan getMakanan(ID id, ListStatik foods) {
+    for (int i = 0; i < listLength(foods); i++) {
+        if (idMkn(ELMTLIST(foods, i)) == id) {
+            return ELMTLIST(foods, i);
+        }
+    }
+    return FoodMark;
+}
