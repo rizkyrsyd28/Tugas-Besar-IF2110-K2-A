@@ -745,6 +745,9 @@ int main () {
             printf("====================================================\n");
             validAction = false;
             if(totalcommand>0){
+                notifUndo = true;
+                undoAct = currentState.sub3;
+                notifCount++;
                 POINT srcdummy;
                 CreatePoint(&srcdummy,-50,-50);
                 POINT lokasisekarang = Lokasi(currentState.sub1);
@@ -753,6 +756,7 @@ int main () {
                     totalcommand --;
                     totalundo++;
                 }
+                redoAct = currentState.sub3;
                 POINT lokasiundo = Lokasi(currentState.sub1);
                 Redo(&SUndo,&SRedo,&currentState,totalundo,srcdummy);
                 if (totalundo>0){
@@ -794,6 +798,8 @@ int main () {
 
             validAction = false;
             if (totalundo>0){
+                notifRedo = true;
+                notifCount++;
                 POINT srcdummy;
                 CreatePoint(&srcdummy,-50,-50);
                 POINT lokasisekarang = Lokasi(currentState.sub1);
@@ -803,6 +809,7 @@ int main () {
                     totalundo--;
 
                 }
+                undoAct = currentState.sub3;
                 POINT lokasiredo = Lokasi(currentState.sub1);
                 Undo(&SUndo,&SRedo,&currentState,totalcommand,srcdummy);
                 if (totalcommand>0){
