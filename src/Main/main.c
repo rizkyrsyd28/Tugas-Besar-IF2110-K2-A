@@ -95,6 +95,11 @@ int main () {
     int idxFood;
     Makanan dumpMkn;
     Makanan tempMkn;
+    Word currentAct;
+    boolean notifUndo = false;
+    Word undoAct;
+    boolean notifRedo = false;
+    Word redoAct;
     int notifCount = 0;
     int deliveredCount= 0 ;
     int processedCount = 0;
@@ -121,18 +126,30 @@ int main () {
             printf("\n");
             int notifNumber = 1;
             while (notifCount > 0) {
-                deleteFirst(&notifList, &dumpMkn);
-                printf("   %d. ", notifNumber);
-                printWord(nameMkn(dumpMkn));
-                if (deliveredCount > 0) {
-                    printf(" sudah diterima oleh BNMO!\n");
-                    deliveredCount--;
-                } else if (processedCount > 0) {
-                    printf(" sudah selesai diproses dan dimasukkan ke dalam inventory.\n");
-                    processedCount--;
+                if (notifUndo) {
+                    printf("   %d. ", notifNumber);
+                    printWord(undoAct);
+                    printf(" tidak jadi dilakukan.\n");
+                    notifUndo = false;
+                } else if (notifRedo) {
+                    printf("   %d. ", notifNumber);
+                    printWord(redoAct);
+                    printf(" kembali dilakukan.\n");
+                    notifRedo = false;
                 } else {
-                    printf(" kedaluwarsa.. :(\n");
-                    expiredCount--;
+                    deleteFirst(&notifList, &dumpMkn);
+                    printf("   %d. ", notifNumber);
+                    printWord(nameMkn(dumpMkn));
+                    if (deliveredCount > 0) {
+                        printf(" sudah diterima oleh BNMO!\n");
+                        deliveredCount--;
+                    } else if (processedCount > 0) {
+                        printf(" sudah selesai diproses dan dimasukkan ke dalam inventory.\n");
+                        processedCount--;
+                    } else {
+                        printf(" kedaluwarsa.. :(\n");
+                        expiredCount--;
+                    }
                 }
                 notifCount--;
                 notifNumber++;
@@ -167,6 +184,7 @@ int main () {
             }
         }
         else if (isWordStringEqual(currentWord, "MOVE")){
+            currentState.sub3 = currentWord;
             printf("====================================================\n");
             printf("===============         MOVE         ===============\n");
             printf("====================================================\n");
@@ -239,6 +257,7 @@ int main () {
                 printf("Pastikan Simulator berada di sebelah petak 'T'\n");
                 validAction = false;
             } else {
+                currentAct = currentWord;
                 subprogram = true;
                 while (subprogram){
                 
@@ -277,6 +296,7 @@ int main () {
                         TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
                         printf("\n");
                         subprogram = false;
+                        currentState.sub3 = currentAct;
                     }
                 }
             }
@@ -294,6 +314,7 @@ int main () {
                 printf("Pastikan Simulator berada di sebelah petak 'M'\n");
                 validAction = false;
             } else {
+                currentAct = currentWord;
                 subprogram = true;
                 while (subprogram){
                 
@@ -343,6 +364,7 @@ int main () {
                             TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
                             printf("\n");
                             subprogram = false;
+                            currentState.sub3 = currentAct;
                         }
                         else {
                             printf("Kamu tidak punya bahannya\n");
@@ -365,6 +387,7 @@ int main () {
                 printf("Pastikan Simulator berada di sebelah petak 'C'\n");
                 validAction = false;
             } else {
+                currentAct = currentWord;
                 subprogram = true;
                 while (subprogram){
                 
@@ -414,6 +437,7 @@ int main () {
                             TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
                             printf("\n");
                             subprogram = false;
+                            currentState.sub3 = currentAct;
                         }
                         else {
                             printf("Kamu tidak punya bahannya\n");
@@ -437,6 +461,7 @@ int main () {
                 printf("Pastikan Simulator berada di sebelah petak 'F'\n");
                 validAction = false;
             } else {
+                currentAct = currentWord;
                 subprogram = true;
                 while (subprogram){
                 
@@ -487,6 +512,7 @@ int main () {
                             TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
                             printf("\n");
                             subprogram = false;
+                            currentState.sub3 = currentAct;
 
                         
                         }
@@ -512,6 +538,7 @@ int main () {
                 printf("Pastikan Simulator berada di sebelah petak 'B'\n");
                 validAction = false;
             } else {
+                currentAct = currentWord;
                 subprogram = true;
                 while (subprogram){
                 
@@ -561,6 +588,7 @@ int main () {
                             TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
                             printf("\n");
                             subprogram = false;
+                            currentState.sub3 = currentAct;
                         }
                         else {
                             printf("Kamu tidak punya bahannya\n");
@@ -645,6 +673,7 @@ int main () {
             // Setelah penambahan waktu oleh command WAIT, tidak perlu lagi dilakukan penambahan waktu 1 menit
             validAction = false; 
 
+            currentAct = currentWord;
             boolean allInteger = true, xint = false, yint = false;
             int waitHour, waitMinute, totalWaitMinute;
 
@@ -697,6 +726,7 @@ int main () {
                         decrementNDel(&currentState.sub1.PL, totalWaitMinute);
                         
                         printf("Waktu pada Delivery List dan Inventory telah disesuaikan.\n");
+                        currentState.sub3 = currentAct;
                     }
                     
                 } else if (!yint) {
@@ -839,6 +869,7 @@ int main () {
                         validAction = false;
 
                     } else {
+                        currentAct = currentWord;
                         DisplayKulkas(k);
                         printf("Masukkan petak yang untuk mengambil makanan dari kulkas: ");
 
@@ -849,7 +880,7 @@ int main () {
                         } else {
                             getMakananKulkas(&k, fridgePoint, &tempMkn);
                             EnqueueInventory(&Inventory(currentState.sub1), tempMkn);
-
+                            currentState.sub3 = currentAct;
                             //Push ke Stack
                             CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                             Push(&SUndo, currentState);
@@ -867,6 +898,7 @@ int main () {
                     if (IsEmptyQueue(Inventory(currentState.sub1))){
                         printf("Tidak ada makanan pada inventory. Tidak ada yang bisa dimasukkan pada kulkas.\n");
                     } else {
+                        currentAct = currentWord;
                         DisplayKulkas(k);
                         DisplayInventory(currentState.sub1);
                         int invenLength = NBElmt(Inventory(currentState.sub1));
@@ -895,6 +927,7 @@ int main () {
                                 } else {
                                     if (isPutAvailable(k, fridgePoint, tempMkn)){
                                         putMakananKulkas(&k, fridgePoint, tempMkn);
+                                        currentState.sub3 = currentAct;
 
 
                                         //Push ke Stack

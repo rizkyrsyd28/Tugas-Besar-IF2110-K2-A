@@ -24,6 +24,7 @@ typedef int address;   /* indeks tabel */
 typedef struct {
   Simulator sub1;
   TIME sub2;
+  Word sub3;
 }state;
 
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP : */
