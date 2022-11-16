@@ -97,6 +97,7 @@ int main () {
     Makanan tempMkn;
     int notifCount = 0;
     int deliveredCount= 0 ;
+    int processedCount = 0;
     int expiredCount = 0;
     ListStatik notifList;
     CreateListStatik(&notifList);
@@ -126,6 +127,9 @@ int main () {
                 if (deliveredCount > 0) {
                     printf(" sudah diterima oleh BNMO!\n");
                     deliveredCount--;
+                } else if (processedCount > 0) {
+                    printf(" sudah selesai diproses dan dimasukkan ke dalam inventory.\n");
+                    processedCount--;
                 } else {
                     printf(" kedaluwarsa.. :(\n");
                     expiredCount--;
@@ -976,6 +980,9 @@ int main () {
                 TIME newExpiry = inttoTIME(TIMEtoint(expMkn(dumpMkn)) + remainder);
                 expMkn(dumpMkn) = newExpiry;
                 EnqueueInventory(&Inventory(currentState.sub1), dumpMkn);
+                notifCount++;
+                processedCount++;
+                insertLast(&notifList, dumpMkn);
             }
             if (!TGT(dlvMkn(InfoHead(currentState.sub1.PL)), boundariesTime)){
                 Dequeue(&currentState.sub1.PL, &dumpMkn);
@@ -984,6 +991,9 @@ int main () {
                 TIME newExpiry = inttoTIME(TIMEtoint(expMkn(dumpMkn)) + remainder);
                 expMkn(dumpMkn) = newExpiry;
                 EnqueueInventory(&Inventory(currentState.sub1), dumpMkn);
+                notifCount++;
+                processedCount++;
+                insertLast(&notifList, dumpMkn);
             }
         }
 
