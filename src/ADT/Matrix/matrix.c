@@ -133,6 +133,7 @@ void swapElmt(Matrix * m, POINT *src, POINT des){
 		ELMTMAT(*m, Ordinat(des), Absis(des)) = ELMTMAT(*m, Ordinat(*src), Absis(*src));
 		ELMTMAT(*m, Ordinat(*src), Absis(*src)) = temp;
 		*src = des;
+		printf("Simulator telah bergerak ke arah yang diinginkan.\n");
 	}
 	else { 
 		printf("Simulator tidak bisa masuk ke petak tersebut.\n");

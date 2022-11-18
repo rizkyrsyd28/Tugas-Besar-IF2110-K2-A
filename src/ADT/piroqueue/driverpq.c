@@ -1,6 +1,6 @@
 #include "piroqueue.c"
-#include "../Makanan/makanan.c"
-#include "../Liststatik/liststatik.c"
+#include "../Makanan/makanan.h"
+#include "../Liststatik/liststatik.h"
 
 void initMakanan(Makanan * m){
     m->id = 12; 
@@ -30,15 +30,15 @@ int main(){
     initMakanan(&m1);
     initMakanan(&m2);
     initMakanan(&m3);
-    printf("debug1");
+    printf("debug1\n");
 
-    Enqueue(&invent, m1);
-    Enqueue(&invent, m2);
+    EnqueueInventory(&invent, m1);
+    EnqueueInventory(&invent, m2);
     
-    PrintPrioQueueTime(invent);
+    PrintPrioQueueTimeInventory(invent);
     
-    Enqueue(&invent, m3);
+    EnqueueInventory(&invent, m3);
 
-    printf("debug2");
+    printf("debug2\n");
     return 0;
 }

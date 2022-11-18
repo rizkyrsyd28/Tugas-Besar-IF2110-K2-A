@@ -66,10 +66,10 @@ boolean isPutAvailable(Kulkas k, POINT p, Makanan mkn);
 pada koordinat tertentu dapat dilakukan*/
 /* Mengembalikan iya bila bisa, tidak juga tidak bisa*/
 
-void putMakanan(Kulkas *k, POINT p, Makanan mkn);
+void putMakananKulkas(Kulkas *k, POINT p, Makanan mkn);
 /* Memasukkan makanan pada Kulkas*/
 
-void getMakanan(Kulkas *k, POINT p, Makanan mkn);
+void getMakananKulkas(Kulkas *k, POINT p, Makanan *mkn);
 /* Mengambil makanan dari Kulkas*/
 
 

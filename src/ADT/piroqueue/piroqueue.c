@@ -379,3 +379,46 @@ void decrementHMDel(PrioQueueTime *Q, int hours, int minutes) {
         decrementNDel(Q, totalMinuteDecrement);
     }
 }
+
+void DequeueAtIndex(PrioQueueTime *Q, int idx, Makanan *m)
+/* Menghapus makanan pada index tertentu di prioqueuetime */
+{
+
+    int counting = idx;
+    int i;
+    int walkidx = Head(*Q);
+    if (NBElmt(*Q) == 1){
+        // Untuk queue yang isinya 1
+        *m = Elmt(*Q, walkidx);
+        Head(*Q) = Nil;
+        Tail(*Q) = Nil;
+    } else {
+        // Untuk queue yang isinya lebih dari 1
+        for (i = 0; i < counting; i++){
+            if (walkidx == MaxEl(*Q)){
+                walkidx = 0;
+            } else {
+                walkidx++;
+            }
+        }
+        *m = Elmt(*Q, walkidx);
+        int nextidx;
+
+        // geser semua elemen
+        while (walkidx != Tail(*Q)){
+            if (walkidx == MaxEl(*Q)-1){
+                nextidx = 0;
+            } else {
+                nextidx = walkidx +1;
+            }
+            Elmt(*Q, walkidx) = Elmt(*Q, nextidx);
+            walkidx++;
+        }
+        // memundurkan Tail 1 elemen
+        if (Tail(*Q) == 0){
+            Tail(*Q) = MaxEl(*Q)-1;
+        } else {
+            Tail(*Q) -= 1;
+        }
+    }
+}

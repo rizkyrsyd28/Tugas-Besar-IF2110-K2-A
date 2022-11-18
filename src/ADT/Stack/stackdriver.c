@@ -1,13 +1,15 @@
-#include "../MesinKata/wordmachine.c"
-#include"../Makanan/makanan.c"
-#include "../piroqueue/piroqueue.c"
-#include "../Matrix/matrix.c"
+//#include "../MesinKata/wordmachine.c"
+//#include"../Makanan/makanan.c"
+//#include "../piroqueue/piroqueue.c"
+//#include "../Matrix/matrix.c"
+//#include "../Simulator/simulator.c"
+#include "../../Main/parser.c"
 #include "../Simulator/simulator.c"
 #include "stack.c"
 #include <stdio.h>
 
 
-/*void initState(state * st, Simulator S, TIME T){
+void initState(state * st, Simulator S, TIME T){
     st->sub1 = S;
     st->sub2 = T;
 }
@@ -74,6 +76,8 @@ int main()
     state currentState;
     char in; 
 
+    int redoaktif=0;
+
     ReadSimulator(&S);
     CreateEmpty(&SRedo);
     CreateEmpty(&SUndo);
@@ -83,8 +87,6 @@ int main()
     initMakanan2(&xyz);
     initMakanan3(&def);
     Makanan X;
-    //EnqueueDelivery(&currentState.sub1.D,xyz);
-    //EnqueueDelivery(&processlist,xyz);
 
     TIME T;
     
@@ -92,7 +94,7 @@ int main()
     BacaTIME(&T);
     printf("\n");
 
-    //initState(&currentState,S,T,deliverylist,processlist);
+    initState(&currentState,S,T);
     int totalcommand=0;
     int totalundo = 0;
 
@@ -100,49 +102,47 @@ int main()
 
 
     while (found){ 
+        printf("---------------------- MULAI-----------------------------\n");
         printf("input = ");
         scanf(" %c", &in);
-
-        if (in == 'b'){
+        int gabisaredo = 0;
+        if (in == 'b'){//enqueue
             printf("sampe a\n");
-            //CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
             printf("sampe b\n");
             Push(&SUndo, currentState);
             totalcommand ++;
-            //CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
+            gabisaredo ++;
+            CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
             printf("sampe c\n");
-            //Enqueue(&currentState.sub1.Q, abc);//misal ini cabai
-            //EnqueueInventory(&currentState.sub1.Q, xyz); // misal ini bawang
+            EnqueueInventory(&currentState.sub1.Q, xyz); // misal ini bawang
             validAction = true;
-            OlahMakananInventory(&Inventory(currentState.sub1),5,0,abc,xyz,def,def);
              printf("sampe d\n");
 
         }
-        else if (in == 'c'){
+        else if (in == 'c'){//dequeueAt terus Enqueue
             printf("sampe a\n");
             CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
             Push(&SUndo, currentState);
             totalcommand ++;
+            gabisaredo ++;
             printf("sampe b\n");
             CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
-            //DequeueAt(&currentState.sub1.Q,xyz,&X);
-            //EnqueueInventory(&currentState.sub1.Q,def);
+            DequeueAt(&currentState.sub1.Q,xyz,&X);
+            EnqueueInventory(&currentState.sub1.Q,def);
             printf("sampe c\n");
-            OlahMakananInventory(&Inventory(currentState.sub1),1,2,abc,xyz,def,def);
-            printf("sampe d\n");
             validAction = true;
-
-            //OlahMakananInventory(&Inventory(currentState.sub1),4,0,Sayur,Sapi,Minyak,Sayur);
         }
-        else if (in=='g'){
+        else if (in=='g'){//geser
             CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
             Push(&SUndo, currentState);
             totalcommand ++;
+            gabisaredo ++;
             CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
             GeserLokasi(&currentState.sub1,2);
             validAction = true;
         }
-        else if (in == 'u'){
+        else if (in == 'u'){//undo
             CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
             POINT srcdummy;
             CreatePoint(&srcdummy,-50,-50);
@@ -150,11 +150,12 @@ int main()
             if (totalcommand>0){
                 totalcommand --;
                 totalundo++;
+                redoaktif ++;
             }
             validAction = false;
 
         }
-        else if (in == 'r'){
+        else if (in == 'r'){//redo
             CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
             POINT srcdummy;
             CreatePoint(&srcdummy,-50,-50);
@@ -162,6 +163,7 @@ int main()
             if (totalundo>0){
                 totalcommand++;
                 totalundo--;
+                redoaktif--;
             }
             validAction = false;
         }
@@ -169,6 +171,13 @@ int main()
             found = false;
         }
         
+        if (gabisaredo>0 && redoaktif!=0){
+            for(int i = 0;i<redoaktif;i++){
+                state X;
+                Pop(&SRedo,&X);
+            }
+            
+        }
         if (validAction){
             // Waktu hanya ditambahkan bila action yang dilakukan valid
             currentState.sub2 = NextMinute(currentState.sub2);
@@ -187,13 +196,7 @@ int main()
         PrintPrioQueueTimeDelivery(currentState.sub1.Q);
         printf("\n");
 
-        printf("---------------------- STACK UNDO-----------------------------\n");
-        displayStack(SUndo);
-        printf("\n");
-
-        printf("---------------------- STACK REDO-----------------------------\n");
-        displayStack(SRedo);
-        printf("\n");
-        //printf("%d %c == %d %c\n", currentState.sub1.x, currentState.sub1.c, currentState.sub2.x, currentState.sub2.c);
     }
-}*/
+    
+
+}

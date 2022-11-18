@@ -49,25 +49,19 @@ void DisplayInventory(Simulator S);
 //Mengupdate isi inventory. X4 itu buat yang diadd, X1,X2,X3 yang diremove. Kalo yang diremove ga sampe 3, isi asal aja yg ga kepake
 
 // void MixOlahInventory(PrioQueueTime *Q, int jumlah, Makanan X1, Makanan X2, Makanan X3, Makanan X4);
-void MixOlahInventory(PrioQueueTime *Q, Cookbook cb, ID id, int idx, ListStatik fs);
+void MixOlahInventory(PrioQueueTime *Q, PrioQueueTime *DestQ, Cookbook cb, ID id, int idx, ListStatik fs);
 
-void ChopOlahInventory (PrioQueueTime *Q, Makanan X1, Makanan X2);
+void ChopOlahInventory (PrioQueueTime *Q, PrioQueueTime *DestQ, Makanan X1, Makanan X2);
 //Mengupdate isi inventory jika melakukan Chop
 
-void FryOlahInventory(PrioQueueTime *Q, Cookbook cb, ID id, int idx, ListStatik fs);
+void FryOlahInventory(PrioQueueTime *Q, PrioQueueTime *DestQ, Cookbook cb, ID id, int idx, ListStatik fs);
 //Mengupdate isi inventory jika melakukan Fry
 
-void BoilOlahInventory(PrioQueueTime *Q, Cookbook cb, ID id, int idx, ListStatik fs);
+void BoilOlahInventory(PrioQueueTime *Q, PrioQueueTime *DestQ, Cookbook cb, ID id, int idx, ListStatik fs);
 //Mengupdate isi inventory jika melakukan Boil
-
-void BuyOlahInventory(PrioQueueTime *Q,Makanan X1);
-//Mengupdate isi inventory jika melakukan Buy
 
 void RemoveMakanan(PrioQueueTime *Q, Makanan M);
 //DequeueAt makanan pada inventory
-
-void AddMakanan(PrioQueueTime *Q, Makanan X);
-//enqueueinventory makanan pada inventory
 
 void KedaluwarsaInventory(PrioQueueTime *Q);
 //mengurangi waktu kedaluwarsa makanan pada inventory dan membuangnya jika sudah kedaluwarsa

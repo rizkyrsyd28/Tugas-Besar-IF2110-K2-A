@@ -18,12 +18,10 @@
 #define MaxStack 100
 /* Nil adalah stack dengan elemen kosong . */
 
-// typedef int infotype;
-typedef int address;   /* indeks tabel */
-
 typedef struct {
   Simulator sub1;
   TIME sub2;
+  Word sub3;
 }state;
 
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP : */

@@ -31,14 +31,6 @@ typedef struct {
 #define CONT(l, i) ((l).contents[(i)]).itemInfo
 
 
-boolean timeEqual(TIME a, TIME b);
-
-boolean isMark(ElTypeList a);
-// Mengembalikan apakah ElTypeList a adalah mark
-boolean different(ElTypeList a, ElTypeList b);
-// Mengembalikan apakah ElTypeList a dan b berbeda
-
-Makanan getMakanan(ID id, ListStatik foods);
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */
@@ -77,35 +69,6 @@ boolean isEmpty(ListStatik l);
 boolean isFull(ListStatik l);
 /* Mengirimkan true jika List l penuh, mengirimkan false jika tidak */
 
-/* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
-/* *** Mendefinisikan isi List dari pembacaan *** */
-// void readList(ListStatik *l);
-/* I.S. l sembarang */
-/* F.S. List l terdefinisi */
-/* Proses: membaca banyaknya elemen l dan mengisi nilainya */
-/* 1. Baca banyaknya elemen diakhiri enter, misalnya n */
-/*    Pembacaan diulangi sampai didapat n yang benar yaitu 0 <= n <= CAPACITY */
-/*    Jika n tidak valid, tidak diberikan pesan kesalahan */
-/* 2. Jika 0 < n <= CAPACITY; Lakukan n kali: 
-          Baca elemen mulai dari indeks 0 satu per satu diakhiri enter */
-/*    Jika n = 0; hanya terbentuk List kosong */
-// void printList(ListStatik l);
-/* Proses : Menuliskan isi List dengan traversal, List ditulis di antara kurung 
-   siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan 
-   karakter di depan, di tengah, atau di belakang, termasuk spasi dan enter */
-/* I.S. l boleh kosong */
-/* F.S. Jika l tidak kosong: [e1,e2,...,en] */
-/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
-/* Jika List kosong : menulis [] */
-
-/* ********** OPERATOR ARITMATIKA ********** */
-/* *** Aritmatika List : Penjumlahan, pengurangan, perkalian, ... *** */
-// ListStatik plusMinusList(ListStatik l1, ListStatik l2, boolean plus);
-/* Prekondisi : l1 dan l2 berukuran sama dan tidak kosong */
-/* Jika plus = true, mengirimkan  l1+l2, yaitu setiap elemen l1 dan l2 pada 
-       indeks yang sama dijumlahkan */
-/* Jika plus = false, mengirimkan l1-l2, yaitu setiap elemen l1 dikurangi 
-       elemen l2 pada indeks yang sama */
 
 /* ********** OPERATOR RELASIONAL ********** */
 /* *** Operasi pembandingan List: *** */
@@ -143,7 +106,6 @@ void insertLast(ListStatik *l, ElTypeList val);
 /* Proses: Menambahkan val sebagai elemen terakhir List */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
-void insertFood(ListStatik *l, Makanan val, int Idx);
 
 /* ********** MENGHAPUS ELEMEN ********** */
 /* *** Menghapus elemen pertama *** */
@@ -179,5 +141,12 @@ int searchIndexOlahMakanan(ListStatik l, char* command, int count);
 /*      Jika asc = false, l terurut mengecil */
 /* Proses : Mengurutkan l dengan salah satu algoritma sorting,
    algoritma bebas */
+
+boolean isMark(ElTypeList a);
+   /* Mengembalikan nilai apakah a adalah mark*/
+boolean different(ElTypeList a, ElTypeList b);
+// Mengembalikan apakah ElTypeList a dan b berbeda
+
+Makanan getMakanan(ID id, ListStatik foods);
 
 #endif

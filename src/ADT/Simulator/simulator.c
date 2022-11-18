@@ -85,7 +85,7 @@ void DisplayInventory (Simulator S)
 //     //masukin makanan
 // }
 
-void MixOlahInventory(PrioQueueTime *Q, Cookbook cb, ID id, int idx, ListStatik fs){
+void MixOlahInventory(PrioQueueTime *Q, PrioQueueTime *DestQ, Cookbook cb, ID id, int idx, ListStatik fs){
     Makanan m;
     int ids;
 
@@ -94,39 +94,29 @@ void MixOlahInventory(PrioQueueTime *Q, Cookbook cb, ID id, int idx, ListStatik 
         ids = Parent(Child(Resep(cb, idx), i));
         RemoveMakanan(Q, getMakanan(ids, fs));
     }
-    AddMakanan(Q, m);
+    EnqueueDelivery(DestQ, m);
 }
 
-void ChopOlahInventory (PrioQueueTime *Q, Makanan X1, Makanan X2){
+void ChopOlahInventory (PrioQueueTime *Q, PrioQueueTime *DestQ, Makanan X1, Makanan X2){
     //Mengupdate isi inventory jika melakukan Chop
     RemoveMakanan(Q,X1);
-    AddMakanan(Q,X2);
+    EnqueueDelivery(DestQ,X2);
 }
 
-void FryOlahInventory(PrioQueueTime *Q, Cookbook cb, ID id, int idx, ListStatik fs){
+void FryOlahInventory(PrioQueueTime *Q, PrioQueueTime *DestQ, Cookbook cb, ID id, int idx, ListStatik fs){
     //Mengupdate isi inventory jika melakukan Fry
-    MixOlahInventory(Q, cb, id, idx, fs);
+    MixOlahInventory(Q, DestQ,  cb, id, idx, fs);
 }
 
-void BoilOlahInventory(PrioQueueTime *Q, Cookbook cb, ID id, int idx, ListStatik fs){
+void BoilOlahInventory(PrioQueueTime *Q, PrioQueueTime *DestQ, Cookbook cb, ID id, int idx, ListStatik fs){
     //Mengupdate isi inventory jika melakukan Boil
-    MixOlahInventory(Q, cb, id, idx, fs);
-}
-
-void BuyOlahInventory(PrioQueueTime *Q,Makanan X1){
-    //Mengupdate isi inventory jika melakukan Buy
-    AddMakanan(Q,X1);
+    MixOlahInventory(Q, DestQ, cb, id, idx, fs);
 }
 
 void RemoveMakanan(PrioQueueTime *Q,Makanan M){
     //DequeueAt makanan pada inventory
     Makanan X;
     DequeueAt(Q,M,&X);
-}
-
-void AddMakanan(PrioQueueTime *Q, Makanan X){
-    //enqueueinventory makanan pada inventory
-    EnqueueInventory(Q,X);
 }
 
 void KedaluwarsaInventory(PrioQueueTime *Q)
@@ -164,7 +154,7 @@ void DeliveryReady(Simulator *S, PrioQueueTime *D) {
     for (i = 0; i < NBElmt(*D); i++){
         Makanan M = Elmt(*D,i), temp;
         if (Day(dlvMkn(M))<=0 && Hour(dlvMkn(M))<=0 && Minute(dlvMkn(M))<=0 ){
-            AddMakanan(D, M);
+            EnqueueInventory(D, M);
             DequeueAt(D, M, &temp);
         }
     }
