@@ -11,7 +11,6 @@ int main () {
     char command[MAX_COMMAND] = "\0";
     boolean program = true;
     int idx;
-
     ASCIIArt();
     printf("Input 'START' untuk melakukan program.\n");
     getInput(command);
