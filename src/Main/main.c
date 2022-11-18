@@ -858,6 +858,7 @@ int main () {
             printf("===============        FRIDGE        ===============\n");
             printf("====================================================\n");
 
+            validAction = false; // Entah valid atau tidak, command yang berikatan dengan kulkas tidak menambah waktu
             while (!endWord){ 
                 ADVWORD(command, &idx);
             }
@@ -865,17 +866,16 @@ int main () {
             if (!isCan(map, Absis(Lokasi(currentState.sub1)), Ordinat(Lokasi(currentState.sub1)), 'K')){
                 printf("Simulator tidak bersebelahan dengan tempat FRIDGE.\n");
                 printf("Pastikan Simulator berada di sebelah petak 'K'\n");
-                validAction = false;
+                
             }
             else {
                 if (isWordStringEqual(currentWord, "SHOW")){
-                    validAction = false; // Melihat isi kulkas tidak membuang waktu
+                     // Melihat isi kulkas tidak membuang waktu
                     DisplayKulkas(k);
                 }
                 else if (isWordStringEqual(currentWord, "TAKE")){
                     if (isKulkasEmpty(k)){
                         printf("Kulkas kosong. Tidak ada yang bisa diambil dari kulkas.\n");
-                        validAction = false;
 
                     } else {
                         currentAct = currentWord;
@@ -885,7 +885,7 @@ int main () {
                         fridgePoint = getKulkasCoordinate();
                         if (Absis(fridgePoint) == -1 || Ordinat(fridgePoint) == -1){
                             printf("Koordinat input yang dimasukkan tidaklah valid.\n");
-                            validAction = false;
+                            
                         } else {
                             getMakananKulkas(&k, fridgePoint, &tempMkn);
                             EnqueueInventory(&Inventory(currentState.sub1), tempMkn);
@@ -917,12 +917,12 @@ int main () {
                         STARTWORD(command, &idx);
                         if (!isWordAllIntegers(currentWord)){
                             printf("Input bukanlah integer.\n");
-                            validAction = false;
+                            
                         } else {
                             if (WordToInt(currentWord) < 1|| WordToInt(currentWord) > invenLength){
                                // Input integer, tapi tidak valid
                                printf("Input integer tidaklah valid.\n");
-                               validAction = false;
+                               
                             } else {
                                 int invenToKulkasIdx = WordToInt(currentWord) -1 ;
                                 DequeueAtIndex(&Inventory(currentState.sub1), invenToKulkasIdx, &tempMkn);
@@ -932,7 +932,7 @@ int main () {
                                 if (Absis(fridgePoint) == -1 || Ordinat(fridgePoint) == -1){
                                     printf("Koordinat input yang dimasukkan tidaklah valid.\n");
                                     EnqueueInventory(&Inventory(currentState.sub1), tempMkn);
-                                    validAction = false;
+                                    
                                 } else {
                                     if (isPutAvailable(k, fridgePoint, tempMkn)){
                                         putMakananKulkas(&k, fridgePoint, tempMkn);
@@ -948,7 +948,7 @@ int main () {
                                     } else {
                                         printf("Makanan tidak bisa dimasukkan pada petak tersebut.\n");
                                         EnqueueInventory(&Inventory(currentState.sub1), tempMkn);
-                                        validAction = false;
+                                        
                                     }
                                 }
                             }
