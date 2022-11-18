@@ -75,11 +75,11 @@ void Undo(Stack *S_undo,Stack *S_redo, state *currentState, int totalcommand, PO
     
     if (totalcommand >0){
         //CreateSimulatorUndo(&currentState->sub1,currentState->sub1.Nama,currentState->sub1.P,currentState->sub1.Q);
-        Pop (S_undo,currentState);
         Push(S_redo, *currentState);
         if (src.X>=1 && src.Y>=1){
             InfoTop(*S_redo).sub1.P=src;
         }
+        Pop (S_undo,currentState);
     }
     
 }
@@ -88,10 +88,10 @@ void Redo(Stack *S_undo,Stack *S_redo, state *currentState, int totalundo, POINT
     //Redo gerakan, mengembalikan simulator,waktu,dan peta sesudah
     if(totalundo>0){
         //CreateSimulatorUndo(&currentState->sub1,currentState->sub1.Nama,currentState->sub1.P,currentState->sub1.Q);
-        Pop (S_redo, currentState);
         Push(S_undo, *currentState);
         if (src.X>=1 && src.Y>=1){
             InfoTop(*S_undo).sub1.P=src;
         }
+        Pop (S_redo, currentState);
     }
 }
