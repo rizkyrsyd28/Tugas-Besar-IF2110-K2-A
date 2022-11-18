@@ -184,7 +184,7 @@ int main () {
             }
         }
         else if (isWordStringEqual(currentWord, "MOVE")){
-            currentState.sub3 = currentWord;
+            currentAct = currentWord;
             printf("====================================================\n");
             printf("===============         MOVE         ===============\n");
             printf("====================================================\n");
@@ -198,6 +198,7 @@ int main () {
 
             if (isWordStringEqual(currentWord, "NORTH")){
                 //Push ke Stack
+                currentState.sub3 = currentAct;
                 CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                 Push(&SUndo, currentState);
                 CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
@@ -206,6 +207,7 @@ int main () {
             }
             else if (isWordStringEqual(currentWord, "EAST")){
                 //Push ke Stack
+                currentState.sub3 = currentAct;
                 CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                 Push(&SUndo, currentState);
                 CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
@@ -214,6 +216,7 @@ int main () {
             } 
             else if (isWordStringEqual(currentWord, "SOUTH")){
                 //Push ke Stack
+                currentState.sub3 = currentAct;
                 CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                 Push(&SUndo, currentState);
                 CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
@@ -222,6 +225,7 @@ int main () {
             }
             else if (isWordStringEqual(currentWord, "WEST")){
                 //Push ke Stack
+                currentState.sub3 = currentAct;
                 CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                 Push(&SUndo, currentState);
                 CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
@@ -280,6 +284,7 @@ int main () {
                         validAction = false; // Karena tidak melakukan apa-apa
                     } else {
                         //Push ke Stack
+                        currentState.sub3 = currentAct;
                         CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                         Push(&SUndo, currentState);
                         totalcommand ++;
@@ -296,7 +301,6 @@ int main () {
                         TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
                         printf("\n");
                         subprogram = false;
-                        currentState.sub3 = currentAct;
                     }
                 }
             }
@@ -350,6 +354,7 @@ int main () {
                             MixOlahInventory(&Inventory(currentState.sub1), &currentState.sub1.PL, bukuResep, idPar, idxTree, foodList);
                             validAction = true;
                             //Push ke Stack
+                            currentState.sub3 = currentAct;
                             CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                             Push(&SUndo, currentState);
                             totalcommand ++;
@@ -364,7 +369,6 @@ int main () {
                             TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
                             printf("\n");
                             subprogram = false;
-                            currentState.sub3 = currentAct;
                         }
                         else {
                             printf("Kamu tidak punya bahannya\n");
@@ -423,6 +427,7 @@ int main () {
                             ChopOlahInventory(&Inventory(currentState.sub1), &currentState.sub1.PL, getMakanan(idChld, foodList), getMakanan(idPar, foodList));
                             validAction = true; 
                             //Push ke Stack
+                            currentState.sub3 = currentAct;
                             CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                             Push(&SUndo, currentState);
                             totalcommand ++;
@@ -437,7 +442,6 @@ int main () {
                             TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
                             printf("\n");
                             subprogram = false;
-                            currentState.sub3 = currentAct;
                         }
                         else {
                             printf("Kamu tidak punya bahannya\n");
@@ -498,6 +502,7 @@ int main () {
                             FryOlahInventory(&Inventory(currentState.sub1), &currentState.sub1.PL, bukuResep, idPar, idxTree, foodList);
                             validAction = true;
                             //Push ke Stack
+                            currentState.sub3 = currentAct;
                             CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                             Push(&SUndo, currentState);
                             totalcommand ++;
@@ -512,7 +517,6 @@ int main () {
                             TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
                             printf("\n");
                             subprogram = false;
-                            currentState.sub3 = currentAct;
 
                         
                         }
@@ -574,6 +578,7 @@ int main () {
                             BoilOlahInventory(&Inventory(currentState.sub1), &currentState.sub1.PL, bukuResep, idPar, idxTree, foodList);
                             validAction = true;
                             //Push ke Stack
+                            currentState.sub3 = currentAct;
                             CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                             Push(&SUndo, currentState);
                             totalcommand ++;
@@ -588,7 +593,6 @@ int main () {
                             TulisTIMEString(dlvMkn(ELMTLIST(foodList, idxFood)));
                             printf("\n");
                             subprogram = false;
-                            currentState.sub3 = currentAct;
                         }
                         else {
                             printf("Kamu tidak punya bahannya\n");
@@ -704,6 +708,7 @@ int main () {
                     } else {
                         // Menunggu 0 0 boleh saja, tapi tidak melakukan perubahan apa apa
                         //Push ke Stack
+                        currentState.sub3 = currentAct;
                         CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                         Push(&SUndo, currentState);
                         CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
@@ -726,7 +731,6 @@ int main () {
                         decrementNDel(&currentState.sub1.PL, totalWaitMinute);
                         
                         printf("Waktu pada Delivery List dan Inventory telah disesuaikan.\n");
-                        currentState.sub3 = currentAct;
                     }
                     
                 } else if (!yint) {
@@ -746,7 +750,7 @@ int main () {
             validAction = false;
             if(totalcommand>0){
                 notifUndo = true;
-                undoAct = currentState.sub3;
+                undoAct = InfoTop(SUndo).sub3;
                 notifCount++;
                 POINT srcdummy;
                 CreatePoint(&srcdummy,-50,-50);
@@ -756,7 +760,6 @@ int main () {
                     totalcommand --;
                     totalundo++;
                 }
-                redoAct = currentState.sub3;
                 POINT lokasiundo = Lokasi(currentState.sub1);
                 Redo(&SUndo,&SRedo,&currentState,totalundo,srcdummy);
                 if (totalundo>0){
@@ -799,6 +802,7 @@ int main () {
             validAction = false;
             if (totalundo>0){
                 notifRedo = true;
+                redoAct = InfoTop(SRedo).sub3;
                 notifCount++;
                 POINT srcdummy;
                 CreatePoint(&srcdummy,-50,-50);
@@ -809,7 +813,6 @@ int main () {
                     totalundo--;
 
                 }
-                undoAct = currentState.sub3;
                 POINT lokasiredo = Lokasi(currentState.sub1);
                 Undo(&SUndo,&SRedo,&currentState,totalcommand,srcdummy);
                 if (totalcommand>0){
@@ -887,8 +890,8 @@ int main () {
                         } else {
                             getMakananKulkas(&k, fridgePoint, &tempMkn);
                             EnqueueInventory(&Inventory(currentState.sub1), tempMkn);
-                            currentState.sub3 = currentAct;
                             //Push ke Stack
+                            currentState.sub3 = currentAct;
                             CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                             Push(&SUndo, currentState);
                             totalcommand ++;
@@ -934,10 +937,10 @@ int main () {
                                 } else {
                                     if (isPutAvailable(k, fridgePoint, tempMkn)){
                                         putMakananKulkas(&k, fridgePoint, tempMkn);
-                                        currentState.sub3 = currentAct;
 
 
                                         //Push ke Stack
+                                        currentState.sub3 = currentAct;
                                         CreateSimulatorUndo(&currentState.sub1,currentState.sub1.Nama,currentState.sub1.P,currentState.sub1.Q,currentState.sub1.D,currentState.sub1.PL);
                                         Push(&SUndo, currentState);
                                         totalcommand ++;
