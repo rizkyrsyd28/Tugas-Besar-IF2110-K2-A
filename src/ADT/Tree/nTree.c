@@ -1,12 +1,19 @@
 #include "nTree.h"
 #include <stdio.h>
 
-NTree newTree(ID id){
+Address newTree(ID id){
     Address p = (Address) malloc (sizeof (TreeNode));
     Parent(p) = id;
     NChild(p) = defN;
     Childs(p) = (Address*) malloc (defN * sizeof(Address));
     return p;
+}
+
+void CreateTree(NTree *T){
+    /* prekondisi aman */
+    for (int i = 0; i < NChild(*T); i++){
+        Child(*T,i) = NULL; 
+    }
 }
 
 void makeBranch(NTree *T, int nchild){
@@ -17,22 +24,14 @@ void makeBranch(NTree *T, int nchild){
 }
 /* Buat Node Tree baru dengan Id id dengan info jumlah child */
 
-void CreateTree(NTree *T){
-    /* prekondisi aman */
-    for (int i = 0; i < NChild(*T); i++){
-        Child(*T,i) = NULL; 
-    }
-}
-/* List Kososng*/
-
-void mergeTree(NTree *T, NTree T1){
-    for(int i = 0; i < NChild(*T); i++){
-        if (Parent(Child(*T, i)) == Parent(T1) || Child(*T, i) == NULL){
-            Child(*T, i) = T1;
-            return;
-        }
-    }
-}
+// void mergeTree(NTree *T, NTree T1){
+//     for(int i = 0; i < NChild(*T); i++){
+//         if (Parent(Child(*T, i)) == Parent(T1) || Child(*T, i) == NULL){
+//             Child(*T, i) = T1;
+//             return;
+//         }
+//     }
+// }
 
 void addChild(NTree *T, ID id){
     Address p = newTree(id);

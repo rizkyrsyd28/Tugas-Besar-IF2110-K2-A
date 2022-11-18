@@ -16,6 +16,9 @@ typedef struct {
 #define Buku(c) (c).Resep  /* selektor list resep */
 #define Resep(c,i) (c).Resep[i] /* selektor element list resep */
 
+boolean canFry(PrioQueueTime pq);
+/* Mengembalikan nilai True jika terdapat minyak goreng pada inventory*/
+
 boolean canMake(Cookbook cb, Makanan m, PrioQueueTime pq);
 /* Mengirim True jika semua bahan yang diperlukan untuk membuat suatu resep tersedia di inventory*/
 

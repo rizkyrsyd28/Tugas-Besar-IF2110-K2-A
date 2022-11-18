@@ -78,8 +78,15 @@ boolean isSymmetric(Matrix m);
 POINT searchCharInMatrix(Matrix m, char c);
 /* Mengembalikan index posisi dari char C pada matrix M dalam bentuk POINT*/
 
-
-/*								--------------------------------ADT TAMBAHAN UNTUK PROSES MOVE DLL---------------------------------------------------				*/
 boolean isCan(Matrix M, int i, int j,char c);
 //Untuk memeriksa apakah berada dalam suatu daerah di map jika ya maka dapat melakukan perintah
+
+boolean canSwap(Matrix m, POINT des);
+// mengembalikan true jika elemen matrix pada des adalah ' ' (artinya bisa bergerak/bukan obstacle)
+
+void swapElmt(Matrix * m, POINT *src, POINT des);
+/* I.S. m, src, des = terdefinisi */
+/* F.S. jika dapat ditukar (canSwap = true) elemen pada src bertukar dengan elemen pada des, 
+jika tidak dapat ditukar maka tidak melakukan apa-apa */
+
 #endif

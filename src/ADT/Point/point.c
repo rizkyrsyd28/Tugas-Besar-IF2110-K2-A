@@ -9,8 +9,6 @@
 #include <math.h>
 #include "point.h"
 
-#define PI 3.14159265358979323846
-
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk POINT *** */
 void CreatePoint (POINT * P, int X, int Y){
