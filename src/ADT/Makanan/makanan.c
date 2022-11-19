@@ -48,13 +48,13 @@ void printCatalog (Makanan mkn){
             printf("%c", str(nameMkn(mkn))[i]);
         }
     }
-    TulisTIMEKadaluarsa(expMkn(mkn));
+    TulisTIMEString(expMkn(mkn));
     printf(" - ");
     for (i = 0; i < len(actMkn(mkn)); i++){
     printf("%c", str(actMkn(mkn))[i]);
 	}
 	printf(" - ");
-    TulisTIMEKadaluarsa(dlvMkn(mkn));
+    TulisTIMEString(dlvMkn(mkn));
     
 }
 

@@ -39,16 +39,6 @@ void copyMatrix(Matrix mIn, Matrix *mOut) {
 
 
 /* ********** KELOMPOK BACA/TULIS ********** */
-void readMatrix(Matrix *m, int nRow, int nCol) {
-	int i, j;
-	createMatrix(nRow, nCol, m);
-	for (i = 0; i < nRow; i++) {
-		for (j = 0; j < nCol; j++) {
-			scanf("%c", &ELMTMAT(*m, i, j));
-		}
-	}
-}
-
 void displayMatrix(Matrix m) {
 	int i, j;
 	for (i = 0; i < ROW_EFF(m); i++) {

@@ -32,43 +32,6 @@ void BacaTIME (TIME * T) {
 	CreateTime(T, DD, HH, MM);
 }
 
-   
-void TulisTIMEKadaluarsa (TIME T) {
-	if(Day(T) != 0 && Hour(T) != 0 && Minute(T) != 0)
-	{
-		printf("%d hari %d jam %d menit", Day(T), Hour(T), Minute(T));
-	}
-	else if(Day(T) == 0 && Hour(T) != 0 && Minute(T) != 0)
-	{
-		printf("%d jam %d menit", Hour(T), Minute(T));
-	}
-	else if(Day(T) == 0 && Hour(T) == 0 && Minute(T) != 0)
-	{
-		printf("%d menit", Minute(T));
-	}
-	else if(Day(T) != 0 && Hour(T) == 0 && Minute(T) != 0)
-	{
-		printf("%d hari %d menit", Day(T),Minute(T));
-	}
-	else if(Day(T) == 0 && Hour(T) != 0 && Minute(T) == 0)
-	{
-		printf("%d jam", Hour(T));
-	}
-	else if(Day(T) != 0 && Hour(T) == 0 && Minute(T) == 0)
-	{
-		printf("%d hari", Day(T));
-	}
-	else if(Day(T) != 0 && Hour(T) != 0 && Minute(T) == 0)
-	{
-		printf("%d hari %d jam", Day(T), Hour(T), Minute(T));
-	}
-	else if(Day(T) == 0 && Hour(T) == 0 && Minute(T) == 0)
-	{
-		printf("0");
-	}
-	
-	
-}
 
 void TulisTIMEDelivery (TIME T)
 {

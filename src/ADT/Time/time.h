@@ -37,11 +37,6 @@ void BacaTIME (TIME * T);
 /*Proses pembacaan time yang terdiri atas DD,HH dan MM Kalo gak valid di ulangi sampai valid yang terdiri dari 
 DD,HH,MM digunain buat nunjukin kadaluarsa dari suatu makanan*/
    
-void TulisTIMEKadaluarsa (TIME T);
-/* I.S. : T sembarang */
-/* Proses : menulis nilai setiap komponen T ke layar dalam format "DD hari, HH jam, MM menit"
-   tanpa karakter apa pun di depan atau belakangnya, termasuk spasi, enter, dll.*/ 
-
 void TulisTIMEDelivery (TIME T);
 /* I.S. : T sembarang */
 /* Proses : menulis nilai setiap komponen T ke layar dalam format ("HH.MM")

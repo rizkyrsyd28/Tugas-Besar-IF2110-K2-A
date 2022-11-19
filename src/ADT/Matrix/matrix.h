@@ -45,16 +45,6 @@ void copyMatrix(Matrix mIn, Matrix *mOut);
 /* Melakukan assignment mOut <- mIn */
 
 /* ********** KELOMPOK BACA/TULIS ********** */
-void readMatrix(Matrix *m, int nRow, int nCol);
-/* I.S. isIdxValid(nRow,nCol) */
-/* F.S. m terdefinisi nilai elemen efektifnya, berukuran nRow x nCol */
-/* Proses: Melakukan CreateMatrix(m,nRow,nCol) dan mengisi nilai efektifnya */
-/* Selanjutnya membaca nilai elemen per baris dan kolom */
-/* Contoh: Jika nRow = 3 dan nCol = 3, maka contoh cara membaca isi matriks :
-1 2 3
-4 5 6
-8 9 10 
-*/
 void displayMatrix(Matrix m);
 /* I.S. m terdefinisi */
 /* F.S. Nilai m(i,j) ditulis ke layar per baris per kolom, masing-masing elemen per baris 

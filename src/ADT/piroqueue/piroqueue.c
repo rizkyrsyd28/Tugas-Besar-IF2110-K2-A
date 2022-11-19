@@ -141,7 +141,7 @@ void PrintPrioQueueTimeInventory (PrioQueueTime Q){
                 nomor+=1;
                 printWord(nameMkn(Elmt(Q, i)));
                 printf(" - ");
-                TulisTIMEKadaluarsa(expMkn(Elmt(Q, i)));
+                TulisTIMEString(expMkn(Elmt(Q, i)));
                 printf("\n");
                 // printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
             }
@@ -152,7 +152,7 @@ void PrintPrioQueueTimeInventory (PrioQueueTime Q){
                 nomor+=1;
                 printWord(nameMkn(Elmt(Q, i)));
                 printf(" - ");
-                TulisTIMEKadaluarsa(expMkn(Elmt(Q, i)));
+                TulisTIMEString(expMkn(Elmt(Q, i)));
                 printf("\n");
             }
             for (int i = 0; i <= Tail(Q); i++){
@@ -160,7 +160,7 @@ void PrintPrioQueueTimeInventory (PrioQueueTime Q){
                 nomor+=1;
                 printWord(nameMkn(Elmt(Q, i)));
                 printf(" - ");
-                TulisTIMEKadaluarsa(expMkn(Elmt(Q, i)));
+                TulisTIMEString(expMkn(Elmt(Q, i)));
                 printf("\n");
             }
         }
@@ -179,7 +179,7 @@ void PrintPrioQueueTimeDelivery (PrioQueueTime Q){
                 nomor+=1;
                 printWord(nameMkn(Elmt(Q, i)));
                 printf(" - ");
-                TulisTIMEKadaluarsa(dlvMkn(Elmt(Q, i)));
+                TulisTIMEString(dlvMkn(Elmt(Q, i)));
                 printf("\n");
                 // printf("%c %d\n", expMkn(Elmt(Q, i)), idMkn(Elmt(Q, i)));
             }
@@ -190,7 +190,7 @@ void PrintPrioQueueTimeDelivery (PrioQueueTime Q){
                 nomor+=1;
                 printWord(nameMkn(Elmt(Q, i)));
                 printf(" - ");
-                TulisTIMEKadaluarsa(dlvMkn(Elmt(Q, i)));
+                TulisTIMEString(dlvMkn(Elmt(Q, i)));
                 printf("\n");
             }
             for (int i = 0; i <= Tail(Q); i++){
@@ -198,7 +198,7 @@ void PrintPrioQueueTimeDelivery (PrioQueueTime Q){
                 nomor+=1;
                 printWord(nameMkn(Elmt(Q, i)));
                 printf(" - ");
-                TulisTIMEKadaluarsa(dlvMkn(Elmt(Q, i)));
+                TulisTIMEString(dlvMkn(Elmt(Q, i)));
                 printf("\n");
             }
         }
@@ -217,7 +217,7 @@ void PrintPrioQueueTimeProcess (PrioQueueTime Q){
                 nomor+=1;
                 printWord(nameMkn(Elmt(Q, i)));
                 printf(" - ");
-                TulisTIMEKadaluarsa(dlvMkn(Elmt(Q, i)));
+                TulisTIMEString(dlvMkn(Elmt(Q, i)));
                 printf(" - ");
                 printWord(actMkn(Elmt(Q,i)));
                 printf("\n");
@@ -230,7 +230,7 @@ void PrintPrioQueueTimeProcess (PrioQueueTime Q){
                 nomor+=1;
                 printWord(nameMkn(Elmt(Q, i)));
                 printf(" - ");
-                TulisTIMEKadaluarsa(dlvMkn(Elmt(Q, i)));
+                TulisTIMEString(dlvMkn(Elmt(Q, i)));
                 printf(" - ");
                 printWord(actMkn(Elmt(Q,i)));
                 printf("\n");
@@ -240,7 +240,7 @@ void PrintPrioQueueTimeProcess (PrioQueueTime Q){
                 nomor+=1;
                 printWord(nameMkn(Elmt(Q, i)));
                 printf(" - ");
-                TulisTIMEKadaluarsa(dlvMkn(Elmt(Q, i)));
+                TulisTIMEString(dlvMkn(Elmt(Q, i)));
                 printf(" - ");
                 printWord(actMkn(Elmt(Q,i)));
                 printf("\n");
