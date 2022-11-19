@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "string.h"
 
+// KONSTRUKTOR
 void createStringEmpty(char* str){
 // Membuat string (kembali) menjadi string kosong
     int length = lengthString(str);
@@ -13,6 +14,7 @@ void createStringEmpty(char* str){
     }
 }
 
+// Fungsi dan Prosedur lain
 void upper(char*str)
 // Mengembalikan string dengan huruf kapital
 {
@@ -26,15 +28,15 @@ void upper(char*str)
     }
 }
 
+boolean isBlank (char c){
+// Memeriksa apakah karakter C adalah blank
+    return (c == ' ');
+}
+
 int MakeCharToInt (char c){
 // Konversi tipe Char ke Integer
 // Diasumsikan input selalu benar (merupakan suatu angka)
     return (c - 48);
-}
-
-boolean isBlank (char c){
-// Memeriksa apakah karakter C adalah blank
-    return (c == ' ');
 }
 
 int stringToInt (char* str){

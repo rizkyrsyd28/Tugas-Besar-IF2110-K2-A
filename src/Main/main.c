@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-// #include "parser.c"
-// #include "../ADT/Simulator/simulator.c"
-// #include "../ADT/piroqueue/piroqueue.c"
 #include "submain.c"
 
 

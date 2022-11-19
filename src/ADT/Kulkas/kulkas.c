@@ -202,7 +202,7 @@ void getMakananKulkas(Kulkas *k, POINT p, Makanan *mkn)
     // check apakah pada petak point, terisi oleh makanan
     int rowStart = Absis(p);
     int colStart = Ordinat(p);
-    if (IsiIdnt(*k, rowStart, colStart) != -1){
+    if (IsiIdnt(*k, rowStart, colStart) != -1 && rowStart < MaxRow && colStart < MaxCol){
         // Jika petak tersebut benar diisi oleh maknaan
         *mkn = IsiMknn(*k, rowStart, colStart);
         int tempIdnt = IsiIdnt(*k, rowStart, colStart);

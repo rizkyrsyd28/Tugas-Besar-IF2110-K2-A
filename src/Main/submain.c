@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "parser.c"
 #include "../ADT/Simulator/simulator.c"
-// #include "../ADT/piroqueue/piroqueue.c"
 #include "../ADT/Stack/stack.c"
 #include "../ADT/Kulkas/kulkas.c"
 
@@ -72,7 +71,7 @@ void printListCatalog (ListStatik foodList, int foodListLength){
     int i;
     printf("List Makanan");
     printf("\n");
-    printf("(nama - durasi kedaluwarsa - aksi yang diperlukan - delivery time)");
+    printf("(Nama Makanan - Durasi Kadaluarsa - Aksi yang Diperlukan - Delivery atau Process Time)");
     printf("\n");
     for (i = 0; i < foodListLength; i++){
         printf("%d. ",i+1);
