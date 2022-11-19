@@ -34,7 +34,7 @@ boolean canMake(Cookbook cb, Makanan m, PrioQueueTime pq){
     for (int j = 0; j < NChild(Resep(cb, idx)); j++){
         boolean cek = false;
         if (Tail(pq) < Head(pq)){
-            for (int k = Head(pq); k < MaxEl(pq); k++){                
+            for (int k = Head(pq); k < MaxEl(pq); k++){
                 if (Parent(Child(Resep(cb,idx),j)) == idMkn(Elmt(pq,k))){
                     cek = true;
                 }

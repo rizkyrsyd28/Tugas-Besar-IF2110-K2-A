@@ -105,7 +105,7 @@ void ChopOlahInventory (PrioQueueTime *Q, PrioQueueTime *DestQ, Makanan X1, Maka
 
 void FryOlahInventory(PrioQueueTime *Q, PrioQueueTime *DestQ, Cookbook cb, ID id, int idx, ListStatik fs){
     //Mengupdate isi inventory jika melakukan Fry
-    MixOlahInventory(Q, DestQ,  cb, id, idx, fs);
+    MixOlahInventory(Q, DestQ, cb, id, idx, fs);
 }
 
 void BoilOlahInventory(PrioQueueTime *Q, PrioQueueTime *DestQ, Cookbook cb, ID id, int idx, ListStatik fs){
