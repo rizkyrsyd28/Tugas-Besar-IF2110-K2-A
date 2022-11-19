@@ -61,6 +61,9 @@ boolean isSymmetric(Matrix m);
 POINT searchCharInMatrix(Matrix m, char c);
 /* Mengembalikan index posisi dari char C pada matrix M dalam bentuk POINT*/
 
+boolean isCan(Matrix m, int i, int j,char c);
+/* Mengembalikan apakah simulator dapat melakukan sesuatu (dalam artian berada disebelah petak spesial untuk melakukan sesuatu)*/
+
 boolean canSwap(Matrix m, POINT des);
 // mengembalikan true jika elemen matrix pada des adalah ' ' (artinya bisa bergerak/bukan obstacle)
 
