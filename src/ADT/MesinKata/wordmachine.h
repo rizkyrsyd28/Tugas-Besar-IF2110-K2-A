@@ -53,22 +53,23 @@ void CopyWord(char* str, int *idx);
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 
 int WordToInt(Word word);
-// Konversi tipe word kata ke integer
+/* Mengembalikan integer hasil konversi word ke integer */
 
 void printWord(Word word);
-// Melakukan print untuk kata yang telah disimpan 
+/* I.S. word terdefinisi
+F.S. menampilkan kata yang ditampung pada word */
 
 boolean isWordEqual(Word word1, Word word2);
-// Memeriksa apakah dua buah word adalah word yang sama
+/* Mengembalikan true apabila kedua word adalah berisikan karakter yang sama dan memiliki panjang yang sama */
 
 boolean isWordStringEqual(Word w, char* c);
-// Memeriksa apakah sebuah word mengandung kata yang sama dengan string c
+/* Mengembalikan true apabila kata yang dikandung pada c berisikan karakter yang sama pada array of char yang dikandung oleh w */
 
 boolean isWordAllIntegers(Word w);
-// Memeriksa apakah semua character dalam word adalah integer
+/* Mengembalikan true apabila semua karakter yang dikandung pada array of char pada w merupakan angka sehingga dapat diubah menjadi integer */
 
 Word appendWord(Word w1, Word w2);
-// Menggabungkan w2 dan w1 menjadi satu word
+/* Mengembalikan word yang merupakan penggabungan Word w2 setelah Word w1 */
 
 
 

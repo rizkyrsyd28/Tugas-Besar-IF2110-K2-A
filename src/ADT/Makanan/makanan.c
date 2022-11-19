@@ -8,15 +8,18 @@
 
 // KONSTRUKTOR
 void CreateEmptyMakanan (Makanan *mkn){
-// Membuat tipe bentukan makanan, yaitu makanan kosong
-// Dapat berfungsi sebagai MARK atau Makanan yang invalid
+/* I.S. Makanan tidak terdefinisi 
+F.S. Makanan terdefinisi sebagai FoodMark 
+Digunakan untuk mempersiapkan tipe bentukan Makanan sebelum dimasukkan data yang valid */
     *mkn = FoodMark;
 }
 
 // TULIS
 void printMakanan (Makanan mkn){
-// Melakukan print makanan agar pada terminal
-// e.g. [11,Ayam Mentah,<0,0,1>,<0,2,0>,FRY]
+/* I.S. Makanan terdefinisi, mungkin bisa saja merupakan FoodMark 
+F.S. Makanan ditampilkan dengan format (ID) - (Nama makanan) - <waktu delivery> - <ukuran makanan> - <waktu pemrosesan> - (aksi yang dibutuhkan). 
+Prosedur ini digunakan untuk menampilkan data makanan secara lengkap*/
+
     printf("%d - ", idMkn(mkn));
     int i;
     for (i = 0; i < len(nameMkn(mkn)); i++){
@@ -38,8 +41,9 @@ void printMakanan (Makanan mkn){
 
 
 void printCatalog (Makanan mkn){
-// Melakukan print makanan agar pada terminal
-// e.g. [11,Ayam Mentah,<0,0,1>,<0,2,0>,FRY]
+/* I.S. Makanan terdefinisi, mungkin bisa saja merupakan FoodMark 
+F.S. Makanan ditampilkan dengan format (Nama makanan) - (waktu delivery) - (aksi yang dibutuhkan) - (waktu processing) 
+Prosedur ini digunakan untuk menampilkan makanan pada catalog (tidak semua data makanan ditampilkan) */
     int i;
     for (i = 0; i < len(nameMkn(mkn)); i++){
         if (i == len(nameMkn(mkn))-1 ){
@@ -72,7 +76,4 @@ boolean isIDLower(Makanan m1, Makanan m2)
 }
 
 
-// boolean isIdentical(Makanan m1, Makanan m2) {
-//     //Mengirimkan true apabila kedua makanan sama
-//     return (m1.id == m2.id && m1.action == m2.action && TEQ(m1.delivery, m2.delivery) && TEQ(m1.expired, m2.expired) && (m1.name == m2.name));
-// }
+

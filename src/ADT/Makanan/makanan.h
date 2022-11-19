@@ -38,20 +38,27 @@ Makanan FoodMark = {-1, {"Empty", 0}, {-1, -1, -1}, {"Empty", 0}, {0, 0}, {-1, -
 
 // KONSTRUKTOR
 void CreateEmptyMakanan (Makanan *mkn);
-// Membuat tipe bentukan makanan, yaitu makanan kosong
-// Dapat berfungsi sebagai MARK atau Makanan yang invalid
+/* I.S. Makanan tidak terdefinisi 
+F.S. Makanan terdefinisi sebagai FoodMark 
+Digunakan untuk mempersiapkan tipe bentukan Makanan sebelum dimasukkan data yang valid */
 
 // TULIS
 void printMakanan (Makanan mkn);
-// Melakukan print makanan agar pada terminal
-// e.g. [11,Ayam Mentah,<0,0,1>,<0,2,0>,FRY]
+/* I.S. Makanan terdefinisi, mungkin bisa saja merupakan FoodMark 
+F.S. Makanan ditampilkan dengan format (ID) - (Nama makanan) - <waktu delivery> - <ukuran makanan> - <waktu pemrosesan> - (aksi yang dibutuhkan). 
+Prosedur ini digunakan untuk menampilkan data makanan secara lengkap*/
+
+void printCatalog (Makanan mkn);
+/* I.S. Makanan terdefinisi, mungkin bisa saja merupakan FoodMark 
+F.S. Makanan ditampilkan dengan format (Nama makanan) - (waktu delivery) - (aksi yang dibutuhkan) - (waktu processing) 
+Prosedur ini digunakan untuk menampilkan makanan pada catalog (tidak semua data makanan ditampilkan) */
+
 
 // OPERASI PERBANDINGAN
 boolean isIDGreater(Makanan m1, Makanan m2);
 // Mengirimkan true bila ID m1 lebih besar dari ID m2
 boolean isIDLower(Makanan m1, Makanan m2);
 // Mengirimkan true bila ID m1 lebih kecil dari ID m2
-boolean isIdentical(Makanan m1, Makanan m2);
-// Mengirimkan true bila kontent makanan sama persis
+
 
 #endif
