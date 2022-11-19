@@ -7,18 +7,21 @@
 #ifndef STRING_H
 #define STRING_H
 
+// KONSTRUKTOR
 void createStringEmpty(char* str);
 // Membuat string (kembali) menjadi string kosong
 
+// Fungsi dan Prosedur lain
 void upper(char* str);
 // Mengembalikan string dengan huruf kapital
+
+
+boolean isBlank (char c);
+// Memeriksa apakah karakter C adalah blank
 
 int MakeCharToInt(char c);
 // Konversi tipe Char ke Integer
 // Diasumsikan input selalu benar (merupakan suatu angka)
-
-boolean isBlank (char c);
-// Memeriksa apakah karakter C adalah blank
 
 int stringToInt (char* str);
 // Konversi tipe string menjadi integer
@@ -34,7 +37,7 @@ void appendChar(char* str, char c);
 // Menggabungkan char dibagian belakang string str
 // Kondisi string di declare dengan str[], bukan str*
 
-void appendString(char* c1, char* c2);
+void appendString(char* str1, char* str2);
 // Menggabungkan memasukkan char ke dalam suatu string 
 // Diasumsikan c1 tidak kosong
 
