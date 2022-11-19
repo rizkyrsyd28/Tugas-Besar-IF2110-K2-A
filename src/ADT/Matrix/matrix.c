@@ -14,7 +14,7 @@ void createMatrix(int nRows, int nCols, Matrix *m) {
     }
 }
 
-/* *** Selektor "Dunia Matrix" *** */
+/* *** Fungsi - Fungsi Lain *** */
 boolean isMatrixIdxValid(int i, int j) {
 	return (i >= 0 && i < ROW_CAP && j >= 0 && j < COL_CAP);
 }
@@ -90,28 +90,7 @@ POINT searchCharInMatrix(Matrix m, char c){
 }
 
 
-/*								--------------------------------ADT TAMBAHAN UNTUK PROSES MOVE DLL ITU---------------------------------------------------				*/
-boolean isCan(Matrix m, int i, int j,char c)				//i dan j adalah posisi nilai yang kita ingin cek	
-{
-	// Cari dahulu char C ada di petak apa
-	int row, col;
-	POINT loc = searchCharInMatrix(m, c);
-	
-	// Ditukar karena row adalah sumbu y dan col adalah sumbu x
-	row = Ordinat(loc);
-	col = Absis(loc);
-
-	// Cek apakah bersebelahan
-	if (i == row){
-		return (j == col-1 || j == col+1);
-	} else if (j == col){
-		return (i == row-1 || i == row+1);
-	} else {
-		return false;
-	}
-
-	
-}
+/*								--------------------------------ADT TAMBAHAN UNTUK PROSES MOVE---------------------------------------------------				*/
 
 boolean canSwap(Matrix m, POINT des){
 	return ELMTMAT(m, Ordinat(des), Absis(des)) == ' ';
@@ -130,7 +109,6 @@ void swapElmt(Matrix * m, POINT *src, POINT des){
 	}
 }
 
-//Disini misal mau ngecek bisa fry atau boil atau buy apapun itu caranya kalo perintah Buy maka harus ada program yang ngaish tau kalo perintah buy
-//Char yang harus dikeluarkan T baru char itu masukin sini 
+
 
 

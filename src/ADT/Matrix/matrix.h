@@ -47,29 +47,19 @@ void copyMatrix(Matrix mIn, Matrix *mOut);
 /* ********** KELOMPOK BACA/TULIS ********** */
 void displayMatrix(Matrix m);
 /* I.S. m terdefinisi */
-/* F.S. Nilai m(i,j) ditulis ke layar per baris per kolom, masing-masing elemen per baris 
+/* F.S. Nilai ELMTMAT(M, i, j) ditulis ke layar per baris per kolom, masing-masing elemen per baris 
    dipisahkan sebuah spasi. Baris terakhir tidak diakhiri dengan newline */
 /* Proses: Menulis nilai setiap elemen m ke layar dengan traversal per baris dan per kolom */
-/* Contoh: menulis matriks 3x3 (ingat di akhir tiap baris, tidak ada spasi)
-1 2 3
-4 5 6
-8 9 10
-*/
-
-
 
 /* ********** KELOMPOK TEST TERHADAP Matrix ********** */
 boolean isSquare(Matrix m);
 /* Mengirimkan true jika m adalah matriks dg ukuran baris dan kolom sama */
 boolean isSymmetric(Matrix m);
 /* Mengirimkan true jika m adalah matriks simetri : isSquare(m) 
-   dan untuk setiap elemen m, m(i,j)=m(j,i) */
+   dan untuk setiap elemen m, ELMTMAT(M, i, j) = ELMTMAT(M, j, i) */
 
 POINT searchCharInMatrix(Matrix m, char c);
 /* Mengembalikan index posisi dari char C pada matrix M dalam bentuk POINT*/
-
-boolean isCan(Matrix M, int i, int j,char c);
-//Untuk memeriksa apakah berada dalam suatu daerah di map jika ya maka dapat melakukan perintah
 
 boolean canSwap(Matrix m, POINT des);
 // mengembalikan true jika elemen matrix pada des adalah ' ' (artinya bisa bergerak/bukan obstacle)

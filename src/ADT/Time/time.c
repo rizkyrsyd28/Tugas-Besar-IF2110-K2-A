@@ -6,11 +6,6 @@
 /* ***************************************************************** */
 /* KELOMPOK VALIDASI TERHADAP TYPE                                   */
 /* ***************************************************************** */
-boolean IsTIMEValid (int D,int H,int M){
-	return ((D>= 0) && (H >= 0 && H <= 23) && (M >= 0 && M <= 59));
-}
-/* Mengirim true jika H,M,S dapat membentuk T yang valid */
-/* dipakai untuk mentest SEBELUM membentuk sebuah Jam */
 
 /* *** Konstruktor: Membentuk sebuah TIME dari komponen-komponennya *** */
 void CreateTime (TIME * T, int DD, int HH, int MM) {
@@ -22,8 +17,13 @@ void CreateTime (TIME * T, int DD, int HH, int MM) {
 /* Prekondisi : HH, MM, SS valid untuk membentuk TIME */
 
 /* ***************************************************************** */
-/* KELOMPOK BACA/TULIS                                               */
+/* FUngsi - Fungsi Lain                                             */
 /* ***************************************************************** */
+boolean IsTIMEValid (int DD,int HH,int MM){
+	return ((DD>= 0) && (HH >= 0 && HH <= 23) && (MM >= 0 && MM <= 59));
+}
+/* Mengirim true jika H,M,S dapat membentuk T yang valid */
+/* dipakai untuk mentest SEBELUM membentuk sebuah Jam */
 void BacaTIME (TIME * T) {
 	int HH, MM, DD;
 	do {
