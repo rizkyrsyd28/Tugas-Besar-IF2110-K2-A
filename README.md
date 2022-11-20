@@ -29,7 +29,6 @@
 </br>
 
 <h2> List Folder </h2>
-
 <ul>
 <li> ADT
 <p> Berisikan semua file yang berisikan untuk deklarasi dan implementasi dari ADT yang dibutuhkan. Setiap Folder ADT mengandung setidaknya 3 file, file header (.h), file implementasi program (.c), dan file driver.</p>
@@ -62,8 +61,29 @@
 
 <li> TextFile
 <p> Berisikan semua file txt yang dijadikan konfigurasi awal dari berjalannya program. </p>
-
 </ul>
+
+<h2> Daftar Fitur dan Status Pengerjaan </h2>
+| Fitur  | Status Pengerjaan |
+| ------------- | ------------- |
+| Insiasi dan Terminasi  | DONE  |
+| Simulator  | DONE  |
+| Makanan dan Konfigurasi | DONE  |
+| Resep dan Konfigurasi | DONE  |
+| Peta dan Konfigurasi | DONE  |
+| Inventory | DONE  |
+| Buy dan Delivery List | DONE  |
+| Pengolahan Makanan | DONE  |
+| Wait  | DONE  |
+| Undo / Redo  | DONE  |
+| Catalog  | DONE  |
+| Cookbook  | DONE  |
+| Notifikasi | DONE  |
+| Bonus 1 (Kulkas) | DONE  |
+| Bonus 2 (Waktu Pengolahan Makanan) | DONE  |
+| Bonus 3 (Rekomendasi Makanan) |       |
+| Bonus 4 (AUTO BNMO) |       |
+
 
 <h4> Quotes sejenak :</h4>
 <h2> <b> Tubes itu keharusan, Tipes itu kepastian </b> </h2>
