@@ -2,7 +2,8 @@
 #include "simulator.h"
 
 void CreateSimulator(Simulator *S, Word nama, POINT P, PrioQueueTime Q,PrioQueueTime D,PrioQueueTime PL){
-    //Membuat simulator
+/* I.S. Sembarang
+F.S. Simulator terdefinisi dengan spesifikasi sesuai parameter yang diinputkan*/
     Nama(*S)= nama;
     Lokasi(*S)=P;
     Inventory(*S) = Q;
@@ -11,7 +12,8 @@ void CreateSimulator(Simulator *S, Word nama, POINT P, PrioQueueTime Q,PrioQueue
 }
 
 void ReadSimulator(Simulator *S){
-    //Membaca Simulator
+    /* I.S. sembarang
+F.S. Simulator terdefinisi, membuat simulator sesuai input dari pengguna*/
     Word nama;
     POINT P;
     PrioQueueTime Q;
@@ -39,7 +41,8 @@ void ReadSimulator(Simulator *S){
 }
 
 void DisplaySimulator(Simulator S){
-    //Menampilkan Simulator
+/* I.S. S terdefinisi
+F.S. Menampilkan nama dan posisi simulator */
     DisplayNama(S);
     printf(" di posisi: ");
     DisplayLokasi(S);
@@ -48,44 +51,29 @@ void DisplaySimulator(Simulator S){
 
 void DisplayNama(Simulator S)
 {
-    //Menampilkan nama
+/* I.S. S terdefinisi
+F.S. Nama Simulator ditampilkan*/
     printWord(Nama(S));
 }
 
 void DisplayLokasi(Simulator S){
-    //Menampilkan koordinat lokasi
+/* I.S. S terdefinisi
+F.S. Lokasi Simulator ditampilkan */
     printf("(%d,%d)", Absis(Lokasi(S))-1, Ordinat(Lokasi(S))-1);
 }
 
 void DisplayInventory (Simulator S)
-//Menampilkan list inventory
+/* I.S. S terdefinisi
+F.S. INventory Simulator ditampilkan */
 {
     printf("List Makanan di Inventory:\n");
     printf("(No - Nama - Waktu Sisa Kadaluwarsa)\n");
     PrintPrioQueueTimeInventory(Inventory(S));
 }
 
-// void OlahMakananInventory(PrioQueueTime *Q, int command,int jumlah, Makanan X1, Makanan X2,Makanan X3, Makanan X4){
-//     //Mengupdate isi inventory. X4 itu buat yang diadd, X1,X2,X3 yang diremove. Kalo yang diremove ga sampe 3, isi asal aja yg ga kepake
-//     if (command==1){//MIX
-//         // MixOlahInventory(Q,jumlah,X1,X2,X3,X4);
-//     }
-//     else if(command==2){//CHOP
-//         ChopOlahInventory(Q,X1,X4);
-//     }
-//     else if (command==3){//FRY
-//         FryOlahInventory(Q,jumlah,X1,X2,X4);
-//     }
-//     else if(command==4){//BOIL
-//         BoilOlahInventory(Q,X1,X4);
-//     }
-//     else if (command ==5){
-//         BuyOlahInventory(Q,X4);
-//     }
-//     //masukin makanan
-// }
-
 void MixOlahInventory(PrioQueueTime *Q, PrioQueueTime *DestQ, Cookbook cb, ID id, int idx, ListStatik fs){
+/* I.S. Semua parameter prosedur terdefinisi
+F.S. Mengeluarkan bahan yang dimasak dari Inventory, memasukan bahan yang ingin dibuat ke process list*/
     Makanan m;
     int ids;
 
@@ -98,42 +86,35 @@ void MixOlahInventory(PrioQueueTime *Q, PrioQueueTime *DestQ, Cookbook cb, ID id
 }
 
 void ChopOlahInventory (PrioQueueTime *Q, PrioQueueTime *DestQ, Makanan X1, Makanan X2){
-    //Mengupdate isi inventory jika melakukan Chop
+/* I.S. Semua parameter prosedur terdefinisi
+F.S. Mengeluarkan bahan yang dimasak dari Inventory, memasukan bahan yang ingin dibuat ke process list*/
     RemoveMakanan(Q,X1);
     EnqueueDelivery(DestQ,X2);
 }
 
 void FryOlahInventory(PrioQueueTime *Q, PrioQueueTime *DestQ, Cookbook cb, ID id, int idx, ListStatik fs){
-    //Mengupdate isi inventory jika melakukan Fry
+/* I.S. Semua parameter prosedur terdefinisi
+F.S. Mengeluarkan bahan yang dimasak dari Inventory, memasukan bahan yang ingin dibuat ke process list*/
     MixOlahInventory(Q, DestQ,  cb, id, idx, fs);
 }
 
 void BoilOlahInventory(PrioQueueTime *Q, PrioQueueTime *DestQ, Cookbook cb, ID id, int idx, ListStatik fs){
-    //Mengupdate isi inventory jika melakukan Boil
+/* I.S. Semua parameter prosedur terdefinisi
+F.S. Mengeluarkan bahan yang dimasak dari Inventory, memasukan bahan yang ingin dibuat ke process list*/
     MixOlahInventory(Q, DestQ, cb, id, idx, fs);
 }
 
 void RemoveMakanan(PrioQueueTime *Q,Makanan M){
-    //DequeueAt makanan pada inventory
+/* I.S. *Q terdefinisi
+F.S. DequeueAt makanan pada inventory. Makanan dikeluarkan dari inventory*/
     Makanan X;
     DequeueAt(Q,M,&X);
 }
 
-void KedaluwarsaInventory(PrioQueueTime *Q)
-{
-    //mengurangi waktu kedaluwarsa makanan pada inventory dan membuangnya jika sudah kedaluwarsa
-    int i = 0;
-    for(i;i<NBElmt(*Q);i++){
-        Makanan M = Elmt(*Q,i);
-        PrevMinute(expMkn(M));
-        if (Day(expMkn(M))==0 && Hour(expMkn(M))==0 && Minute(expMkn(M))<=0 ){
-            RemoveMakanan(Q,M);
-        }
-    }
-}
 
 void GeserLokasi (Simulator *S,int arah){
-    //Mengubah koordinat lokasi
+/* I.S. *S terdefinisi
+F.S. *S bergerak ke arah yang diinginkan oleh user */
     if (arah==1){//MOVE NORTH
         Absis(Lokasi(*S))-=1;
     }
@@ -148,31 +129,9 @@ void GeserLokasi (Simulator *S,int arah){
     }
 }
 
-// change log AddMakanan param S -> D
-void DeliveryReady(Simulator *S, PrioQueueTime *D) {
-    int i;
-    for (i = 0; i < NBElmt(*D); i++){
-        Makanan M = Elmt(*D,i), temp;
-        if (Day(dlvMkn(M))<=0 && Hour(dlvMkn(M))<=0 && Minute(dlvMkn(M))<=0 ){
-            EnqueueInventory(D, M);
-            DequeueAt(D, M, &temp);
-        }
-    }
-}
-// change log RemoveMakanan param S -> &Q
-void RemoveDated(Simulator *S) {
-    int i;
-    PrioQueueTime Q = Inventory(*S);
-    for(i = 0;i<NBElmt(Q);i++){
-        Makanan M = Elmt(Q,i);
-        if (Day(expMkn(M))<=0 && Hour(expMkn(M))<=0 && Minute(expMkn(M))<=0 ){
-            RemoveMakanan(&Q,M);
-        }
-    }
-}
-
 void CreateSimulatorUndo (Simulator *S, Word nama, POINT P, PrioQueueTime invent,PrioQueueTime DeliveryList, PrioQueueTime ProcessList){
-    //Createsimulatordummy supaya isi dari stack undo tidak terpengaruh oleh pengurangan waktu yang ada
+ /* I.S. Sembarang
+ F.S. Dibuat Createsimulatordummy supaya isi dari stack undo tidak terpengaruh oleh pengurangan waktu yang ada */
     PrioQueueTime Q;
     PrioQueueTime D;
     PrioQueueTime PL;

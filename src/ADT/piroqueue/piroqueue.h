@@ -81,14 +81,13 @@ void PrintPrioQueueTimeInventory (PrioQueueTime Q);
 /* Mencetak isi queue Q ke layar untuk menunjukkan isi inventory*/
 
 void PrintPrioQueueTimeDelivery (PrioQueueTime Q);
-/* Mencetak isi queue Q ke layar untuk menunjukkan isi delivery*/
+/* Mencetak isi queue Q ke layar untuk menunjukkan isi delivery list atau process list*/
 
 int PencariMakanan(PrioQueueTime *Q, Makanan M);
 /* Menemukan index dari makanan pada prioqueue*/
 
 void DequeueAt(PrioQueueTime *Q, Makanan M, Makanan *X);
 /* Mengeluarkan makanan tertentu pada prioqueue*/
-
 
 void decrementNExp(PrioQueueTime *Q, int N);
 /* Mengurangi setiap waktu expiry pada queue sebesar N menit*/

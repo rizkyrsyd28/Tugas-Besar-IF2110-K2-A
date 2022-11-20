@@ -6,8 +6,8 @@
 
 
 int main(){
-    // konfigMap();
-    //konfigMakanan();
+    // Matrix map = konfigMap();
+    //ListStatik listMakanan = konfigMakanan();
     // ASCIIArt();
 
     // NTree * Trees = konfigResep(Trees);

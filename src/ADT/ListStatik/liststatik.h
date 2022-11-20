@@ -143,10 +143,14 @@ int searchIndexOlahMakanan(ListStatik l, char* command, int count);
    algoritma bebas */
 
 boolean isMark(ElTypeList a);
-   /* Mengembalikan nilai apakah a adalah mark*/
+/* Mengembalikan true jika a adalah FoodMark*/
+
 boolean different(ElTypeList a, ElTypeList b);
-// Mengembalikan apakah ElTypeList a dan b berbeda
+/* Melakukan cek apakah kedua ElTypeList (Makanan). 
+Mengembalikan true bila keduanya adalah sama*/
 
 Makanan getMakanan(ID id, ListStatik foods);
+/* Mengembalikan makanan berdasarkan ID yang diinputkan
+Bila tidak ditemukan, maka mengembalikan FoodMark*/
 
 #endif

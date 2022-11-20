@@ -76,7 +76,7 @@ void CopyWord(char* str, int *idx)
 }
 
 int WordToInt(Word word){
-    // Konversi tipe word kata ke integer
+/* Mengembalikan integer hasil konversi word ke integer */
     int sum = 0;
     int i;
     for (i = 0; i < word.Length; i++){
@@ -86,7 +86,8 @@ int WordToInt(Word word){
 }
 
 void printWord(Word word){
-    // Melakukan print untuk kata yang telah disimpan 
+/* I.S. word terdefinisi
+F.S. menampilkan kata yang ditampung pada word */
     int i;
     for (i = 0; i < word.Length; i++){
         printf("%c", word.TabWord[i]);
@@ -94,7 +95,7 @@ void printWord(Word word){
 }
 
 boolean isWordEqual(Word word1, Word word2)
-// Memeriksa apakah dua buah word adalah word yang sama
+/* Mengembalikan true apabila kedua word adalah berisikan karakter yang sama dan memiliki panjang yang sama */
 {
     if (word1.Length != word2.Length){
         return false;
@@ -110,7 +111,7 @@ boolean isWordEqual(Word word1, Word word2)
 }
 
 boolean isWordStringEqual(Word w, char* c)
-// Memeriksa apakah sebuah word mengandung kata yang sama dengan string c
+/* Mengembalikan true apabila kata yang dikandung pada c berisikan karakter yang sama pada array of char yang dikandung oleh w */
 {
     if (w.Length != lengthString(c)){
         return false;
@@ -126,7 +127,7 @@ boolean isWordStringEqual(Word w, char* c)
 }
 
 boolean isWordAllIntegers(Word w)
-// Memeriksa apakah semua character dalam word adalah integer
+/* Mengembalikan true apabila semua karakter yang dikandung pada array of char pada w merupakan angka sehingga dapat diubah menjadi integer */
 {
     int i;
     for (i = 0; i < w.Length; i++){
@@ -138,7 +139,7 @@ boolean isWordAllIntegers(Word w)
 }
 
 Word appendWord(Word w1, Word w2)
-// Menggabungkan w2 dan w1 menjadi satu word
+/* Mengembalikan word yang merupakan penggabungan Word w2 setelah Word w1 */
 {
     Word w;
     w.Length = w1.Length + w2.Length;

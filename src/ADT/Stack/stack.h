@@ -49,10 +49,6 @@ void CreateEmpty(Stack *S);
 /* Ciri stack kosong : TOP bernilai Nil */
 
 /* ************ Predikat Untuk test keadaan KOLEKSI ************ */
-//boolean IsEmpty(Stack S);
-/* Mengirim true jika Stack kosong: lihat definisi di atas */
-//boolean IsFull(Stack S);
-/* Mengirim true jika tabel penampung nilai elemen stack penuh */
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
 void Push(Stack * S, state X);
@@ -67,7 +63,8 @@ void Pop(Stack * S, state* X);
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
 
 void displayStack(Stack S);
-//Untuk memperlihatkan Stack
+/* I.S. S terdefinisi
+F.S. Menampilkan isi Stack S*/
 
 void Undo(Stack *S_undo,Stack *S_redo, state *currentState, int totalcommand, POINT src);
 //Undo gerakan, mengembalikan simulator,waktu,dan peta sebelum

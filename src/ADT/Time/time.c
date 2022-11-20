@@ -9,22 +9,26 @@
 
 /* *** Konstruktor: Membentuk sebuah TIME dari komponen-komponennya *** */
 void CreateTime (TIME * T, int DD, int HH, int MM) {
+/* Membentuk sebuah TIME dari komponen-komponennya yang valid */
+/* Prekondisi : HH, MM, SS valid untuk membentuk TIME */
 	Day(*T) = DD;
 	Hour(*T) = HH;
 	Minute(*T) = MM;
 }
-/* Membentuk sebuah TIME dari komponen-komponennya yang valid */
-/* Prekondisi : HH, MM, SS valid untuk membentuk TIME */
+
 
 /* ***************************************************************** */
 /* FUngsi - Fungsi Lain                                             */
 /* ***************************************************************** */
 boolean IsTIMEValid (int DD,int HH,int MM){
-	return ((DD>= 0) && (HH >= 0 && HH <= 23) && (MM >= 0 && MM <= 59));
-}
 /* Mengirim true jika H,M,S dapat membentuk T yang valid */
 /* dipakai untuk mentest SEBELUM membentuk sebuah Jam */
+	return ((DD>= 0) && (HH >= 0 && HH <= 23) && (MM >= 0 && MM <= 59));
+}
+
 void BacaTIME (TIME * T) {
+/*Proses pembacaan time yang terdiri atas DD,HH dan MM Kalo gak valid di ulangi sampai valid yang terdiri dari 
+DD,HH,MM digunain buat nunjukin kadaluarsa dari suatu makanan*/
 	int HH, MM, DD;
 	do {
 		scanf("%d %d %d", &DD, &HH, &MM);
@@ -34,16 +38,21 @@ void BacaTIME (TIME * T) {
 
 
 void TulisTIMEDelivery (TIME T)
+/* I.S. : T sembarang */
+/* Proses : menulis nilai setiap komponen T ke layar dalam format ("HH.MM")
+   tanpa karakter apa pun di depan atau belakangnya, termasuk spasi, enter, dll.*/ 
 {
 	printf("(%d.%d)",Hour(T),Minute(T));
 }
 
 void TulisTIME(TIME T)
+/* Menulis TIME dalam format <DD,HH,MM>*/
 {
 	printf("< Day %d | %d:%d >\n",Day(T), Hour(T), Minute(T));
 }
 
 void TulisTIMEString(TIME T)
+/* Menulis TIME dalam format DD hari HH jam MM menit*/
 {
 	if (Day(T) == 0 && Hour(T) == 0 && Minute(T) == 0){
 		printf("[0]");
@@ -62,6 +71,7 @@ void TulisTIMEString(TIME T)
 }
 
 TIME NextMinute (TIME T) {
+/* Mengirim 1 menit setelah T dalam bentuk TIME */
 	TIME t;
 	t = T;
 	Minute(t) += 1;					
@@ -78,6 +88,7 @@ TIME NextMinute (TIME T) {
 
 
 TIME NextNMinute (TIME T, int N) {
+/* Mengirim N menit setelah T dalam bentuk TIME */
 	int i; TIME t;
 	t = T;
 	for (i = 0; i < N; i++) {
@@ -88,6 +99,7 @@ TIME NextNMinute (TIME T, int N) {
 
 
 TIME PrevMinute (TIME T) {
+/* Mengirim 1 menit sebelum T dalam bentuk TIME */
 	TIME t;
 	t = T;
 	Minute(t) -= 1;
@@ -102,9 +114,10 @@ TIME PrevMinute (TIME T) {
 	}
 	return t;
 }
-/* Mengirim 1 detik sebelum T dalam bentuk TIME */
+
 
 TIME PrevNMinute(TIME T, int N) {
+/* Mengirim N menit sebelum T dalam bentuk TIME */
 	int i; TIME t;
 	t = T;
 	for (i = 0; i < N; i++) {
@@ -112,7 +125,7 @@ TIME PrevNMinute(TIME T, int N) {
 	}
 	return t;
 }
-/* Mengirim N detik sebelum T dalam bentuk TIME */
+
 /* *** Kelompok Operator Aritmetika *** */
 boolean TEQ (TIME T1, TIME T2) {
 /* Mengirimkan true jika T1=T2, false jika tidak */
@@ -140,6 +153,7 @@ boolean TGT (TIME T1, TIME T2) {
 /* *** Operator aritmatika TIME *** */
 
 TIME roundToEvenHours(TIME T) {
+/* Membulatkan TIME ke jam genap terdekat */
 	TIME a = T;
 	boolean isEven = (Hour(T) % 2 == 0);
 	if (Minute(a) == 30) {

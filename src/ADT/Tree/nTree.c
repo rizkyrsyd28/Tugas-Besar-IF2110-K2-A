@@ -2,6 +2,8 @@
 #include <stdio.h>
 
 Address newTree(ID id){
+/* Mengembalikan address dari alogasi elemen id dan alokasi
+child default (nchild = 1)*/
     Address p = (Address) malloc (sizeof (TreeNode));
     Parent(p) = id;
     NChild(p) = defN;
@@ -10,13 +12,16 @@ Address newTree(ID id){
 }
 
 void CreateTree(NTree *T){
-    /* prekondisi aman */
+/* I.S. T terdefinisi */
+/* F.S. semua child T kosong Child(T,i) = 0 */
     for (int i = 0; i < NChild(*T); i++){
         Child(*T,i) = NULL; 
     }
 }
 
 void makeBranch(NTree *T, int nchild){
+/* I.S. T dan nchild terdefinisi */
+/* F.S. Alokasi elemen sebanyak nchild, child masih kosong */
     free(Childs(*T));
     NChild(*T) = nchild;
     Childs(*T) = (Address*) malloc (nchild * sizeof(Address));
@@ -24,16 +29,16 @@ void makeBranch(NTree *T, int nchild){
 }
 /* Buat Node Tree baru dengan Id id dengan info jumlah child */
 
-// void mergeTree(NTree *T, NTree T1){
-//     for(int i = 0; i < NChild(*T); i++){
-//         if (Parent(Child(*T, i)) == Parent(T1) || Child(*T, i) == NULL){
-//             Child(*T, i) = T1;
-//             return;
-//         }
-//     }
-// }
+void deallocTreeNode (Address p){
+/* I.S. p terdefinisi
+F.S. p di dealokasikan kembali ke sistem */
+    free(p);
+}
 
 void addChild(NTree *T, ID id){
+/* I.S. T dan id terdefinisi */
+/* F.S. mengalokasi elemen id dan menambahkan pada Tree 
+sebagai child */
     Address p = newTree(id);
     for(int i = 0; i < NChild(*T); i++){
         if (Child(*T, i) == NULL){
@@ -44,15 +49,13 @@ void addChild(NTree *T, ID id){
     }
 }
 
-void deallocTreeNode (Address p){
-    free(p);
-}
-
 boolean isEmptyTree(NTree T){
+/* Mengembalikan true jika T = NULL */
     return (T == NULL);
 }
 
 boolean isOneElmt(NTree p){
+/* Mengembalikan true jika  semua child bernilai Nil */
     boolean status = true;
     for (int i = 0; i = NChild(p); i++){
         if (Child(p,i) != NULL){
@@ -63,6 +66,7 @@ boolean isOneElmt(NTree p){
 }
 
 boolean isChildOf(NTree T, ID id){
+/* mengembalikan true jika id merupakan child dari T */
     for (int i = 0; i < NChild(T); i++){
         if (Parent(Child(T,i)) == id){
             return true;
@@ -72,6 +76,8 @@ boolean isChildOf(NTree T, ID id){
 }
 
 void printTreeLevel(NTree T, int h, int l){
+/*I.S. T terdefinisi  
+F.S. Mencetak tree sesuai level secara rekursif*/
     int N;
 
     if (!isEmptyTree(T)){
@@ -103,10 +109,19 @@ void printTreeLevel(NTree T, int h, int l){
 }
 
 void printTree(NTree T, int h){
+/* I.S. T terdefinisi, h indentasi  >  0 */
+/* F.S. Mencetak Tree, contoh : 
+    A 
+        B
+        C
+ */
+
     printTreeLevel(T, h, 0);
 }
 
 void checkMerge(NTree *T, NTree B){
+/*I.S. T dan B terdefinisi 
+F.S. Mengembalikan T yang diperpanjang dengan B, jika B merupakan child T.*/
     
     if (Parent(*T) == Parent(B) && Child(*T, 0) == NULL){
         *T = B;
@@ -119,6 +134,7 @@ void checkMerge(NTree *T, NTree B){
 }
 
 int depth(Address T){
+/* mengembalikan nilai integer kedalaman dari T */
     int count = 0; 
 
     if (isEmptyTree(T)){

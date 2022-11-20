@@ -28,52 +28,55 @@ typedef struct {
 
 
 void CreateSimulator(Simulator *S, Word nama, POINT P, PrioQueueTime Q, PrioQueueTime D, PrioQueueTime PL);
-//Membuat simulator
+/* I.S. Sembarang
+F.S. Simulator terdefinisi dengan spesifikasi sesuai parameter yang diinputkan*/
 
 void ReadSimulator (Simulator *S);
-//Membaca Simulator
+/* I.S. sembarang
+F.S. Simulator terdefinisi, membuat simulator sesuai input dari pengguna*/
 
 void DisplaySimulator(Simulator S);
-//Menampilkan Simulator
+/* I.S. S terdefinisi
+F.S. Menampilkan nama dan posisi simulator */
 
 void DisplayNama(Simulator S);
-//Menampilkan nama
+/* I.S. S terdefinisi
+F.S. Nama Simulator ditampilkan*/
 
 void DisplayLokasi(Simulator S);
-//Menampilkan koordinat lokasi
+/* I.S. S terdefinisi
+F.S. Lokasi Simulator ditampilkan */
 
 void DisplayInventory(Simulator S);
-//Menampilkan list inventory
+/* I.S. S terdefinisi
+F.S. INventory Simulator ditampilkan */
 
-// void OlahMakananInventory(PrioQueueTime *Q, int command,int jumlah, Makanan X1, Makanan X2,Makanan X3, Makanan X4);
-//Mengupdate isi inventory. X4 itu buat yang diadd, X1,X2,X3 yang diremove. Kalo yang diremove ga sampe 3, isi asal aja yg ga kepake
-
-// void MixOlahInventory(PrioQueueTime *Q, int jumlah, Makanan X1, Makanan X2, Makanan X3, Makanan X4);
 void MixOlahInventory(PrioQueueTime *Q, PrioQueueTime *DestQ, Cookbook cb, ID id, int idx, ListStatik fs);
+/* I.S. Semua parameter prosedur terdefinisi
+F.S. Mengeluarkan bahan yang dimasak dari Inventory, memasukan bahan yang ingin dibuat ke process list*/
 
 void ChopOlahInventory (PrioQueueTime *Q, PrioQueueTime *DestQ, Makanan X1, Makanan X2);
-//Mengupdate isi inventory jika melakukan Chop
+/* I.S. Semua parameter prosedur terdefinisi
+F.S. Mengeluarkan bahan yang dimasak dari Inventory, memasukan bahan yang ingin dibuat ke process list*/
 
 void FryOlahInventory(PrioQueueTime *Q, PrioQueueTime *DestQ, Cookbook cb, ID id, int idx, ListStatik fs);
-//Mengupdate isi inventory jika melakukan Fry
+/* I.S. Semua parameter prosedur terdefinisi
+F.S. Mengeluarkan bahan yang dimasak dari Inventory, memasukan bahan yang ingin dibuat ke process list*/
 
 void BoilOlahInventory(PrioQueueTime *Q, PrioQueueTime *DestQ, Cookbook cb, ID id, int idx, ListStatik fs);
-//Mengupdate isi inventory jika melakukan Boil
+/* I.S. Semua parameter prosedur terdefinisi
+F.S. Mengeluarkan bahan yang dimasak dari Inventory, memasukan bahan yang ingin dibuat ke process list*/
 
 void RemoveMakanan(PrioQueueTime *Q, Makanan M);
-//DequeueAt makanan pada inventory
-
-void KedaluwarsaInventory(PrioQueueTime *Q);
-//mengurangi waktu kedaluwarsa makanan pada inventory dan membuangnya jika sudah kedaluwarsa
+/* I.S. *Q terdefinisi
+F.S. DequeueAt makanan pada inventory. Makanan dikeluarkan dari inventory*/
 
 void GeserLokasi (Simulator *S,int arah);
-//Mengubah koordinat lokasi
-
-void DeliveryReady(Simulator *S, PrioQueueTime *D);
-
-void RemoveDated(Simulator *S);
+/* I.S. *S terdefinisi
+F.S. *S bergerak ke arah yang diinginkan oleh user */
 
 void CreateSimulatorUndo (Simulator *S, Word nama, POINT P, PrioQueueTime invent,PrioQueueTime DeliveryList, PrioQueueTime ProcessList);
- //Createsimulatordummy supaya isi dari stack undo tidak terpengaruh oleh pengurangan waktu yang ada
+ /* I.S. Sembarang
+ F.S. Dibuat Createsimulatordummy supaya isi dari stack undo tidak terpengaruh oleh pengurangan waktu yang ada */
 
 #endif

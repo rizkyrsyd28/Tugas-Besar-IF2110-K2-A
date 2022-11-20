@@ -169,7 +169,7 @@ void PrintPrioQueueTimeInventory (PrioQueueTime Q){
 }
 
 void PrintPrioQueueTimeDelivery (PrioQueueTime Q){
-/* Mencetak isi queue Q ke layar untuk menunjukkan isi delivery*/
+/* Mencetak isi queue Q ke layar untuk menunjukkan isi delivery list atau process list */
     if (!IsEmptyQueue(Q))
     {
         int nomor = 1;
@@ -270,6 +270,7 @@ int PencariMakanan(PrioQueueTime *Q, Makanan M){
 }
 
 void DequeueAt(PrioQueueTime *Q, Makanan M, Makanan *X){
+/* Mengeluarkan makanan tertentu pada prioqueue*/
     int index = PencariMakanan(Q,M);
     if(index==-1){
         printf("Bahan Makanan tidak ada di Inventory\n");

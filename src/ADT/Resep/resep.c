@@ -1,6 +1,7 @@
 #include "resep.h"
 
 boolean canFry(PrioQueueTime pq){
+/* Mengembalikan nilai True jika terdapat minyak goreng pada inventory*/
     if (Tail(pq) < Head(pq)){
         for(int i = Head(pq); i < MaxEl(pq); i++){
             if (isWordStringEqual(nameMkn(Elmt(pq,i)),"Minyak Goreng")){
@@ -24,6 +25,7 @@ boolean canFry(PrioQueueTime pq){
 }
 
 boolean canMake(Cookbook cb, Makanan m, PrioQueueTime pq){
+/* Mengirim True jika semua bahan yang diperlukan untuk membuat suatu resep tersedia di inventory*/
     int idx;
     for (int i = 0; i < NResep(cb); i++){
         if (Parent(Resep(cb, i)) == idMkn(m)){
@@ -57,9 +59,12 @@ boolean canMake(Cookbook cb, Makanan m, PrioQueueTime pq){
     
     return status;
 }
-/* Mengirim True jika semua bahan yang diperlukan untuk membuat suatu resep tersedia di inventory*/
+
 
 void printResep(Cookbook cb, ListStatik foods){
+/* mencetak resep */
+/* I.S. cookbook terdefinisi */
+/* F.S. Mencetak semua resep yang ada di cook book dengan konfig <ACTION> - <BAHAN> - <BAHAN> - ... */
     Makanan m;
     for (int i = 0; i < NResep(cb); i++){
         m = getMakanan(Parent(Resep(cb, i)), foods);
@@ -76,6 +81,3 @@ void printResep(Cookbook cb, ListStatik foods){
         printf("\n");
     }
 }
-/* mencetak resep */
-/* I.S. cookbook terdefinisi */
-/* F.S. Mencetak semua resep yang ada di cook book dengan konfig <ACTION> - <BAHAN> - <BAHAN> - ... */

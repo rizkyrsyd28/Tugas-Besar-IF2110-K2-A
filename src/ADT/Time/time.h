@@ -53,23 +53,30 @@ void TulisTIMEString(TIME T);
 /* ***************************************************************** */
 
 TIME NextMinute (TIME T);
-/* Mengirim 1 menit setelah T dalam bentuk TIME ini berfungsi untuk proses delivery pada proses ini hari tidak ikut ditampilkan maka*/
-/*Diasumsikan ketika h = 0 maka akan kembali ke */
+/* Mengirim 1 menit setelah T dalam bentuk TIME */
+
 TIME NextNMinute (TIME T, int N);
 /* Mengirim N menit setelah T dalam bentuk TIME */
+
 TIME PrevMinute (TIME T);
 /* Mengirim 1 menit sebelum T dalam bentuk TIME */
+
 TIME PrevNMinute (TIME T, int N);
 /* Mengirim N menit sebelum T dalam bentuk TIME */
+
 /* *** Kelompok Operator Aritmetika *** */
 boolean TEQ (TIME T1, TIME T2);
 /* Mengirimkan true jika T1=T2, false jika tidak */
+
 boolean TNEQ (TIME T1, TIME T2);
 /* Mengirimkan true jika T1 tidak sama dengan T2 */
+
 boolean TLT (TIME T1, TIME T2);
 /* Mengirimkan true jika T1<T2, false jika tidak */
+
 boolean TGT (TIME T1, TIME T2);
 /* Mengirimkan true jika T1>T2, false jika tidak */
+
 TIME roundToEvenHours(TIME T);
 /* Membulatkan TIME ke jam genap terdekat */
 

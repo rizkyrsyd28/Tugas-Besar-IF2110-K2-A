@@ -34,6 +34,8 @@ void makeBranch(NTree *T, int nchild);
 /* F.S. Alokasi elemen sebanyak nchild, child masih kosong */
 
 void deallocTreeNode (Address p);
+/* I.S. p terdefinisi
+F.S. p di dealokasikan kembali ke sistem */
 
 void addChild(NTree *T, ID id);
 /* I.S. T dan id terdefinisi */
@@ -49,6 +51,10 @@ boolean isOneElmt(NTree p);
 boolean isChildOf(NTree T, ID id);
 /* mengembalikan true jika id merupakan child dari T */
 
+void printTreeLevel(NTree T, int h, int l);
+/*I.S. T terdefinisi  
+F.S. Mencetak tree sesuai level secara rekursif*/
+
 void printTree(NTree T, int h);
 /* I.S. T terdefinisi, h indentasi  >  0 */
 /* F.S. Mencetak Tree, contoh : 
@@ -56,6 +62,11 @@ void printTree(NTree T, int h);
         B
         C
  */
+
+void checkMerge(NTree *T, NTree B);
+/*I.S. T dan B terdefinisi 
+F.S. Mengembalikan T yang diperpanjang dengan B, jika B merupakan child T.*/
+
 int depth(Address T);
 /* mengembalikan nilai integer kedalaman dari T */
 

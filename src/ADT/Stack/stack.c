@@ -12,14 +12,6 @@ void CreateEmpty(Stack *S){
 /* Ciri stack kosong : TOP bernilai Nil */
 
 /* ************ Predikat Untuk test keadaan KOLEKSI ************ */
-/*boolean IsEmpty(Stack S){
-    return Top(S) == Nil;
-}*/
-/* Mengirim true jika Stack kosong: lihat definisi di atas */
-/*boolean IsFull(Stack S){
-    return Top(S) == MaxEl-1;
-}*/
-/* Mengirim true jika tabel penampung nilai elemen stack penuh */
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
 void Push(Stack * S, state X){
@@ -44,7 +36,8 @@ void Pop(Stack * S, state *X){
 // TAMBAHAN
 
 void displayStack(Stack S){
-    //Untuk memperlihatkan Stack
+/* I.S. S terdefinisi
+F.S. Menampilkan isi Stack S*/
     state X;
     int i = 0; 
     // ALGORITMA
@@ -71,7 +64,7 @@ void displayStack(Stack S){
 }
 
 void Undo(Stack *S_undo,Stack *S_redo, state *currentState, int totalcommand, POINT src){
-    //Undo gerakan, mengembalikan simulator,waktu,dan peta sebelum
+//Undo gerakan, mengembalikan simulator,waktu,dan peta sebelum
     
     if (totalcommand >0){
         //CreateSimulatorUndo(&currentState->sub1,currentState->sub1.Nama,currentState->sub1.P,currentState->sub1.Q);
@@ -85,7 +78,7 @@ void Undo(Stack *S_undo,Stack *S_redo, state *currentState, int totalcommand, PO
 }
 
 void Redo(Stack *S_undo,Stack *S_redo, state *currentState, int totalundo, POINT src){
-    //Redo gerakan, mengembalikan simulator,waktu,dan peta sesudah
+//Redo gerakan, mengembalikan simulator,waktu,dan peta sesudah
     if(totalundo>0){
         //CreateSimulatorUndo(&currentState->sub1,currentState->sub1.Nama,currentState->sub1.P,currentState->sub1.Q);
         Push(S_undo, *currentState);

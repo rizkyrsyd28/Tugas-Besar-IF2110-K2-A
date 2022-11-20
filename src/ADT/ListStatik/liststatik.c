@@ -238,14 +238,19 @@ int searchIndexOlahMakanan(ListStatik l, char* command, int count){
 }
 
 boolean isMark(ElTypeList a) {
+/* Mengembalikan true jika a adalah FoodMark*/
     return (a.id == -1) && TEQ(a.expired, FoodMark.expired) && TEQ(a.delivery, FoodMark.delivery) && (a.action.Length == FoodMark.action.Length) && (a.name.Length == FoodMark.name.Length);
 }
 
 boolean different(ElTypeList a, ElTypeList b) {
+/* Melakukan cek apakah kedua ElTypeList (Makanan). 
+Mengembalikan true bila keduanya adalah sama*/
     return (a.id == b.id) && TEQ(a.expired, b.expired) && TEQ(a.delivery, b.delivery) && (a.action.Length == b.action.Length) && (a.name.Length == b.name.Length);    
 }
 
 Makanan getMakanan(ID id, ListStatik foods) {
+/* Mengembalikan makanan berdasarkan ID yang diinputkan
+Bila tidak ditemukan, maka mengembalikan FoodMark*/
     for (int i = 0; i < listLength(foods); i++) {
         if (idMkn(ELMTLIST(foods, i)) == id) {
             return ELMTLIST(foods, i);
