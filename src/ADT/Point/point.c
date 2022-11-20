@@ -1,8 +1,3 @@
-// File : point.c
-// Nama : Rizky Abdillah Rasyid
-// NIM : 13521109
-// Tanggal : 5 September 2022
-
 // Implementasi ADT POINT
 
 #include <stdio.h>
